@@ -83,7 +83,7 @@ export class Entity {
 
   public removeComponent(component: Component) {
     this.components.delete(component);
-  };
+  }
 
   private static _idCounter: number = 0;
   private static _generateId() {

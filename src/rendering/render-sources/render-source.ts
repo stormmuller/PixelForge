@@ -8,7 +8,7 @@ export type GlowEffect = {
 
 export type RenderEffects = {
   glow?: GlowEffect;
-  opacity?: number
+  opacity?: number;
 };
 
 export interface RenderSource {

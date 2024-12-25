@@ -9,7 +9,11 @@ export class PolygonRenderSource implements RenderSource {
   public boundingBox: BoundingBox;
   public renderEffects: RenderEffects;
 
-  constructor(path: Path, color: string = 'black', renderEffects: RenderEffects = {}) {
+  constructor(
+    path: Path,
+    color: string = 'black',
+    renderEffects: RenderEffects = {},
+  ) {
     this.path = path;
     this.color = color;
     this.boundingBox = calculateBoundingBox(path);

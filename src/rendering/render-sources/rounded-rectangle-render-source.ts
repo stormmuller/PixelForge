@@ -3,8 +3,8 @@ import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
 type Stroke = {
-  width: number,
-  color: string
+  width: number;
+  color: string;
 };
 
 export class RoundedRectangleRenderSource implements RenderSource {

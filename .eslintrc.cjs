@@ -41,8 +41,7 @@ module.exports = {
     'no-restricted-syntax': [
       'error',
       {
-        selector:
-          "PropertyDefinition > ArrowFunctionExpression",
+        selector: 'PropertyDefinition > ArrowFunctionExpression',
         message: 'Arrow functions as class members are not allowed.',
       },
     ],

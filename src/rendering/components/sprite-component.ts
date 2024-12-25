@@ -27,16 +27,16 @@ export class SpriteComponent implements Component {
     renderSource: RenderSource,
     renderLayerName: string,
     options: {
-      anchor?: Vector2,
-      enabled?: boolean,
-      debugMode?: DebugMode,
-    } = {}
+      anchor?: Vector2;
+      enabled?: boolean;
+      debugMode?: DebugMode;
+    } = {},
   ) {
     const defaultOptions = getDefaultOptions(renderSource);
 
     const mergedOptions = {
       ...defaultOptions,
-      ...options
+      ...options,
     };
 
     this.name = SpriteComponent.symbol;

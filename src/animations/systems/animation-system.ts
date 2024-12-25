@@ -32,7 +32,7 @@ export class AnimationSystem extends System {
 
         // Handle looping and remove if needed
         const shouldRemove = !this._handleLooping(animation);
-        
+
         if (shouldRemove) {
           animation.finishedCallback?.();
           animationComponent.animations.splice(i, 1);

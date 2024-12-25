@@ -4,7 +4,7 @@ export function screenToWorldSpace(
   screenPosition: Vector2,
   cameraPosition: Vector2,
   cameraZoom: number,
-  canvasCenter: Vector2
+  canvasCenter: Vector2,
 ): Vector2 {
   return screenPosition
     .subtract(canvasCenter)

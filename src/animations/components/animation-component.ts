@@ -9,7 +9,7 @@ export interface AnimatedProperty {
   easing: (t: number) => number;
   loop?: LoopMode;
   loopCount?: number;
-  finishedCallback?: () => void
+  finishedCallback?: () => void;
 }
 
 export type LoopMode = 'none' | 'loop' | 'pingpong';

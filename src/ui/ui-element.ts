@@ -1,4 +1,4 @@
-import { IdGenerator } from "./id-generator";
+import { IdGenerator } from './id-generator';
 
 export abstract class UIElement<TElement extends HTMLElement, TOptions = null> {
   public id: string;
@@ -9,7 +9,9 @@ export abstract class UIElement<TElement extends HTMLElement, TOptions = null> {
     this.element = this.createElement(classNames, options);
   }
 
-  public addElement<T extends HTMLElement>(uiElement: UIElement<T, unknown>): void {
+  public addElement<T extends HTMLElement>(
+    uiElement: UIElement<T, unknown>,
+  ): void {
     this.element.appendChild(uiElement.element);
   }
 

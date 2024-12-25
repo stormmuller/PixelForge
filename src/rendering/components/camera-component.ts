@@ -1,15 +1,15 @@
 import { Component } from '../../ecs';
 
 export type CameraComponentOptions = {
-  zoom: number,
-  zoomSensitivity: number,
-  panSensitivity: number,
-  minZoom: number,
-  maxZoom: number,
-  isStatic: boolean,
-  allowPanning: boolean,
-  allowZooming: boolean,
-}
+  zoom: number;
+  zoomSensitivity: number;
+  panSensitivity: number;
+  minZoom: number;
+  maxZoom: number;
+  isStatic: boolean;
+  allowPanning: boolean;
+  allowZooming: boolean;
+};
 
 const defaultOptions: CameraComponentOptions = {
   zoomSensitivity: 0.001,
@@ -19,8 +19,8 @@ const defaultOptions: CameraComponentOptions = {
   isStatic: false,
   zoom: 1,
   allowPanning: true,
-  allowZooming: true
-} 
+  allowZooming: true,
+};
 
 export class CameraComponent implements Component {
   public name: symbol;
@@ -43,7 +43,10 @@ export class CameraComponent implements Component {
   }
 
   constructor(options: Partial<CameraComponentOptions> = defaultOptions) {
-    const mergedOptions: CameraComponentOptions = {...defaultOptions, ...options};
+    const mergedOptions: CameraComponentOptions = {
+      ...defaultOptions,
+      ...options,
+    };
 
     this.name = CameraComponent.symbol;
     this.zoom = mergedOptions.zoom;

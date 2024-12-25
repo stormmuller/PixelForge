@@ -54,13 +54,13 @@ export class InputSystem extends System {
     window.removeEventListener('mouseup', this.onMouseUpHandler);
   }
 
-  public clearInputs () {
+  public clearInputs() {
     this._scrollDelta = 0;
     this._keyDowns = new Set();
     this._keyUps = new Set();
     this._mouseButtonDowns = new Set();
     this._mouseButtonUps = new Set();
-  };
+  }
 
   public onWheelEventHandler(event: WheelEvent) {
     this._scrollDelta = event.deltaY;
