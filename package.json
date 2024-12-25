@@ -1,8 +1,11 @@
 {
-  "name": "@gameup/engine",
+  "name": "@stormmuller/pixel-forge",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stormmuller/PixelForge.git"
+  },
   "scripts": {
     "test": "vitest",
     "test:ui": "vitest --reporter=html",
