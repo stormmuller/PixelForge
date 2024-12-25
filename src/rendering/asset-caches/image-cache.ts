@@ -1,9 +1,9 @@
-import { AssetCache } from "../../asset-loading";
+import { AssetCache } from '../../asset-loading';
 
 export class ImageCache implements AssetCache<HTMLImageElement> {
-  assets = new Map<string, HTMLImageElement>();
-  
-  get = (path: string) => {
+  public assets = new Map<string, HTMLImageElement>();
+
+  public get(path: string) {
     const image = this.assets.get(path);
 
     if (!image) {
@@ -11,9 +11,9 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
     }
 
     return image;
-  };
+  }
 
-  load = async (path: string) => {
+  public async load(path: string) {
     const image = new Image();
     image.src = path;
 
@@ -24,7 +24,7 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
         image.onerror = null;
         resolve();
       };
-  
+
       image.onerror = (error) => {
         image.onload = null;
         image.onerror = null;
@@ -32,13 +32,13 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
         reject(new Error(`Failed to load image at ${path}`));
       };
     });
-  };
+  }
 
-  getOrLoad = async (path: string) => {
+  public async getOrLoad(path: string) {
     if (!this.assets.has(path)) {
       await this.load(path);
-    } 
+    }
 
     return this.get(path);
-  };
+  }
 }

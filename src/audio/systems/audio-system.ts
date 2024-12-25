@@ -6,7 +6,7 @@ export class AudioSystem extends System {
     super('sound', [SoundComponent.symbol]);
   }
 
-  async run(entity: Entity): Promise<void> {
+  public async run(entity: Entity): Promise<void> {
     const soundComponent = entity.getComponentRequired<SoundComponent>(
       SoundComponent.symbol,
     );

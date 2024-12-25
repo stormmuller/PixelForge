@@ -4,10 +4,10 @@ import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
 export class ImageRenderSource implements RenderSource {
-  image: HTMLImageElement;
-  boundingBox: BoundingBox;
-  bleed: number;
-  renderEffects: RenderEffects;
+  public image: HTMLImageElement;
+  public boundingBox: BoundingBox;
+  public bleed: number;
+  public renderEffects: RenderEffects;
 
   constructor(
     image: HTMLImageElement,
@@ -23,7 +23,7 @@ export class ImageRenderSource implements RenderSource {
     this.renderEffects = renderEffects;
   }
 
-  render(layer: RenderLayer): void {
+  public render(layer: RenderLayer): void {
     layer.context.drawImage(
       this.image,
       0,

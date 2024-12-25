@@ -2,10 +2,10 @@ import { Component } from '../../ecs';
 import { BoundingBox } from '../../math';
 
 export class BoxColliderComponent implements Component {
-  name: symbol;
-  boundingBox: BoundingBox;
+  public name: symbol;
+  public boundingBox: BoundingBox;
 
-  static symbol = Symbol('BoxCollider');
+  public static symbol = Symbol('BoxCollider');
 
   constructor(boundingBox: BoundingBox) {
     this.name = BoxColliderComponent.symbol;

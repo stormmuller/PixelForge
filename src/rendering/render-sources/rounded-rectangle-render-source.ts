@@ -8,13 +8,13 @@ type Stroke = {
 };
 
 export class RoundedRectangleRenderSource implements RenderSource {
-  width: number;
-  height: number;
-  radius: number;
-  color: string;
-  stroke?: Stroke;
-  boundingBox: BoundingBox;
-  renderEffects: RenderEffects;
+  public width: number;
+  public height: number;
+  public radius: number;
+  public color: string;
+  public stroke?: Stroke;
+  public boundingBox: BoundingBox;
+  public renderEffects: RenderEffects;
 
   constructor(
     width: number,
@@ -29,14 +29,14 @@ export class RoundedRectangleRenderSource implements RenderSource {
     this.radius = radius;
     this.color = color;
     this.boundingBox = new BoundingBox(
-      new Vector2(0, 0),
+      Vector2.zero,
       new Vector2(this.width, this.height),
     );
     this.stroke = stroke;
     this.renderEffects = renderEffects;
   }
 
-  render(layer: RenderLayer): void {
+  public render(layer: RenderLayer): void {
     const ctx = layer.context;
 
     if (this.stroke) {

@@ -13,7 +13,7 @@ export class LayoutSystem extends System {
     ]);
   }
 
-  async run(entity: Entity): Promise<void> {
+  public async run(entity: Entity): Promise<void> {
     const layoutBoxComponent = entity.getComponentRequired<LayoutBoxComponent>(
       LayoutBoxComponent.symbol,
     );

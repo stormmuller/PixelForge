@@ -6,7 +6,7 @@ export class SoundComponent implements Component {
   public sound: Howl;
   public playSound: boolean;
 
-  static symbol = Symbol('Sound');
+  public static symbol = Symbol('Sound');
 
   constructor(options: HowlOptions, playSound = false) {
     this.name = SoundComponent.symbol;

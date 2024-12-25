@@ -1,6 +1,6 @@
-import { System, Entity } from '../../ecs';
+import { Entity, System } from '../../ecs';
 import { Time } from '../../common';
-import { TimerComponent, TimerTask } from '../components/timer-component';
+import { TimerComponent } from '../components/timer-component';
 
 export class TimerSystem extends System {
   private _time: Time;
@@ -10,7 +10,7 @@ export class TimerSystem extends System {
     this._time = time;
   }
 
-  async run(entity: Entity): Promise<void> {
+  public async run(entity: Entity): Promise<void> {
     const timerComponent = entity.getComponentRequired<TimerComponent>(
       TimerComponent.symbol,
     );

@@ -1,12 +1,12 @@
 export class Time {
-  frames: number;
-  rawTime: number;
-  rawDeltaTime: number;
-  deltaTime: number;
-  time: number;
-  previousTime: number;
-  timeScale: number;
-  times: number[];
+  public frames: number;
+  public rawTime: number;
+  public rawDeltaTime: number;
+  public deltaTime: number;
+  public time: number;
+  public previousTime: number;
+  public timeScale: number;
+  public times: number[];
 
   constructor() {
     this.frames = 0;
@@ -19,7 +19,7 @@ export class Time {
     this.times = [];
   }
 
-  update(time: number) {
+  public update(time: number) {
     this.frames++;
     this.previousTime = this.rawTime;
     this.rawTime = time;

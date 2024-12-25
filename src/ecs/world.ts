@@ -5,20 +5,22 @@ import { Entity, filterEntitiesByComponents } from './entity';
 import type { System } from './types';
 
 export class World implements Updateable, Stoppable {
-  onSystemsChangedCallbacks = new Set<(systems: Set<System>) => void>();
-  onEntitiesChangedCallbacks = new Set<(entities: Set<Entity>) => void>();
+  public onSystemsChangedCallbacks = new Set<(systems: Set<System>) => void>();
+  public onEntitiesChangedCallbacks = new Set<
+    (entities: Set<Entity>) => void
+  >();
 
-  systems = new Set<System>();
-  entities = new Set<Entity>();
-  systemEntities = new Map<string, Entity[]>();
+  public systems = new Set<System>();
+  public entities = new Set<Entity>();
+  public systemEntities = new Map<string, Entity[]>();
 
-  game: Game;
+  public game: Game;
 
   constructor(game: Game) {
     this.game = game;
   }
 
-  async update() {
+  public async update() {
     const systemPromises: Promise<void>[] = [];
 
     for (const system of this.systems) {
@@ -28,7 +30,7 @@ export class World implements Updateable, Stoppable {
         throw new Error(`Unable to get entities for system ${system.name}`);
       }
 
-      const enabledEntities = entities.filter(e => e.enabled);
+      const enabledEntities = entities.filter((e) => e.enabled);
 
       systemPromises.push(system.runSystem(enabledEntities));
     }
@@ -36,39 +38,39 @@ export class World implements Updateable, Stoppable {
     await Promise.all(systemPromises);
   }
 
-  onSystemsChanged = (callback: (systems: Set<System>) => void) => {
+  public onSystemsChanged(callback: (systems: Set<System>) => void) {
     this.onSystemsChangedCallbacks.add(callback);
-  };
+  }
 
-  onEntitiesChanged = (callback: (entities: Set<Entity>) => void) => {
+  public onEntitiesChanged(callback: (entities: Set<Entity>) => void) {
     this.onEntitiesChangedCallbacks.add(callback);
-  };
+  }
 
-  removeOnSystemsChangedCallback = (
+  public removeOnSystemsChangedCallback(
     callback: (systems: Set<System>) => void,
-  ) => {
+  ) {
     this.onSystemsChangedCallbacks.delete(callback);
-  };
+  }
 
-  removeOnEntitiesChangedCallback = (
+  public removeOnEntitiesChangedCallback(
     callback: (entities: Set<Entity>) => void,
-  ) => {
+  ) {
     this.onEntitiesChangedCallbacks.delete(callback);
-  };
+  }
 
-  raiseOnSystemsChangedEvent = () => {
+  public raiseOnSystemsChangedEvent() {
     for (const callback of this.onSystemsChangedCallbacks) {
       callback(this.systems);
     }
-  };
+  }
 
-  raiseOnEntitiesChangedEvent = () => {
+  public raiseOnEntitiesChangedEvent() {
     for (const callback of this.onEntitiesChangedCallbacks) {
       callback(this.entities);
     }
-  };
+  }
 
-  addSystem = (system: System) => {
+  public addSystem(system: System) {
     this.systems.add(system);
     this.systemEntities.set(
       system.name,
@@ -78,24 +80,24 @@ export class World implements Updateable, Stoppable {
     this.raiseOnSystemsChangedEvent();
 
     return this;
-  };
+  }
 
-  addSystems = (systems: System[]) => {
+  public addSystems(systems: System[]) {
     systems.forEach(this.addSystem);
     this.raiseOnSystemsChangedEvent();
 
     return this;
-  };
+  }
 
-  removeSystem = (system: System) => {
+  public removeSystem(system: System) {
     this.systems.delete(system);
     this.systemEntities.delete(system.name);
     this.raiseOnSystemsChangedEvent();
 
     return this;
-  };
+  }
 
-  addEntity = (entity: Entity) => {
+  public addEntity(entity: Entity) {
     this.entities.add(entity);
 
     this.systems.forEach((system) => {
@@ -115,23 +117,23 @@ export class World implements Updateable, Stoppable {
     this.raiseOnEntitiesChangedEvent();
 
     return this;
-  };
+  }
 
-  addEntities = (entities: Entity[]) => {
+  public addEntities(entities: Entity[]) {
     entities.forEach(this.addEntity);
     this.raiseOnEntitiesChangedEvent();
 
     return this;
-  };
+  }
 
-  removeEntity = (entity: Entity) => {
+  public removeEntity(entity: Entity) {
     this.entities.delete(entity);
     this.raiseOnEntitiesChangedEvent();
 
     return this;
-  };
+  }
 
-  stop() {
+  public stop() {
     for (const system of this.systems) {
       system.stop();
     }

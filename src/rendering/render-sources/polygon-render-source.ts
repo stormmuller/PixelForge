@@ -4,10 +4,10 @@ import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
 export class PolygonRenderSource implements RenderSource {
-  path: Path;
-  color: string;
-  boundingBox: BoundingBox;
-  renderEffects: RenderEffects;
+  public path: Path;
+  public color: string;
+  public boundingBox: BoundingBox;
+  public renderEffects: RenderEffects;
 
   constructor(path: Path, color: string = 'black', renderEffects: RenderEffects = {}) {
     this.path = path;
@@ -16,7 +16,7 @@ export class PolygonRenderSource implements RenderSource {
     this.renderEffects = renderEffects;
   }
 
-  render(layer: RenderLayer): void {
+  public render(layer: RenderLayer): void {
     layer.context.beginPath();
 
     for (let i = 0; i < this.path.length; i++) {

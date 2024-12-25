@@ -1,4 +1,4 @@
-import { System, Entity } from '../../ecs';
+import { Entity, System } from '../../ecs';
 import { Time } from '../../common';
 import { AnimatedProperty, AnimationComponent } from '../components';
 
@@ -10,7 +10,7 @@ export class AnimationSystem extends System {
     this._time = time;
   }
 
-  async run(entity: Entity): Promise<void> {
+  public async run(entity: Entity): Promise<void> {
     const animationComponent = entity.getComponentRequired<AnimationComponent>(
       AnimationComponent.symbol,
     );
@@ -24,14 +24,14 @@ export class AnimationSystem extends System {
     // Iterate backwards so we can safely remove animations
     for (let i = animationComponent.animations.length - 1; i >= 0; i--) {
       const animation = animationComponent.animations[i];
-      const animationComplete = this.updateAnimation(animation, deltaTime);
+      const animationComplete = this._updateAnimation(animation, deltaTime);
 
       if (animationComplete) {
         // Animation reached the end value
         animation.updateCallback(animation.endValue);
 
         // Handle looping and remove if needed
-        const shouldRemove = !this.handleLooping(animation);
+        const shouldRemove = !this._handleLooping(animation);
         
         if (shouldRemove) {
           animation.finishedCallback?.();
@@ -41,7 +41,7 @@ export class AnimationSystem extends System {
     }
   }
 
-  private updateAnimation(
+  private _updateAnimation(
     animation: AnimatedProperty,
     deltaTime: number,
   ): boolean {
@@ -60,7 +60,7 @@ export class AnimationSystem extends System {
     return t >= 1;
   }
 
-  private handleLooping(animation: AnimatedProperty): boolean {
+  private _handleLooping(animation: AnimatedProperty): boolean {
     if (!animation.loop || animation.loop === 'none') {
       return false; // No looping, remove the animation
     }

@@ -3,44 +3,44 @@ import { Vector2 } from '../../math';
 import { MouseButton } from '../constants';
 
 export class InputsComponent implements Component {
-  name: symbol;
+  public name: symbol;
 
-  scrollDelta: number = 0;
-  keyPresses = new Set<string>();
-  keyDowns = new Set<string>();
-  keyUps = new Set<string>();
-  mouseButtonPresses = new Set<number>();
-  mouseButtonDowns = new Set<number>();
-  mouseButtonUps = new Set<number>();
-  mouseCoordinates = new Vector2();
+  public scrollDelta: number = 0;
+  public keyPresses = new Set<string>();
+  public keyDowns = new Set<string>();
+  public keyUps = new Set<string>();
+  public mouseButtonPresses = new Set<number>();
+  public mouseButtonDowns = new Set<number>();
+  public mouseButtonUps = new Set<number>();
+  public mouseCoordinates = new Vector2();
 
-  static symbol = Symbol('Inputs');
+  public static symbol = Symbol('Inputs');
 
   constructor() {
     this.name = InputsComponent.symbol;
   }
 
-  keyPressed = (code: string) => {
+  public keyPressed(code: string) {
     return this.keyPresses.has(code);
-  };
+  }
 
-  keyPressedDown = (code: string) => {
+  public keyPressedDown(code: string) {
     return this.keyDowns.has(code);
-  };
+  }
 
-  keyPressedUp = (code: string) => {
+  public keyPressedUp(code: string) {
     return this.keyUps.has(code);
-  };
+  }
 
-  isMouseButtonDown = (button: MouseButton): boolean => {
+  public isMouseButtonDown(button: MouseButton) {
     return this.mouseButtonDowns.has(button);
   }
 
-  isMouseButtonUp = (button: MouseButton): boolean => {
+  public isMouseButtonUp(button: MouseButton) {
     return this.mouseButtonUps.has(button);
   }
 
-  isMouseButtonPressed = (button: MouseButton): boolean => {
+  public isMouseButtonPressed(button: MouseButton) {
     return this.mouseButtonPresses.has(button);
   }
 }

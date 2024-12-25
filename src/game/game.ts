@@ -18,7 +18,7 @@ export class Game implements Stoppable {
     });
   }
 
-  run = async (time = 0) => {
+  public async run(time = 0) {
     this.time.update(time);
 
     const scenePromises: Promise<void>[] = [];
@@ -30,17 +30,17 @@ export class Game implements Stoppable {
     await Promise.all(scenePromises);
 
     requestAnimationFrame(this.run);
-  };
+  }
 
-  registerScene(scene: Scene) {
+  public registerScene(scene: Scene) {
     this._scenes.add(scene);
   }
 
-  deregisterScene(scene: Scene) {
+  public deregisterScene(scene: Scene) {
     this._scenes.delete(scene);
   }
 
-  stop() {
+  public stop() {
     window.removeEventListener('resize', this.onWindowResize.raise);
 
     for (const scene of this._scenes) {
