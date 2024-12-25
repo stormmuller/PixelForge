@@ -16,7 +16,7 @@ export class ImageRenderSource implements RenderSource {
   ) {
     this.image = image;
     this.boundingBox = new BoundingBox(
-      Vector2.zero(),
+      Vector2.zero,
       new Vector2(image.width + bleed, image.height + bleed),
     );
     this.bleed = bleed;

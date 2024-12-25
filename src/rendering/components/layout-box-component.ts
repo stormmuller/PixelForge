@@ -20,7 +20,7 @@ export class LayoutBoxComponent implements Component {
     sortedEntities: Array<ecs.Entity>,
     boundingBox: BoundingBox,
     spaceBetween: number = 0,
-    margin: Vector2 = Vector2.zero(),
+    margin: Vector2 = Vector2.zero,
     alignChildren: Alignment = 'start',
     baselineChildren: Baseline = 'middle'
   ) {
