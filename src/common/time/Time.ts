@@ -33,4 +33,4 @@ export class Time {
 
     this.times.push(time);
   }
-};
+}

@@ -41,7 +41,7 @@ export class LayoutSystem extends System {
     for (let i = 0; i < count; i++) {
       const entity = sortedEntities[i];
       const sprite = entity.getComponentRequired<SpriteComponent>(
-        SpriteComponent.symbol
+        SpriteComponent.symbol,
       );
       const entityHeight = sprite.renderSource.boundingBox.maxY + spaceBetween;
 
@@ -80,20 +80,21 @@ export class LayoutSystem extends System {
         layoutBoxComponent.alignChildren === 'start'
           ? -(layoutRenderSource.boundingBox.maxX / 2)
           : layoutBoxComponent.alignChildren === 'end'
-          ? layoutRenderSource.boundingBox.maxX / 2
-          : 0;
+            ? layoutRenderSource.boundingBox.maxX / 2
+            : 0;
 
       const baselineOffset =
         layoutBoxComponent.baselineChildren === 'top'
           ? -(entityHeight / 2)
           : layoutBoxComponent.baselineChildren === 'bottom'
-          ? entityHeight / 2
-          : 0;
+            ? entityHeight / 2
+            : 0;
 
       const newY =
         layoutPositionComponent.y -
         layoutSpriteComponent.anchor.y +
-        offsetY + baselineOffset;
+        offsetY +
+        baselineOffset;
 
       const newX = layoutPositionComponent.x + margin.x + alignmentOffset;
 

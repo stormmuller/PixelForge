@@ -39,7 +39,7 @@ describe('When creating an event', () => {
       test('it should have no listeners', () => {
         event.registerListener(listener);
         event.deregisterListener(listener);
-        
+
         expect(event.listeners.length).toBe(0);
       });
     });

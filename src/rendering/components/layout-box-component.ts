@@ -22,7 +22,7 @@ export class LayoutBoxComponent implements Component {
     spaceBetween: number = 0,
     margin: Vector2 = Vector2.zero,
     alignChildren: Alignment = 'start',
-    baselineChildren: Baseline = 'middle'
+    baselineChildren: Baseline = 'middle',
   ) {
     this.name = LayoutBoxComponent.symbol;
     this.sortedEntities = sortedEntities;

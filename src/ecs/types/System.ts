@@ -26,8 +26,8 @@ export abstract class System implements Stoppable {
   }
 
   public abstract run(entity: Entity): Promise<void>;
-  
-  public async beforeAll (entities: Entity[]) {
+
+  public async beforeAll(entities: Entity[]) {
     return entities;
   }
 
