@@ -1,7 +1,5 @@
 import { Component } from '../../ecs';
 
-export type LoopMode = 'none' | 'loop' | 'pingpong';
-
 export interface AnimatedProperty {
   startValue: number;
   endValue: number;
@@ -14,18 +12,20 @@ export interface AnimatedProperty {
   finishedCallback?: () => void
 }
 
+export type LoopMode = 'none' | 'loop' | 'pingpong';
+
 export class AnimationComponent implements Component {
   public name: symbol;
   public animations: AnimatedProperty[];
 
-  static symbol = Symbol('Animation');
+  public static symbol = Symbol('Animation');
 
   constructor(animations: AnimatedProperty[] = []) {
     this.name = AnimationComponent.symbol;
     this.animations = animations;
   }
 
-  addAnimation(animation: AnimatedProperty) {
+  public addAnimation(animation: AnimatedProperty) {
     this.animations.push(animation);
   }
 }

@@ -2,10 +2,10 @@ type Loadable = () => Promise<void>;
 type ProgressUpdateCallback = (progress: number) => void;
 
 export class LoadingGroup {
-  loadables: Loadable[];
-  onProgressUpdate: ProgressUpdateCallback;
-  progress: number = 0;
-  progressInterval: number;
+  public loadables: Loadable[];
+  public onProgressUpdate: ProgressUpdateCallback;
+  public progress: number = 0;
+  public progressInterval: number;
 
   constructor(loadables: Loadable[], onProgressUpdate: ProgressUpdateCallback) {
     this.loadables = loadables;
@@ -13,12 +13,12 @@ export class LoadingGroup {
     this.progressInterval = 1 / loadables.length;
   }
 
-  Start = () => {
+  public start() {
     for (const loadable of this.loadables) {
-        loadable().then(() => {
-            this.progress += this.progressInterval;
-            this.onProgressUpdate(this.progress);
-        });
+      loadable().then(() => {
+        this.progress += this.progressInterval;
+        this.onProgressUpdate(this.progress);
+      });
     }
   }
 }

@@ -3,13 +3,13 @@ import { Component } from '../../ecs';
 import { Vector2 } from '../../math';
 
 export class PolygonComponent implements Component {
-  name: symbol;
-  path: Path;
-  renderLayerName: string;
-  anchor: Vector2;
-  color: string;
+  public name: symbol;
+  public path: Path;
+  public renderLayerName: string;
+  public anchor: Vector2;
+  public color: string;
 
-  static symbol = Symbol('Polygon');
+  public static symbol = Symbol('Polygon');
 
   constructor(
     path: Path,

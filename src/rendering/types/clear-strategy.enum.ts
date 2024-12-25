@@ -1,4 +1,4 @@
 export enum ClearStrategy {
-  NONE,
-  BLANK,
+  none = 0,
+  blank = 1,
 }

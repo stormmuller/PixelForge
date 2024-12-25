@@ -14,14 +14,14 @@ const getDefaultOptions = (renderSource: RenderSource) => ({
 });
 
 export class SpriteComponent implements Component {
-  name: symbol;
-  renderSource: RenderSource;
-  anchor: Vector2;
-  debugMode: DebugMode;
-  renderLayerName: string;
-  enabled: boolean;
+  public name: symbol;
+  public renderSource: RenderSource;
+  public anchor: Vector2;
+  public debugMode: DebugMode;
+  public renderLayerName: string;
+  public enabled: boolean;
 
-  static symbol = Symbol('Sprite');
+  public static symbol = Symbol('Sprite');
 
   constructor(
     renderSource: RenderSource,

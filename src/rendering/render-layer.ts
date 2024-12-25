@@ -1,18 +1,17 @@
-import { Space } from '../common';
 import { Vector2 } from '../math';
 import { ClearStrategy } from './types/clear-strategy.enum';
 
 export class RenderLayer {
-  name: string;
-  context: CanvasRenderingContext2D;
-  center: Vector2;
-  clearStrategy: ClearStrategy;
+  public name: string;
+  public context: CanvasRenderingContext2D;
+  public center: Vector2;
+  public clearStrategy: ClearStrategy;
 
   constructor(
     name: string,
     context: CanvasRenderingContext2D,
     center: Vector2,
-    clearStrategy: ClearStrategy = ClearStrategy.BLANK,
+    clearStrategy: ClearStrategy = ClearStrategy.blank,
   ) {
     this.name = name;
     this.context = context;
@@ -20,7 +19,7 @@ export class RenderLayer {
     this.clearStrategy = clearStrategy;
   }
 
-  resize = () => {
+  public resize() {
     this.context.canvas.width = window.innerWidth;
     this.context.canvas.height = window.innerHeight;
 
@@ -28,5 +27,5 @@ export class RenderLayer {
       this.context.canvas.width / 2,
       this.context.canvas.height / 2,
     );
-  };
+  }
 }

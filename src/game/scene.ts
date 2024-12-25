@@ -12,23 +12,23 @@ export class Scene implements Updateable, Stoppable {
     this._stoppables = new Set<Stoppable>();
   }
   
-  registerUpdateable(updateable: Updateable) {
+  public registerUpdateable(updateable: Updateable) {
     this._updateables.add(updateable);
   }
   
-  deregisterUpdateable(updateable: Updateable) {
+  public deregisterUpdateable(updateable: Updateable) {
     this._updateables.delete(updateable);
   }
 
-  registerStoppable(stoppable: Stoppable) {
+  public registerStoppable(stoppable: Stoppable) {
     this._stoppables.add(stoppable);
   }
   
-  deregisterStoppable(stoppable: Stoppable) {
+  public deregisterStoppable(stoppable: Stoppable) {
     this._stoppables.delete(stoppable);
   }
   
-  async update(time: Time) {
+  public async update(time: Time) {
     const updateablePromises: Promise<void>[] = [];
     
     for (const updateable of this._updateables) {
@@ -38,7 +38,7 @@ export class Scene implements Updateable, Stoppable {
     await Promise.all(updateablePromises);
   }
 
-  stop() {
+  public stop() {
     for (const stoppable of this._stoppables) {
       stoppable.stop();
     }

@@ -14,14 +14,14 @@ export class TimerComponent implements Component {
   public name: symbol;
   public tasks: TimerTask[];
 
-  static symbol = Symbol('Timer');
+  public static symbol = Symbol('Timer');
 
   constructor(tasks: TimerTask[] = []) {
     this.name = TimerComponent.symbol;
     this.tasks = tasks;
   }
 
-  addTask(task: TimerTask) {
+  public addTask(task: TimerTask) {
     // Initialize defaults
     task.elapsed = 0;
     task.runsSoFar = task.runsSoFar ?? 0;
