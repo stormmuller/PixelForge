@@ -17,7 +17,7 @@ export class CameraSystem extends System {
     this._time = time;
   }
 
-  async run(entity: Entity): Promise<void> {
+  public async run(entity: Entity): Promise<void> {
     const cameraComponent = entity.getComponentRequired<CameraComponent>(
       CameraComponent.symbol,
     );
@@ -44,19 +44,19 @@ export class CameraSystem extends System {
         cameraComponent.panSensitivity * (1 / cameraComponent.zoom) +
         this._time.rawDeltaTime;
 
-      if (this._inputComponent.keyPressed(keyCodes.W)) {
+      if (this._inputComponent.keyPressed(keyCodes.w)) {
         position.y -= zoomPanMultiplier;
       }
 
-      if (this._inputComponent.keyPressed(keyCodes.S)) {
+      if (this._inputComponent.keyPressed(keyCodes.s)) {
         position.y += zoomPanMultiplier;
       }
 
-      if (this._inputComponent.keyPressed(keyCodes.A)) {
+      if (this._inputComponent.keyPressed(keyCodes.a)) {
         position.x -= zoomPanMultiplier;
       }
 
-      if (this._inputComponent.keyPressed(keyCodes.D)) {
+      if (this._inputComponent.keyPressed(keyCodes.d)) {
         position.x += zoomPanMultiplier;
       }
     }

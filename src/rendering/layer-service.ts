@@ -3,7 +3,7 @@ import { RenderLayer } from './render-layer';
 import { ClearStrategy } from './types';
 
 export class LayerService {
-  layers: Set<RenderLayer>
+  public layers: Set<RenderLayer>;
 
   private _container: HTMLDivElement;
 
@@ -12,10 +12,10 @@ export class LayerService {
     this.layers = new Set();
   }
 
-  createLayer = (
+  public createLayer(
     name: string,
-    clearStrategy: ClearStrategy = ClearStrategy.BLANK,
-  ) => {
+    clearStrategy: ClearStrategy = ClearStrategy.blank,
+  ) {
     const canvas = document.createElement('canvas');
     canvas.id = `canvas-${name}`;
 
@@ -27,7 +27,7 @@ export class LayerService {
       throw new Error('Context not found');
     }
 
-    const center = new Vector2(canvas.width / 2, canvas.height / 2)
+    const center = new Vector2(canvas.width / 2, canvas.height / 2);
     const layer = new RenderLayer(name, context, center, clearStrategy);
 
     this.layers.add(layer);
@@ -35,5 +35,5 @@ export class LayerService {
     layer.resize();
 
     return layer;
-  };
+  }
 }

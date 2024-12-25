@@ -29,7 +29,7 @@ export class DebugRenderSystem extends System {
     this._worldSpace = worldSpace;
   }
 
-  async run(entity: Entity): Promise<void> {
+  public async run(entity: Entity): Promise<void> {
     const position = entity.getComponent<PositionComponent>(
       PositionComponent.symbol,
     ) as PositionComponent;

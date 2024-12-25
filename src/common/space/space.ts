@@ -2,11 +2,11 @@ import { Event } from '../../events';
 import { Vector2 } from '../../math';
 
 export class Space {
+  public onSpaceChange: Event;
+
   private _center: Vector2;
   private _width: number;
   private _height: number;
-
-  onSpaceChange: Event;
 
   constructor(width: number, height: number) {
     this._width = width;
@@ -17,15 +17,15 @@ export class Space {
     this.onSpaceChange = new Event('space-change');
   }
 
-  public get center() {
+  get center() {
     return this._center;
   }
 
-  public get width() {
+  get width() {
     return this._width;
   }
 
-  public get height() {
+  get height() {
     return this._height;
   }
 

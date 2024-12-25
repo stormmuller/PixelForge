@@ -5,7 +5,7 @@ export class DebugDotComponent implements Component {
   public color: string;
   public radius: number;
 
-  static symbol = Symbol('Position');
+  public static symbol = Symbol('Position');
 
   constructor(color: string = 'yellow', radius: number = 3) {
     this.name = DebugDotComponent.symbol;

@@ -1,27 +1,28 @@
 import { Component } from '../../ecs';
 
 export class ProgressComponent implements Component {
-  name: symbol;
-  private progress: number;
-  total: number;
+  public name: symbol;
+  public total: number;
 
-  static symbol = Symbol('Progress');
+  private _progress: number;
+
+  public static symbol = Symbol('Progress');
 
   constructor(total: number) {
     this.name = ProgressComponent.symbol;
-    this.progress = 0;
+    this._progress = 0;
     this.total = total;
   }
 
-  include = (total: number) => {
+  public include(total: number) {
     this.total += total;
-  };
+  }
 
-  calculateProgress = () => {
-    return this.progress / this.total; // TODO: feature - potentially prevent the reported progress from dropping (clamp it what ever it was previously and greater)
-  };
+  public calculateProgress() {
+    return this._progress / this.total; // TODO: feature - potentially prevent the reported progress from dropping (clamp it what ever it was previously and greater)
+  }
 
-  increment = () => {
-    this.progress++;
-  };
+  public increment() {
+    this._progress++;
+  }
 }

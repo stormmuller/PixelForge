@@ -28,7 +28,7 @@ export class InputSystem extends System {
     window.addEventListener('mouseup', this.onMouseUpHandler);
   }
 
-  async run(entity: Entity): Promise<void> {
+  public async run(entity: Entity): Promise<void> {
     const inputs = entity.getComponent(
       InputsComponent.symbol,
     ) as InputsComponent; // TODO: feature - Make singleton components?
@@ -45,7 +45,7 @@ export class InputSystem extends System {
     this.clearInputs();
   }
 
-  shutdown(): void {
+  public shutdown(): void {
     this._gameContainer.removeEventListener('wheel', this.onWheelEventHandler);
     document.removeEventListener('keydown', this.onKeyDownHandler);
     document.removeEventListener('keyup', this.onKeyUpHandler);
@@ -54,7 +54,7 @@ export class InputSystem extends System {
     window.removeEventListener('mouseup', this.onMouseUpHandler);
   }
 
-  clearInputs = () => {
+  public clearInputs () {
     this._scrollDelta = 0;
     this._keyDowns = new Set();
     this._keyUps = new Set();
@@ -62,37 +62,37 @@ export class InputSystem extends System {
     this._mouseButtonUps = new Set();
   };
 
-  onWheelEventHandler = (event: WheelEvent) => {
+  public onWheelEventHandler(event: WheelEvent) {
     this._scrollDelta = event.deltaY;
     event.preventDefault();
-  };
+  }
 
-  onKeyUpHandler = (event: KeyboardEvent) => {
+  public onKeyUpHandler(event: KeyboardEvent) {
     this._keyPresses.delete(event.code);
     this._keyUps.add(event.code);
-  };
+  }
 
-  onKeyDownHandler = (event: KeyboardEvent) => {
+  public onKeyDownHandler(event: KeyboardEvent) {
     if (event.repeat) {
       return;
     }
 
     this._keyPresses.add(event.code);
     this._keyDowns.add(event.code);
-  };
+  }
 
-  updateCursorPosition = (event: MouseEvent) => {
+  public updateCursorPosition(event: MouseEvent) {
     this._mouseCoordinates.x = event.clientX;
     this._mouseCoordinates.y = event.clientY;
-  };
+  }
 
-  onMouseDownHandler = (event: MouseEvent) => {
+  public onMouseDownHandler(event: MouseEvent) {
     this._mouseButtonPresses.add(event.button);
     this._mouseButtonDowns.add(event.button);
-  };
+  }
 
-  onMouseUpHandler = (event: MouseEvent) => {
+  public onMouseUpHandler(event: MouseEvent) {
     this._mouseButtonPresses.delete(event.button);
     this._mouseButtonUps.add(event.button);
-  };
+  }
 }

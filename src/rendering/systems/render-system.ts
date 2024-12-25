@@ -46,10 +46,10 @@ export class RenderSystem extends System {
     this._camera = camera;
   }
 
-  override async beforeAll(entities: Entity[]) {
+  public override async beforeAll(entities: Entity[]) {
     if (
       isNil(this._layer.clearStrategy) ||
-      this._layer.clearStrategy === ClearStrategy.BLANK
+      this._layer.clearStrategy === ClearStrategy.blank
     ) {
       this._layer.context.clearRect(
         0,
@@ -86,7 +86,7 @@ export class RenderSystem extends System {
     return sortedEntities;
   }
 
-  async run(entity: Entity): Promise<void> {
+  public async run(entity: Entity): Promise<void> {
     const spriteComponent = entity.getComponentRequired<SpriteComponent>(
       SpriteComponent.symbol,
     );

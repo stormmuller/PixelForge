@@ -2,16 +2,16 @@ import { Stoppable } from '../../common';
 import { Entity } from '../entity';
 
 export abstract class System implements Stoppable {
-  name: string;
-  operatesOnCompoents: symbol[];
-  isEnabled: boolean = true;
+  public name: string;
+  public operatesOnCompoents: symbol[];
+  public isEnabled: boolean = true;
 
   constructor(name: string, operatesOnCompoents: symbol[]) {
     this.name = name;
     this.operatesOnCompoents = operatesOnCompoents;
   }
 
-  async runSystem(entities: Entity[]) {
+  public async runSystem(entities: Entity[]) {
     if (!this.isEnabled) {
       return;
     }
@@ -25,11 +25,11 @@ export abstract class System implements Stoppable {
     }
   }
 
-  abstract run(entity: Entity): Promise<void>;
+  public abstract run(entity: Entity): Promise<void>;
   
-  async beforeAll (entities: Entity[]) {
+  public async beforeAll (entities: Entity[]) {
     return entities;
   }
 
-  stop() {}
+  public stop() {}
 }

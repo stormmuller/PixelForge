@@ -2,9 +2,10 @@ import { OrNull } from '../common';
 import type { Component } from './types';
 
 export class Entity {
-  components: Set<Component>;
-  name: string;
-  enabled: boolean;
+  public components: Set<Component>;
+  public name: string;
+  public enabled: boolean;
+
   private _id: number;
 
   constructor(
@@ -18,15 +19,15 @@ export class Entity {
     this.enabled = enabled;
   }
 
-  public get id() {
+  get id() {
     return this._id;
   }
 
-  addComponent = (component: Component) => {
+  public addComponent(component: Component) {
     this.components.add(component);
-  };
+  }
 
-  checkIfEntityContainsAllComponents = (componentSymbols: symbol[]) => {
+  public checkIfEntityContainsAllComponents(componentSymbols: symbol[]) {
     let allSymbolsMatch = true;
 
     for (const symbol of componentSymbols) {
@@ -50,9 +51,9 @@ export class Entity {
     }
 
     return false;
-  };
+  }
 
-  getComponent = <T extends Component>(componentName: symbol): OrNull<T> => {
+  public getComponent<T extends Component>(componentName: symbol): OrNull<T> {
     for (const component of this.components) {
       if (component.name === componentName) {
         return component as T;
@@ -60,9 +61,9 @@ export class Entity {
     }
 
     return null;
-  };
+  }
 
-  getComponentRequired = <T extends Component>(componentName: symbol): T => {
+  public getComponentRequired<T extends Component>(componentName: symbol): T {
     const component = this.getComponent<T>(componentName);
 
     if (component === null) {
@@ -72,15 +73,15 @@ export class Entity {
     }
 
     return component;
-  };
+  }
 
-  getComponents = <T extends Component>(
+  public getComponents<T extends Component>(
     componentNames: symbol[],
-  ): OrNull<T>[] => {
+  ): OrNull<T>[] {
     return componentNames.map(this.getComponent<T>);
-  };
+  }
 
-  removeComponent = (component: Component) => {
+  public removeComponent(component: Component) {
     this.components.delete(component);
   };
 

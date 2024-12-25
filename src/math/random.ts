@@ -11,11 +11,11 @@ export class Random {
     return this._rng();
   }
 
-  randomInt(min: number, max: number): number {
+  public randomInt(min: number, max: number): number {
     return Math.floor(this._random() * (max - min + 1)) + min;
   }
 
-  randomFloat(min: number, max: number): number {
+  public randomFloat(min: number, max: number): number {
     return this._random() * (max - min) + min;
   }
 }

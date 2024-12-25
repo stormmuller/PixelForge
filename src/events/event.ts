@@ -1,10 +1,10 @@
 type Listener = () => Promise<void>;
 
 export class Event {
-  name: string;
+  public name: string;
   private _listeners: Listener[];
 
-  public get listeners() {
+  get listeners() {
     return this._listeners;
   }
 
@@ -13,19 +13,19 @@ export class Event {
     this._listeners = [];
   }
 
-  registerListener(listener: Listener) {
+  public registerListener(listener: Listener) {
     this._listeners.push(listener);
   }
 
-  deregisterListener(listener: Listener) {
+  public deregisterListener(listener: Listener) {
     this._listeners = this._listeners.filter((l) => l !== listener);
   }
 
-  clear() {
+  public clear() {
     this._listeners = [];
   }
 
-  raise = () => {
+  public raise() {
     for (const listener of this._listeners) {
       listener().catch((error) => {
         console.error(`Error in listener for event ${this.name}:`, error);
