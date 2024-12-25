@@ -1,10 +1,10 @@
 {
-  "name": "@stormmuller/pixel-forge",
+  "name": "@stormmuller/pixelforge",
   "version": "1.0.0",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stormmuller/PixelForge.git"
+    "url": "git+https://github.com/stormmuller/PixelForge.git"
   },
   "scripts": {
     "test": "vitest",
