@@ -29,7 +29,7 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.11.0",
-    "vitest": "^1.6.0"
+    "vitest": "^2.1.8"
   },
   "dependencies": {
     "seedrandom": "^3.0.5"
