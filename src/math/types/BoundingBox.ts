@@ -1,43 +1,43 @@
 import { Vector2 } from './Vector2';
 
 export class BoundingBox {
-  point: Vector2;
-  dimentions: Vector2;
+  public point: Vector2;
+  public dimentions: Vector2;
 
   constructor(point: Vector2, dimentions: Vector2) {
     this.point = point;
     this.dimentions = dimentions;
   }
 
-  public get minX(): number {
+  get minX(): number {
     return this.point.x;
   }
 
-  public get maxX(): number {
+  get maxX(): number {
     return this.point.x + this.dimentions.x;
   }
 
-  public get minY(): number {
+  get minY(): number {
     return this.point.y;
   }
 
-  public get maxY(): number {
+  get maxY(): number {
     return this.point.y + this.dimentions.y;
   }
 
-  public get middleTop(): Vector2 {
+  get middleTop(): Vector2 {
     return new Vector2(this.point.x + this.dimentions.x / 2, this.minY);
   }
 
-  public get middleBottom(): Vector2 {
+  get middleBottom(): Vector2 {
     return new Vector2(this.point.x + this.dimentions.x / 2, this.maxY);
   }
 
-  public get middleLeft(): Vector2 {
+  get middleLeft(): Vector2 {
     return new Vector2(this.minX, this.point.y + this.dimentions.y / 2);
   }
 
-  public get middleRight(): Vector2 {
+  get middleRight(): Vector2 {
     return new Vector2(this.maxX, this.point.y + this.dimentions.y / 2);
   }
 

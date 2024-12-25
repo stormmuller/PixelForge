@@ -7,20 +7,20 @@ export type Baseline = 'top' | 'bottom' | 'middle';
 
 export class LayoutBoxComponent implements Component {
   public name: symbol;
-  sortedEntities: ecs.Entity[];
-  boundingBox: BoundingBox;
-  spaceBetween: number;
-  margin: Vector2;
-  alignChildren: Alignment;
-  baselineChildren: Baseline;
+  public sortedEntities: ecs.Entity[];
+  public boundingBox: BoundingBox;
+  public spaceBetween: number;
+  public margin: Vector2;
+  public alignChildren: Alignment;
+  public baselineChildren: Baseline;
 
-  static symbol = Symbol('LayoutBox');
+  public static symbol = Symbol('LayoutBox');
 
   constructor(
     sortedEntities: Array<ecs.Entity>,
     boundingBox: BoundingBox,
     spaceBetween: number = 0,
-    margin: Vector2 = Vector2.zero(),
+    margin: Vector2 = Vector2.zero,
     alignChildren: Alignment = 'start',
     baselineChildren: Baseline = 'middle'
   ) {

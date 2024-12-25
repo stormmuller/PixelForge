@@ -3,13 +3,13 @@ import { expect, test } from 'vitest';
 import { Component } from './types';
 
 class MockComponent implements Component {
-  name: symbol;
+  public name: symbol;
 
   constructor() {
     this.name = MockComponent.symbol;
   }
 
-  static symbol = Symbol('mock-component');
+  public static symbol = Symbol('mock-component');
 }
 
 test('creating an entity', () => {

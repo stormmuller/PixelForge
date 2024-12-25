@@ -27,6 +27,25 @@ module.exports = {
         leadingUnderscore: 'require',
       },
     ],
+    '@typescript-eslint/explicit-member-accessibility': [
+      'error',
+      {
+        accessibility: 'explicit',
+        overrides: {
+          constructors: 'no-public',
+          accessors: 'no-public',
+        },
+      },
+    ],
+    'func-style': ['error', 'declaration', { allowArrowFunctions: true }],
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector:
+          "PropertyDefinition > ArrowFunctionExpression",
+        message: 'Arrow functions as class members are not allowed.',
+      },
+    ],
   },
   root: true,
   env: {

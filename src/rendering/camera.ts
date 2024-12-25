@@ -1,10 +1,10 @@
 export class Camera {
-  zoom: number;
-  zoomSensitivity: number;
-  panSensitivity: number;
-  minZoom: number;
-  maxZoom: number;
-  isStatic: boolean;
+  public zoom: number;
+  public zoomSensitivity: number;
+  public panSensitivity: number;
+  public minZoom: number;
+  public maxZoom: number;
+  public isStatic: boolean;
 
   constructor(
     zoomSensitivity: number = 0.001,
@@ -20,9 +20,5 @@ export class Camera {
     this.minZoom = minZoom;
     this.maxZoom = maxZoom;
     this.isStatic = isStatic;
-  }
-
-  reposition() {
-    
   }
 }

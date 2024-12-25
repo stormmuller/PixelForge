@@ -4,12 +4,12 @@ import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
 export class LineRenderSource implements RenderSource {
-  points: Vector2[];
-  radius: number;
-  color: string;
-  lineWidth: number;
-  boundingBox: BoundingBox;
-  renderEffects: RenderEffects;
+  public points: Vector2[];
+  public radius: number;
+  public color: string;
+  public lineWidth: number;
+  public boundingBox: BoundingBox;
+  public renderEffects: RenderEffects;
 
   constructor(
     points: Vector2[],
@@ -24,10 +24,10 @@ export class LineRenderSource implements RenderSource {
     this.lineWidth = lineWidth;
     this.renderEffects = renderEffects;
 
-    this.boundingBox = new BoundingBox(Vector2.zero(), Vector2.zero());
+    this.boundingBox = new BoundingBox(Vector2.zero, Vector2.zero);
   }
 
-  render(layer: RenderLayer): void {
+  public render(layer: RenderLayer): void {
     if (this.points.length < 2) return; // Nothing to draw
 
     this.boundingBox = calculateBoundingBox(new Path(this.points));

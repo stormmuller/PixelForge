@@ -3,16 +3,16 @@ import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
 export class TextRenderSource implements RenderSource {
-  text: string;
-  fontFamily: string;
-  color: string;
-  boundingBox: BoundingBox;
-  fontSize: number;
-  textAlign: CanvasTextAlign;
-  textBaseline: CanvasTextBaseline;
-  maxWidth: number;
-  overflowWidth: number;
-  renderEffects: RenderEffects;
+  public text: string;
+  public fontFamily: string;
+  public color: string;
+  public boundingBox: BoundingBox;
+  public fontSize: number;
+  public textAlign: CanvasTextAlign;
+  public textBaseline: CanvasTextBaseline;
+  public maxWidth: number;
+  public overflowWidth: number;
+  public renderEffects: RenderEffects;
 
   constructor(
     text: string,
@@ -42,12 +42,12 @@ export class TextRenderSource implements RenderSource {
       metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
     this.boundingBox = new BoundingBox(
-      Vector2.zero(),
+      Vector2.zero,
       new Vector2(maxWidth, height),
     );
   }
 
-  render(layer: RenderLayer): void {
+  public render(layer: RenderLayer): void {
     const context = layer.context;
 
     context.font = `${this.fontSize}px ${this.fontFamily}`;
@@ -56,7 +56,7 @@ export class TextRenderSource implements RenderSource {
 
     let renderText = this.text;
     const metrics = context.measureText(this.text);
-    let width = metrics.width;
+    const width = metrics.width;
     const height =
       metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 

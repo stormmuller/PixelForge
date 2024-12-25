@@ -2,10 +2,10 @@ import { Component } from '../../ecs';
 import { degreesToRadians } from '../../math';
 
 export class RotationComponent implements Component {
-  name: symbol;
-  radians: number;
+  public name: symbol;
+  public radians: number;
 
-  static symbol = Symbol('Rotation');
+  public static symbol = Symbol('Rotation');
 
   constructor(degrees: number) {
     this.name = RotationComponent.symbol;

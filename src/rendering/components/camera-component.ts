@@ -23,19 +23,19 @@ const defaultOptions: CameraComponentOptions = {
 } 
 
 export class CameraComponent implements Component {
-  name: symbol;
-  zoom: number;
-  zoomSensitivity: number;
-  panSensitivity: number;
-  minZoom: number;
-  maxZoom: number;
-  isStatic: boolean;
-  allowPanning: boolean;
-  allowZooming: boolean;
+  public name: symbol;
+  public zoom: number;
+  public zoomSensitivity: number;
+  public panSensitivity: number;
+  public minZoom: number;
+  public maxZoom: number;
+  public isStatic: boolean;
+  public allowPanning: boolean;
+  public allowZooming: boolean;
 
-  static symbol = Symbol('Camera');
+  public static symbol = Symbol('Camera');
 
-  static createDefaultCamera(isStatic: boolean = false) {
+  public static createDefaultCamera(isStatic: boolean = false) {
     const camera = new CameraComponent();
     camera.isStatic = isStatic;
 

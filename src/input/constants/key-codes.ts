@@ -1,9 +1,9 @@
 export const keyCodes = {
-  W: 'KeyW',
-  A: 'KeyA',
-  S: 'KeyS',
-  D: 'KeyD',
+  w: 'KeyW',
+  a: 'KeyA',
+  s: 'KeyS',
+  d: 'KeyD',
 
-  Z: 'KeyZ',
-  X: 'KeyX',
+  z: 'KeyZ',
+  x: 'KeyX',
 };

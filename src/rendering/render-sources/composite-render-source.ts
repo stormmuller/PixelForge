@@ -7,10 +7,10 @@ export type RenderSourceMap = {
 };
 
 export class CompositeRenderSource implements RenderSource {
-  renderSourcesMap: RenderSourceMap;
-  renderSources: RenderSource[];
-  boundingBox: BoundingBox;
-  renderEffects: RenderEffects;
+  public renderSourcesMap: RenderSourceMap;
+  public renderSources: RenderSource[];
+  public boundingBox: BoundingBox;
+  public renderEffects: RenderEffects;
 
   constructor(
     renderSourcesMap: RenderSourceMap,
