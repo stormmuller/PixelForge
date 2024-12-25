@@ -3,8 +3,8 @@ import { Event } from '../events';
 import { Scene } from './scene';
 
 export class Game implements Stoppable {
-  time: Time;
-  onWindowResize: Event;
+  public time: Time;
+  public onWindowResize: Event;
 
   private _scenes: Set<Scene>;
 
