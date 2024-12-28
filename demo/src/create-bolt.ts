@@ -11,7 +11,7 @@ export const createBolt = async (
     1,
     {
       glow: {
-        color: 'rgba(255, 255, 0, 0.3)',
+        color: 'rgba(255, 255, 0, 0.35)',
         radius: 50,
       },
     },
