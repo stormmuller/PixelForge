@@ -25,7 +25,7 @@ export const createText = async (
     new common.ScaleComponent(),
     new common.RotationComponent(0),
     new rendering.SpriteComponent(textRenderSource, renderLayer.name, {
-      anchor: math.Vector2.zero(),
+      anchor: math.Vector2.zero,
     }),
   ]);
 

@@ -14,15 +14,15 @@ export class ProgressComponent implements Component {
     this.total = total;
   }
 
-  public include(total: number) {
+  public include = (total: number) => {
     this.total += total;
   }
 
-  public calculateProgress() {
+  public calculateProgress = () => {
     return this._progress / this.total; // TODO: feature - potentially prevent the reported progress from dropping (clamp it what ever it was previously and greater)
   }
 
-  public increment() {
+  public increment = () => {
     this._progress++;
   }
 }

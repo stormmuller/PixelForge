@@ -13,7 +13,7 @@ export class LayoutSystem extends System {
     ]);
   }
 
-  public async run(entity: Entity): Promise<void> {
+  public run = async (entity: Entity): Promise<void> => {
     const layoutBoxComponent = entity.getComponentRequired<LayoutBoxComponent>(
       LayoutBoxComponent.symbol,
     );
@@ -103,5 +103,7 @@ export class LayoutSystem extends System {
       // Update offset for the next entity below
       offsetY += entityHeight + spaceBetween;
     }
-  }
+  };
+
+  public stop = (): void => {}
 }

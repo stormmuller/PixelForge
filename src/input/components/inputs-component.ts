@@ -20,27 +20,27 @@ export class InputsComponent implements Component {
     this.name = InputsComponent.symbol;
   }
 
-  public keyPressed(code: string) {
+  public keyPressed = (code: string) => {
     return this.keyPresses.has(code);
-  }
+  };
 
-  public keyPressedDown(code: string) {
+  public keyPressedDown = (code: string) => {
     return this.keyDowns.has(code);
-  }
+  };
 
-  public keyPressedUp(code: string) {
+  public keyPressedUp = (code: string) => {
     return this.keyUps.has(code);
-  }
+  };
 
-  public isMouseButtonDown(button: MouseButton) {
+  public isMouseButtonDown = (button: MouseButton) => {
     return this.mouseButtonDowns.has(button);
-  }
+  };
 
-  public isMouseButtonUp(button: MouseButton) {
+  public isMouseButtonUp = (button: MouseButton) => {
     return this.mouseButtonUps.has(button);
-  }
+  };
 
-  public isMouseButtonPressed(button: MouseButton) {
+  public isMouseButtonPressed = (button: MouseButton) => {
     return this.mouseButtonPresses.has(button);
-  }
+  };
 }

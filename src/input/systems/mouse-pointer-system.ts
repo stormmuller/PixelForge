@@ -14,20 +14,22 @@ export class MousePointerSystem extends System {
     });
   }
 
-  public updateCursorPosition(event: MouseEvent) {
+  public updateCursorPosition = (event: MouseEvent) => {
     this._mouseCoordinates.x = event.clientX;
     this._mouseCoordinates.y = event.clientY;
-  }
+  };
 
-  public async run(entity: Entity): Promise<void> {
+  public run = async (entity: Entity): Promise<void> => {
     const position = entity.getComponentRequired<PositionComponent>(
       PositionComponent.symbol,
     );
 
     position.set(this._mouseCoordinates);
-  }
+  };
 
-  public shutdown(): void {
+  public shutdown = (): void => {
     window.removeEventListener('mousemove', this.updateCursorPosition);
-  }
+  };
+  
+  public stop = (): void => {}
 }

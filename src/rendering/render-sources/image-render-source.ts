@@ -23,7 +23,7 @@ export class ImageRenderSource implements RenderSource {
     this.renderEffects = renderEffects;
   }
 
-  public render(layer: RenderLayer): void {
+  public render = (layer: RenderLayer): void => {
     layer.context.drawImage(
       this.image,
       0,
@@ -31,14 +31,16 @@ export class ImageRenderSource implements RenderSource {
       this.image.width + this.bleed,
       this.image.height + this.bleed,
     );
-  }
+  };
 
-  public static async fromImageCache(
+  public static fromImageCache = async (
     imageCache: ImageCache,
     path: string,
     bleed: number = 1,
     renderEffects: RenderEffects = {},
-  ) {
+  ) => {
+    console.log(`rendering image from cache: ${path}`);
+
     const image = await imageCache.getOrLoad(path);
     return new ImageRenderSource(image, bleed, renderEffects);
   }

@@ -3,7 +3,7 @@ import { AssetCache } from '../../asset-loading';
 export class ImageCache implements AssetCache<HTMLImageElement> {
   public assets = new Map<string, HTMLImageElement>();
 
-  public get(path: string) {
+  public get = (path: string) => {
     const image = this.assets.get(path);
 
     if (!image) {
@@ -11,9 +11,9 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
     }
 
     return image;
-  }
+  };
 
-  public async load(path: string) {
+  public load = async (path: string) => {
     const image = new Image();
     image.src = path;
 
@@ -32,9 +32,9 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
         reject(new Error(`Failed to load image at ${path}`));
       };
     });
-  }
+  };
 
-  public async getOrLoad(path: string) {
+  public getOrLoad = async (path: string) => {
     if (!this.assets.has(path)) {
       await this.load(path);
     }

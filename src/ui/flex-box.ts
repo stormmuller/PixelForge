@@ -5,7 +5,7 @@ export class FlexBox extends UIElement<HTMLDivElement> {
     super(null, classNames);
   }
 
-  protected createElement(classNames: string[]): HTMLDivElement {
+  protected createElement = (classNames: string[]): HTMLDivElement => {
     const flexBox = document.createElement('div');
 
     flexBox.id = this.id;
@@ -14,5 +14,5 @@ export class FlexBox extends UIElement<HTMLDivElement> {
     flexBox.classList.add(...classNames);
 
     return flexBox;
-  }
+  };
 }

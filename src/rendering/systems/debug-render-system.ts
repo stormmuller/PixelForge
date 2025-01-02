@@ -29,7 +29,7 @@ export class DebugRenderSystem extends System {
     this._worldSpace = worldSpace;
   }
 
-  public async run(entity: Entity): Promise<void> {
+  public run = async (entity: Entity): Promise<void> => {
     const position = entity.getComponent<PositionComponent>(
       PositionComponent.symbol,
     ) as PositionComponent;
@@ -57,4 +57,6 @@ export class DebugRenderSystem extends System {
     );
     this._layer.context.fill();
   }
+
+  public stop = (): void => {}
 }

@@ -28,7 +28,7 @@ export class InputSystem extends System {
     window.addEventListener('mouseup', this.onMouseUpHandler);
   }
 
-  public async run(entity: Entity): Promise<void> {
+  public run = async (entity: Entity): Promise<void> => {
     const inputs = entity.getComponent(
       InputsComponent.symbol,
     ) as InputsComponent; // TODO: feature - Make singleton components?
@@ -43,56 +43,58 @@ export class InputSystem extends System {
     inputs.mouseCoordinates = this._mouseCoordinates;
 
     this.clearInputs();
-  }
+  };
 
-  public shutdown(): void {
+  public shutdown = (): void => {
     this._gameContainer.removeEventListener('wheel', this.onWheelEventHandler);
     document.removeEventListener('keydown', this.onKeyDownHandler);
     document.removeEventListener('keyup', this.onKeyUpHandler);
     window.removeEventListener('mousemove', this.updateCursorPosition);
     window.removeEventListener('mousedown', this.onMouseDownHandler);
     window.removeEventListener('mouseup', this.onMouseUpHandler);
-  }
+  };
 
-  public clearInputs() {
+  public clearInputs = () => {
     this._scrollDelta = 0;
     this._keyDowns = new Set();
     this._keyUps = new Set();
     this._mouseButtonDowns = new Set();
     this._mouseButtonUps = new Set();
-  }
+  };
 
-  public onWheelEventHandler(event: WheelEvent) {
+  public onWheelEventHandler = (event: WheelEvent) => {
     this._scrollDelta = event.deltaY;
     event.preventDefault();
-  }
+  };
 
-  public onKeyUpHandler(event: KeyboardEvent) {
+  public onKeyUpHandler = (event: KeyboardEvent) => {
     this._keyPresses.delete(event.code);
     this._keyUps.add(event.code);
-  }
+  };
 
-  public onKeyDownHandler(event: KeyboardEvent) {
+  public onKeyDownHandler = (event: KeyboardEvent) => {
     if (event.repeat) {
       return;
     }
 
     this._keyPresses.add(event.code);
     this._keyDowns.add(event.code);
-  }
+  };
 
-  public updateCursorPosition(event: MouseEvent) {
+  public updateCursorPosition = (event: MouseEvent) => {
     this._mouseCoordinates.x = event.clientX;
     this._mouseCoordinates.y = event.clientY;
-  }
+  };
 
-  public onMouseDownHandler(event: MouseEvent) {
+  public onMouseDownHandler = (event: MouseEvent) => {
     this._mouseButtonPresses.add(event.button);
     this._mouseButtonDowns.add(event.button);
-  }
+  };
 
-  public onMouseUpHandler(event: MouseEvent) {
+  public onMouseUpHandler = (event: MouseEvent) => {
     this._mouseButtonPresses.delete(event.button);
     this._mouseButtonUps.add(event.button);
-  }
+  };
+  
+  public stop = (): void => {}
 }

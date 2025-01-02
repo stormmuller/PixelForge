@@ -10,7 +10,7 @@ export class AnimationSystem extends System {
     this._time = time;
   }
 
-  public async run(entity: Entity): Promise<void> {
+  public run = async (entity: Entity): Promise<void> => {
     const animationComponent = entity.getComponentRequired<AnimationComponent>(
       AnimationComponent.symbol,
     );
@@ -39,12 +39,12 @@ export class AnimationSystem extends System {
         }
       }
     }
-  }
+  };
 
-  private _updateAnimation(
+  private _updateAnimation = (
     animation: AnimatedProperty,
     deltaTime: number,
-  ): boolean {
+  ): boolean => {
     animation.elapsed += deltaTime;
 
     let t = animation.elapsed / animation.duration;
@@ -58,9 +58,9 @@ export class AnimationSystem extends System {
     animation.updateCallback(currentValue);
 
     return t >= 1;
-  }
+  };
 
-  private _handleLooping(animation: AnimatedProperty): boolean {
+  private _handleLooping = (animation: AnimatedProperty): boolean => {
     if (!animation.loop || animation.loop === 'none') {
       return false; // No looping, remove the animation
     }
@@ -88,5 +88,7 @@ export class AnimationSystem extends System {
     }
 
     return true;
-  }
+  };
+  
+  public stop = (): void => {}
 }

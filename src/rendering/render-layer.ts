@@ -19,7 +19,7 @@ export class RenderLayer {
     this.clearStrategy = clearStrategy;
   }
 
-  public resize() {
+  public resize = () => {
     this.context.canvas.width = window.innerWidth;
     this.context.canvas.height = window.innerHeight;
 

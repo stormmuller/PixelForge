@@ -47,7 +47,7 @@ export class TextRenderSource implements RenderSource {
     );
   }
 
-  public render(layer: RenderLayer): void {
+  public render = (layer: RenderLayer): void => {
     const context = layer.context;
 
     context.font = `${this.fontSize}px ${this.fontFamily}`;

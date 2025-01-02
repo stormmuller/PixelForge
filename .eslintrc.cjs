@@ -37,12 +37,12 @@ module.exports = {
         },
       },
     ],
-    'func-style': ['error', 'declaration', { allowArrowFunctions: true }],
+    // Disallow traditional method definitions in classes
     'no-restricted-syntax': [
       'error',
       {
-        selector: 'PropertyDefinition > ArrowFunctionExpression',
-        message: 'Arrow functions as class members are not allowed.',
+        selector: 'ClassBody > MethodDefinition[kind="method"]',
+        message: 'Use arrow functions instead of traditional class methods.',
       },
     ],
   },

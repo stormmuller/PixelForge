@@ -6,11 +6,13 @@ export class ProgressSystem extends System {
     super('progress', [ProgressComponent.symbol]);
   }
 
-  public async run(entity: Entity): Promise<void> {
+  public run = async (entity: Entity): Promise<void> => {
     const progressComponent = entity.getComponentRequired<ProgressComponent>(
       ProgressComponent.symbol,
     );
 
     console.log(progressComponent.calculateProgress());
-  }
+  };
+  
+  public stop = (): void => {}
 }
