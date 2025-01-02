@@ -35,7 +35,7 @@ export class CameraComponent implements Component {
 
   public static symbol = Symbol('Camera');
 
-  public static createDefaultCamera(isStatic: boolean = false) {
+  public static createDefaultCamera = (isStatic: boolean = false) => {
     const camera = new CameraComponent();
     camera.isStatic = isStatic;
 

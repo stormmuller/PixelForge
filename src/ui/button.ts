@@ -16,10 +16,10 @@ export class Button extends UIElement<HTMLButtonElement, string> {
     return this._onClickEvent;
   }
 
-  protected createElement(
+  protected createElement = (
     classNames: string[],
     text: string,
-  ): HTMLButtonElement {
+  ): HTMLButtonElement => {
     const button = document.createElement('button');
 
     button.id = this.id;
@@ -33,5 +33,5 @@ export class Button extends UIElement<HTMLButtonElement, string> {
     });
 
     return button;
-  }
+  };
 }

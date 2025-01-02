@@ -9,9 +9,9 @@ export abstract class UIElement<TElement extends HTMLElement, TOptions = null> {
     this.element = this.createElement(classNames, options);
   }
 
-  public addElement<T extends HTMLElement>(
+  public addElement = <T extends HTMLElement>(
     uiElement: UIElement<T, unknown>,
-  ): void {
+  ): void => {
     this.element.appendChild(uiElement.element);
   }
 

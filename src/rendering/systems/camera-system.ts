@@ -17,7 +17,7 @@ export class CameraSystem extends System {
     this._time = time;
   }
 
-  public async run(entity: Entity): Promise<void> {
+  public run = async (entity: Entity): Promise<void> => {
     const cameraComponent = entity.getComponentRequired<CameraComponent>(
       CameraComponent.symbol,
     );
@@ -61,4 +61,6 @@ export class CameraSystem extends System {
       }
     }
   }
+
+  public stop = (): void => {}
 }

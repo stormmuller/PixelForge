@@ -7,45 +7,45 @@ export class Vector2 {
     this.y = y;
   }
 
-  public set(value: Vector2) {
+  public set = (value: Vector2) => {
     this.x = value.x;
     this.y = value.y;
-  }
+  };
 
-  public add(value: Vector2): Vector2 {
+  public add = (value: Vector2): Vector2 => {
     const x = this.x + value.x;
     const y = this.y + value.y;
 
     return new Vector2(x, y);
-  }
+  };
 
-  public subtract(value: Vector2): Vector2 {
+  public subtract = (value: Vector2): Vector2 => {
     const x = this.x - value.x;
     const y = this.y - value.y;
 
     return new Vector2(x, y);
-  }
+  };
 
-  public multiply(scalar: number): Vector2 {
+  public multiply = (scalar: number): Vector2 => {
     const x = this.x * scalar;
     const y = this.y * scalar;
 
     return new Vector2(x, y);
-  }
+  };
 
-  public multiplyComponents(vector: Vector2): Vector2 {
+  public multiplyComponents = (vector: Vector2): Vector2 => {
     const x = this.x * vector.x;
     const y = this.y * vector.y;
 
     return new Vector2(x, y);
-  }
+  };
 
-  public divide(scalar: number): Vector2 {
+  public divide = (scalar: number): Vector2 => {
     const x = this.x / scalar;
     const y = this.y / scalar;
 
     return new Vector2(x, y);
-  }
+  };
 
   static get up(): Vector2 {
     return new Vector2(0, 1);
@@ -71,31 +71,31 @@ export class Vector2 {
     return new Vector2(1, 1);
   }
 
-  public magnitude(): number {
+  public magnitude = (): number => {
     return Math.sqrt(this.magnitudeSquared());
-  }
+  };
 
-  public magnitudeSquared(): number {
+  public magnitudeSquared = (): number => {
     return this.x * this.x + this.y * this.y;
-  }
+  };
 
-  public normalize(): Vector2 {
+  public normalize = (): Vector2 => {
     const length = this.magnitude();
 
     if (length === 0) return this;
 
     return this.divide(length);
-  }
+  };
 
-  public floorComponents(): Vector2 {
+  public floorComponents = (): Vector2 => {
     return new Vector2(Math.floor(this.x), Math.floor(this.y));
-  }
+  };
 
-  public clone(): Vector2 {
+  public clone = (): Vector2 => {
     return new Vector2(this.x, this.y);
-  }
+  };
 
-  public toString(): string {
+  public toString = (): string => {
     return `(${this.x.toFixed(1)}, ${this.y.toFixed(1)})`;
-  }
+  };
 }

@@ -20,7 +20,7 @@ export class PolygonRenderSource implements RenderSource {
     this.renderEffects = renderEffects;
   }
 
-  public render(layer: RenderLayer): void {
+  public render = (layer: RenderLayer): void =>  {
     layer.context.beginPath();
 
     for (let i = 0; i < this.path.length; i++) {

@@ -21,10 +21,10 @@ export class TimerComponent implements Component {
     this.tasks = tasks;
   }
 
-  public addTask(task: TimerTask) {
+  public addTask = (task: TimerTask) => {
     // Initialize defaults
     task.elapsed = 0;
     task.runsSoFar = task.runsSoFar ?? 0;
     this.tasks.push(task);
-  }
+  };
 }

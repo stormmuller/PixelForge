@@ -41,16 +41,16 @@ export class BoundingBox {
     return new Vector2(this.maxX, this.point.y + this.dimentions.y / 2);
   }
 
-  public contains(point: Vector2): boolean {
+  public contains = (point: Vector2): boolean => {
     const inXBounds = point.x >= this.minX && point.x <= this.maxX;
     const inYBounds = point.y >= this.minY && point.y <= this.maxY;
 
     return inXBounds && inYBounds;
-  }
+  };
 
-  public static combineBoundingBoxes(
+  public static combineBoundingBoxes = (
     boundingBoxes: BoundingBox[],
-  ): BoundingBox {
+  ): BoundingBox => {
     if (boundingBoxes.length === 0) {
       throw new Error('No bounding boxes to combine');
     }
@@ -79,5 +79,5 @@ export class BoundingBox {
       new Vector2(minX, minY),
       new Vector2(maxX - minX, maxY - minY),
     );
-  }
+  };
 }

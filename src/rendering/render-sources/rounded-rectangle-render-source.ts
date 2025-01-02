@@ -36,7 +36,7 @@ export class RoundedRectangleRenderSource implements RenderSource {
     this.renderEffects = renderEffects;
   }
 
-  public render(layer: RenderLayer): void {
+  public render = (layer: RenderLayer): void => {
     const ctx = layer.context;
 
     if (this.stroke) {

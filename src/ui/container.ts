@@ -5,7 +5,7 @@ export class Container extends UIElement<HTMLElement, string> {
     super(selector, classNames);
   }
 
-  protected createElement(classNames: string[], selector: string): HTMLElement {
+  protected createElement = (classNames: string[], selector: string): HTMLElement => {
     const element = document.querySelector<HTMLElement>(selector);
 
     if (!element) {

@@ -13,19 +13,19 @@ export class ParameterisedEvent<TInput = null> {
     this._listeners = [];
   }
 
-  public registerListener(listener: Listener<TInput>) {
+  public registerListener = (listener: Listener<TInput>) => {
     this._listeners.push(listener);
-  }
+  };
 
-  public deregisterListener(listener: Listener<TInput>) {
+  public deregisterListener = (listener: Listener<TInput>) => {
     this._listeners = this._listeners.filter((l) => l !== listener);
-  }
+  };
 
-  public clear() {
+  public clear = () => {
     this._listeners = [];
   }
 
-  public raise(input: TInput) {
+  public raise = (input: TInput) => {
     for (const listener of this._listeners) {
       listener(input).catch((error) => {
         console.error(`Error in listener for event ${this.name}:`, error);

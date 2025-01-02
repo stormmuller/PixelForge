@@ -24,14 +24,14 @@ export class CompositeRenderSource implements RenderSource {
     this.renderEffects = renderEffects;
   }
 
-  public getRenderSource<T>(key: string): T {
+  public getRenderSource = <T>(key: string): T => {
     return this.renderSourcesMap[key] as T;
-  }
+  };
 
-  public render(layer: RenderLayer): void {
+  public render = (layer: RenderLayer): void => {
     for (const renderSourceName in this.renderSourcesMap) {
       const renderSource = this.renderSourcesMap[renderSourceName];
       renderSource.render(layer);
     }
-  }
+  };
 }

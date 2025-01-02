@@ -9,17 +9,17 @@ export class Path {
     this.path = path;
   }
 
-  public at(index: number) {
+  public at = (index: number) => {
     return this.path[index];
-  }
+  };
 
-  public push(point: Vector2) {
+  public push = (point: Vector2) => {
     this.path.push(point);
-  }
+  };
 
-  public map<T>(callback: MapPathCallback<T>) {
+  public map = <T>(callback: MapPathCallback<T>) => {
     return this.path.map(callback);
-  }
+  };
 
   get first(): Vector2 {
     return this.at(0);

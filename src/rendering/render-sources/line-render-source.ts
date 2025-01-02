@@ -27,7 +27,7 @@ export class LineRenderSource implements RenderSource {
     this.boundingBox = new BoundingBox(Vector2.zero, Vector2.zero);
   }
 
-  public render(layer: RenderLayer): void {
+  public render = (layer: RenderLayer): void => {
     if (this.points.length < 2) return; // Nothing to draw
 
     this.boundingBox = calculateBoundingBox(new Path(this.points));

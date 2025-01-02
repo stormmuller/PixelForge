@@ -9,7 +9,7 @@ export class IdGenerator {
     );
   }
 
-  public static generateNewId() {
+  public static generateNewId = () => {
     IdGenerator._idCounter++;
     return `ui-${IdGenerator._idCounter.toString().padStart(ID_PADDING_AMOUNT, '0')}`;
   }

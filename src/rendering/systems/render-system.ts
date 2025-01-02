@@ -46,7 +46,7 @@ export class RenderSystem extends System {
     this._camera = camera;
   }
 
-  public override async beforeAll(entities: Entity[]) {
+  public override beforeAll = async (entities: Entity[]) => {
     if (
       isNil(this._layer.clearStrategy) ||
       this._layer.clearStrategy === ClearStrategy.blank
@@ -84,9 +84,9 @@ export class RenderSystem extends System {
     });
 
     return sortedEntities;
-  }
+  };
 
-  public async run(entity: Entity): Promise<void> {
+  public run = async (entity: Entity): Promise<void> => {
     const spriteComponent = entity.getComponentRequired<SpriteComponent>(
       SpriteComponent.symbol,
     );
@@ -160,9 +160,9 @@ export class RenderSystem extends System {
     }
 
     this._resetCanvas();
-  }
+  };
 
-  private _resetCanvas() {
+  private _resetCanvas = () => {
     // Reset transformation matrix
     this._layer.context.setTransform(1, 0, 0, 1, 0, 0);
 
@@ -173,23 +173,23 @@ export class RenderSystem extends System {
     this._layer.context.shadowColor = 'rgba(0, 0, 0, 0)';
     this._layer.context.shadowBlur = 0;
     this._layer.context.globalAlpha = 1;
-  }
+  };
 
-  private _renderPreProcessingEffects(renderEffects: RenderEffects) {
+  private _renderPreProcessingEffects = (renderEffects: RenderEffects) => {
     this._renderGlow(renderEffects.glow);
     this._adjustOpacity(renderEffects.opacity);
-  }
+  };
 
-  private _renderGlow(glow?: GlowEffect) {
+  private _renderGlow = (glow?: GlowEffect) => {
     if (!glow) {
       return;
     }
 
     this._layer.context.shadowColor = glow.color;
     this._layer.context.shadowBlur = glow.radius;
-  }
+  };
 
-  private _getRandomMagentaShade(): string {
+  private _getRandomMagentaShade = (): string => {
     const red = 255;
     const green = Math.floor(Math.random() * 128);
     const blue = 255;
@@ -199,13 +199,15 @@ export class RenderSystem extends System {
 
     const hexColor = `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
     return hexColor;
-  }
+  };
 
-  private _adjustOpacity(opacity?: number) {
+  private _adjustOpacity = (opacity?: number) => {
     if (!opacity) {
       return;
     }
 
     this._layer.context.globalAlpha = opacity;
-  }
+  };
+  
+  public stop = (): void => {}
 }

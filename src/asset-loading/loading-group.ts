@@ -13,12 +13,12 @@ export class LoadingGroup {
     this.progressInterval = 1 / loadables.length;
   }
 
-  public start() {
+  public start = () => {
     for (const loadable of this.loadables) {
       loadable().then(() => {
         this.progress += this.progressInterval;
         this.onProgressUpdate(this.progress);
       });
     }
-  }
+  };
 }
