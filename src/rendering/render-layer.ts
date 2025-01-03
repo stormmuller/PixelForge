@@ -1,17 +1,17 @@
 import { Vector2 } from '../math';
-import { ClearStrategy } from './types/clear-strategy.enum';
+import { CLEAR_STRATEGY, CLEAR_STRATEGY_KEYS } from './types';
 
 export class RenderLayer {
   public name: string;
   public context: CanvasRenderingContext2D;
   public center: Vector2;
-  public clearStrategy: ClearStrategy;
+  public clearStrategy: CLEAR_STRATEGY_KEYS;
 
   constructor(
     name: string,
     context: CanvasRenderingContext2D,
     center: Vector2,
-    clearStrategy: ClearStrategy = ClearStrategy.blank,
+    clearStrategy: CLEAR_STRATEGY_KEYS = CLEAR_STRATEGY.blank,
   ) {
     this.name = name;
     this.context = context;

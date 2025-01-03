@@ -2,7 +2,7 @@ import { PositionComponent, Space } from '../../common';
 import * as transforms from '../transforms';
 import { Entity, System } from '../../ecs';
 import { CameraComponent, DebugDotComponent } from '../components';
-import { RenderLayer } from '../types';
+import { RenderLayer } from '../render-layer';
 
 export class DebugRenderSystem extends System {
   private _layer: RenderLayer;

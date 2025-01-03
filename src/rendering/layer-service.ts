@@ -1,6 +1,6 @@
 import { Vector2 } from '../math';
 import { RenderLayer } from './render-layer';
-import { ClearStrategy } from './types';
+import { CLEAR_STRATEGY, CLEAR_STRATEGY_KEYS } from './types';
 
 export class LayerService {
   private _layers: Map<string, RenderLayer>;
@@ -13,7 +13,7 @@ export class LayerService {
 
   public createLayer= (
     name: string,
-    clearStrategy: ClearStrategy = ClearStrategy.blank,
+    clearStrategy: CLEAR_STRATEGY_KEYS = CLEAR_STRATEGY.blank,
   ) => {
     const canvas = document.createElement('canvas');
     canvas.id = `pf-canvas-${name}`;
