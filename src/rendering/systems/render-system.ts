@@ -7,8 +7,9 @@ import {
 } from '../../common';
 import { Entity, System } from '../../ecs';
 import { CameraComponent, SpriteComponent } from '../components';
+import { RenderLayer } from '../render-layer';
 import { GlowEffect, RenderEffects } from '../render-sources';
-import { ClearStrategy, RenderLayer } from '../types';
+import { CLEAR_STRATEGY } from '../types';
 
 export class RenderSystem extends System {
   private _layer: RenderLayer;
@@ -49,7 +50,7 @@ export class RenderSystem extends System {
   public override beforeAll = async (entities: Entity[]) => {
     if (
       isNil(this._layer.clearStrategy) ||
-      this._layer.clearStrategy === ClearStrategy.blank
+      this._layer.clearStrategy === CLEAR_STRATEGY.blank
     ) {
       this._layer.context.clearRect(
         0,
@@ -208,6 +209,6 @@ export class RenderSystem extends System {
 
     this._layer.context.globalAlpha = opacity;
   };
-  
-  public stop = (): void => {}
+
+  public stop = (): void => {};
 }
