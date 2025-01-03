@@ -2,6 +2,13 @@
   "name": "@stormmuller/pixelforge",
   "version": "0.0.1",
   "main": "dist/index.js",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stormmuller/PixelForge.git"
