@@ -148,10 +148,10 @@ export class RenderSystem extends System {
     ) {
       this._layer.context.fillStyle = this._getRandomMagentaShade();
       this._layer.context.fillRect(
-        spriteComponent.renderSource.boundingBox.minX,
-        spriteComponent.renderSource.boundingBox.minY,
-        spriteComponent.renderSource.boundingBox.maxX,
-        spriteComponent.renderSource.boundingBox.maxY,
+        spriteComponent.renderSource.boxCollider.minX,
+        spriteComponent.renderSource.boxCollider.minY,
+        spriteComponent.renderSource.boxCollider.maxX,
+        spriteComponent.renderSource.boxCollider.maxY,
       );
     }
 

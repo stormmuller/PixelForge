@@ -1,4 +1,5 @@
-import { BoundingBox, Vector2 } from '../../math';
+import { Vector2 } from '../../math';
+import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
@@ -6,7 +7,7 @@ export class TextRenderSource implements RenderSource {
   public text: string;
   public fontFamily: string;
   public color: string;
-  public boundingBox: BoundingBox;
+  public boxCollider: BoxCollider;
   public fontSize: number;
   public textAlign: CanvasTextAlign;
   public textBaseline: CanvasTextBaseline;
@@ -41,7 +42,7 @@ export class TextRenderSource implements RenderSource {
     const height =
       metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
-    this.boundingBox = new BoundingBox(
+    this.boxCollider = new BoxCollider(
       Vector2.zero,
       new Vector2(maxWidth, height),
     );
@@ -79,7 +80,7 @@ export class TextRenderSource implements RenderSource {
       renderText = truncatedText;
     }
 
-    this.boundingBox.dimentions = new Vector2(this.maxWidth, height);
+    this.boxCollider.dimentions = new Vector2(this.maxWidth, height);
 
     context.fillStyle = this.color;
 

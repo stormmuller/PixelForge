@@ -1,4 +1,4 @@
-import { BoundingBox } from '../../math';
+import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
@@ -9,7 +9,7 @@ export type RenderSourceMap = {
 export class CompositeRenderSource implements RenderSource {
   public renderSourcesMap: RenderSourceMap;
   public renderSources: RenderSource[];
-  public boundingBox: BoundingBox;
+  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
@@ -18,8 +18,8 @@ export class CompositeRenderSource implements RenderSource {
   ) {
     this.renderSourcesMap = renderSourcesMap;
     this.renderSources = Object.values(this.renderSourcesMap);
-    this.boundingBox = BoundingBox.combineBoundingBoxes(
-      this.renderSources.map((r) => r.boundingBox),
+    this.boxCollider = BoxCollider.fromOtherBoxes(
+      this.renderSources.map((r) => r.boxCollider),
     );
     this.renderEffects = renderEffects;
   }

@@ -29,7 +29,7 @@ export class LayoutSystem extends System {
     const { renderSource: layoutRenderSource } = layoutSpriteComponent;
 
     // The maximum height we can use for laying out entities.
-    const maxHeight = layoutRenderSource.boundingBox.maxY;
+    const maxHeight = layoutRenderSource.boxCollider.maxY;
     const margin = layoutBoxComponent.margin;
     const spaceBetween = layoutBoxComponent.spaceBetween;
     const count = sortedEntities.length;
@@ -43,7 +43,7 @@ export class LayoutSystem extends System {
       const sprite = entity.getComponentRequired<SpriteComponent>(
         SpriteComponent.symbol,
       );
-      const entityHeight = sprite.renderSource.boundingBox.maxY + spaceBetween;
+      const entityHeight = sprite.renderSource.boxCollider.maxY + spaceBetween;
 
       if (totalHeightUsed + entityHeight > maxHeight) {
         break; // no more can fit
@@ -74,13 +74,13 @@ export class LayoutSystem extends System {
       // These entities are visible.
       spriteComponent.enabled = true;
 
-      const entityHeight = spriteComponent.renderSource.boundingBox.maxY;
+      const entityHeight = spriteComponent.renderSource.boxCollider.maxY;
 
       const alignmentOffset =
         layoutBoxComponent.alignChildren === 'start'
-          ? -(layoutRenderSource.boundingBox.maxX / 2)
+          ? -(layoutRenderSource.boxCollider.maxX / 2)
           : layoutBoxComponent.alignChildren === 'end'
-            ? layoutRenderSource.boundingBox.maxX / 2
+            ? layoutRenderSource.boxCollider.maxX / 2
             : 0;
 
       const baselineOffset =

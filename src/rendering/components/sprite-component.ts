@@ -6,8 +6,8 @@ type DebugMode = 'off' | 'on' | 'colorOnly';
 
 const getDefaultOptions = (renderSource: RenderSource) => ({
   anchor: new Vector2(
-    renderSource.boundingBox.dimentions.x / 2,
-    renderSource.boundingBox.dimentions.y / 2,
+    renderSource.boxCollider.dimentions.x / 2,
+    renderSource.boxCollider.dimentions.y / 2,
   ),
   enabled: true,
   debugMode: 'off' as DebugMode,

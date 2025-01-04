@@ -1,5 +1,6 @@
 import { Path } from '../../common';
-import { BoundingBox, calculateBoundingBox, Vector2 } from '../../math';
+import { calculateBoxCollider, Vector2 } from '../../math';
+import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
@@ -8,7 +9,7 @@ export class LineRenderSource implements RenderSource {
   public radius: number;
   public color: string;
   public lineWidth: number;
-  public boundingBox: BoundingBox;
+  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
@@ -24,13 +25,13 @@ export class LineRenderSource implements RenderSource {
     this.lineWidth = lineWidth;
     this.renderEffects = renderEffects;
 
-    this.boundingBox = new BoundingBox(Vector2.zero, Vector2.zero);
+    this.boxCollider = new BoxCollider(Vector2.zero, Vector2.zero);
   }
 
   public render = (layer: RenderLayer): void => {
     if (this.points.length < 2) return; // Nothing to draw
 
-    this.boundingBox = calculateBoundingBox(new Path(this.points));
+    this.boxCollider = calculateBoxCollider(new Path(this.points));
 
     layer.context.beginPath();
     layer.context.strokeStyle = this.color;

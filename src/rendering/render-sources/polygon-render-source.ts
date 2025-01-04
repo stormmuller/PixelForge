@@ -1,12 +1,13 @@
 import { Path } from '../../common';
-import { BoundingBox, calculateBoundingBox } from '../../math';
+import { calculateBoxCollider } from '../../math';
+import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
 export class PolygonRenderSource implements RenderSource {
   public path: Path;
   public color: string;
-  public boundingBox: BoundingBox;
+  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
@@ -16,7 +17,7 @@ export class PolygonRenderSource implements RenderSource {
   ) {
     this.path = path;
     this.color = color;
-    this.boundingBox = calculateBoundingBox(path);
+    this.boxCollider = calculateBoxCollider(path);
     this.renderEffects = renderEffects;
   }
 
