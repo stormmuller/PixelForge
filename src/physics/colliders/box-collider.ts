@@ -1,6 +1,7 @@
-import { Vector2 } from './Vector2';
+import { Vector2 } from "../../math";
+import { Collider } from "./collider";
 
-export class BoundingBox {
+export class BoxCollider implements Collider<BoxCollider> {
   public point: Vector2;
   public dimentions: Vector2;
 
@@ -48,11 +49,50 @@ export class BoundingBox {
     return inXBounds && inYBounds;
   };
 
-  public static combineBoundingBoxes = (
-    boundingBoxes: BoundingBox[],
-  ): BoundingBox => {
-    if (boundingBoxes.length === 0) {
-      throw new Error('No bounding boxes to combine');
+  public combine = (other: BoxCollider): BoxCollider => {
+    const minX = Math.min(this.minX, other.minX);
+    const minY = Math.min(this.minY, other.minY);
+    const maxX = Math.max(this.maxX, other.maxX);
+    const maxY = Math.max(this.maxY, other.maxY);
+
+    return new BoxCollider(
+      new Vector2(minX, minY),
+      new Vector2(maxX - minX, maxY - minY),
+    );    
+  }
+
+  public combineAll = (others: BoxCollider[]): BoxCollider => {
+    let minX = this.minX;
+    let minY = this.minY;
+    let maxX = this.maxX;
+    let maxY = this.maxY;
+
+    for (const other of others) {
+      if (other.minX < minX) {
+        minX = other.minX;
+      }
+      if (other.minY < minY) {
+        minY = other.minY;
+      }
+      if (other.maxX > maxX) {
+        maxX = other.maxX;
+      }
+      if (other.maxY > maxY) {
+        maxY = other.maxY;
+      }
+    }
+
+    return new BoxCollider(
+      new Vector2(minX, minY),
+      new Vector2(maxX - minX, maxY - minY),
+    );
+  };
+
+  public static fromOtherBoxes = (
+    boxColliders: BoxCollider[],
+  ): BoxCollider => {
+    if (boxColliders.length === 0) {
+      throw new Error('No boxes to combine');
     }
 
     let minX = Number.POSITIVE_INFINITY;
@@ -60,7 +100,7 @@ export class BoundingBox {
     let maxX = Number.NEGATIVE_INFINITY;
     let maxY = Number.NEGATIVE_INFINITY;
 
-    for (const box of boundingBoxes) {
+    for (const box of boxColliders) {
       if (box.minX < minX) {
         minX = box.minX;
       }
@@ -75,7 +115,7 @@ export class BoundingBox {
       }
     }
 
-    return new BoundingBox(
+    return new BoxCollider(
       new Vector2(minX, minY),
       new Vector2(maxX - minX, maxY - minY),
     );

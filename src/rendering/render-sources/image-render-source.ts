@@ -1,11 +1,12 @@
-import { BoundingBox, Vector2 } from '../../math';
+import { Vector2 } from '../../math';
+import { BoxCollider } from '../../physics';
 import { ImageCache } from '../asset-caches';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
 export class ImageRenderSource implements RenderSource {
   public image: HTMLImageElement;
-  public boundingBox: BoundingBox;
+  public boxCollider: BoxCollider;
   public bleed: number;
   public renderEffects: RenderEffects;
 
@@ -15,7 +16,7 @@ export class ImageRenderSource implements RenderSource {
     renderEffects: RenderEffects = {},
   ) {
     this.image = image;
-    this.boundingBox = new BoundingBox(
+    this.boxCollider = new BoxCollider(
       Vector2.zero,
       new Vector2(image.width + bleed, image.height + bleed),
     );

@@ -1,4 +1,5 @@
-import { BoundingBox, Vector2 } from '../../math';
+import { Vector2 } from '../../math';
+import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
@@ -13,7 +14,7 @@ export class RoundedRectangleRenderSource implements RenderSource {
   public radius: number;
   public color: string;
   public stroke?: Stroke;
-  public boundingBox: BoundingBox;
+  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
@@ -28,7 +29,7 @@ export class RoundedRectangleRenderSource implements RenderSource {
     this.height = height;
     this.radius = radius;
     this.color = color;
-    this.boundingBox = new BoundingBox(
+    this.boxCollider = new BoxCollider(
       Vector2.zero,
       new Vector2(this.width, this.height),
     );
