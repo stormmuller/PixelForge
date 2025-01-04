@@ -4,6 +4,15 @@ import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
+export type PolygonRenderSourceOptions = {
+  path: Path;
+  color?: string;
+};
+
+const defaultOptions = {
+  color: 'black',
+};
+
 export class PolygonRenderSource implements RenderSource {
   public path: Path;
   public color: string;
@@ -11,17 +20,25 @@ export class PolygonRenderSource implements RenderSource {
   public renderEffects: RenderEffects;
 
   constructor(
-    path: Path,
-    color: string = 'black',
+    options: PolygonRenderSourceOptions,
     renderEffects: RenderEffects = {},
   ) {
+    this._validatePath(options.path);    
+
+    const { path, color } = {
+      ...defaultOptions,
+      ...options,
+    };
+
     this.path = path;
     this.color = color;
+
     this.boxCollider = calculateBoxCollider(path);
+
     this.renderEffects = renderEffects;
   }
 
-  public render = (layer: RenderLayer): void =>  {
+  public render = (layer: RenderLayer): void => {
     layer.context.beginPath();
 
     for (let i = 0; i < this.path.length; i++) {
@@ -36,5 +53,28 @@ export class PolygonRenderSource implements RenderSource {
 
     layer.context.fillStyle = this.color;
     layer.context.fill();
+  };
+
+  public update = (options: Partial<PolygonRenderSourceOptions>): void => {
+    const { path, color } = {
+      path: this.path,
+      color: this.color,
+      ...options,
+    };
+    
+    this._validatePath(path);
+
+    this.path = path;
+    this.color = color;
+
+    this.boxCollider = calculateBoxCollider(path);
+  };
+  
+  private _validatePath = (path: Path): void => {
+    if (!path || path.length < 3) {
+      throw new Error(
+        'PolygonRenderSource requires at least 3 points to be defined in the path',
+      );
+    }
   }
 }

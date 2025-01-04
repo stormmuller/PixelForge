@@ -3,9 +3,20 @@ import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
-type Stroke = {
+export type RoundedRectangleRenderSourceOptions = {
   width: number;
-  color: string;
+  height: number;
+  radius?: number;
+  color?: string;
+  lineWidth?: number;
+  lineColor?: string;
+};
+
+const defaultOptions = {
+  radius: 0,
+  color: 'black',
+  lineWidth: 0,
+  lineColor: 'black',
 };
 
 export class RoundedRectangleRenderSource implements RenderSource {
@@ -13,37 +24,42 @@ export class RoundedRectangleRenderSource implements RenderSource {
   public height: number;
   public radius: number;
   public color: string;
-  public stroke?: Stroke;
+  public lineWidth: number;
+  public lineColor: string;
   public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
-    width: number,
-    height: number,
-    radius: number,
-    color: string = 'black',
-    stroke?: Stroke,
+    options: RoundedRectangleRenderSourceOptions,
     renderEffects: RenderEffects = {},
   ) {
+    this._validateDimentions(options.width, options.height);
+
+    const { width, height, radius, color, lineColor, lineWidth } = {
+      ...defaultOptions,
+      ...options,
+    };
+
     this.width = width;
     this.height = height;
     this.radius = radius;
     this.color = color;
+    this.lineWidth = lineWidth;
+    this.lineColor = lineColor;
+
     this.boxCollider = new BoxCollider(
       Vector2.zero,
       new Vector2(this.width, this.height),
     );
-    this.stroke = stroke;
+
     this.renderEffects = renderEffects;
   }
 
   public render = (layer: RenderLayer): void => {
     const ctx = layer.context;
 
-    if (this.stroke) {
-      ctx.lineWidth = this.stroke.width;
-      ctx.strokeStyle = this.stroke.color;
-    }
+    ctx.lineWidth = this.lineWidth;
+    ctx.strokeStyle = this.lineColor;
 
     ctx.beginPath();
     ctx.moveTo(this.radius, 0);
@@ -75,8 +91,38 @@ export class RoundedRectangleRenderSource implements RenderSource {
     ctx.fillStyle = this.color;
     ctx.fill();
 
-    if (this.stroke) {
-      ctx.stroke();
+    ctx.stroke();
+  };
+
+  public update = (options: Partial<RoundedRectangleRenderSourceOptions>): void => {
+    const { width, height, radius, color, lineColor, lineWidth } = {
+      width: this.width,
+      height: this.height,
+      radius: this.radius,
+      color: this.color,
+      lineWidth: this.lineWidth,
+      lineColor: this.lineColor,
+      ...options,
+    };
+
+    this._validateDimentions(width, height);
+
+    this.width = width;
+    this.height = height;
+    this.radius = radius;
+    this.color = color;
+    this.lineWidth = lineWidth;
+    this.lineColor = lineColor;
+    
+    this.boxCollider = new BoxCollider(
+      Vector2.zero,
+      new Vector2(this.width, this.height),
+    );
+  };
+
+  private _validateDimentions = (width: number, height: number) => {
+    if (width <= 0 || height <= 0) {
+      throw new Error('Width and height must be positive');
     }
-  }
+  };
 }

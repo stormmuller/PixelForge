@@ -4,23 +4,38 @@ import { ImageCache } from '../asset-caches';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
+export type ImageRenderSourceOptions = {
+  image: HTMLImageElement;
+  bleed?: number;
+};
+
+const defaultOptions = {
+  bleed: 1,
+};
+
 export class ImageRenderSource implements RenderSource {
   public image: HTMLImageElement;
-  public boxCollider: BoxCollider;
   public bleed: number;
+  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
-    image: HTMLImageElement,
-    bleed: number = 1,
+    options: ImageRenderSourceOptions,
     renderEffects: RenderEffects = {},
   ) {
+    const { image, bleed } = {
+      ...defaultOptions,
+      ...options,
+    };
+
     this.image = image;
+    this.bleed = bleed;
+
     this.boxCollider = new BoxCollider(
       Vector2.zero,
       new Vector2(image.width + bleed, image.height + bleed),
     );
-    this.bleed = bleed;
+
     this.renderEffects = renderEffects;
   }
 
@@ -40,9 +55,29 @@ export class ImageRenderSource implements RenderSource {
     bleed: number = 1,
     renderEffects: RenderEffects = {},
   ) => {
-    console.log(`rendering image from cache: ${path}`);
-
     const image = await imageCache.getOrLoad(path);
-    return new ImageRenderSource(image, bleed, renderEffects);
-  }
+    return new ImageRenderSource(
+      {
+        image,
+        bleed,
+      },
+      renderEffects,
+    );
+  };
+
+  public update = (options: Partial<ImageRenderSourceOptions>): void => {
+    const { image, bleed } = {
+      image: this.image,
+      bleed: this.bleed,
+      ...options,
+    };
+
+    this.image = image;
+    this.bleed = bleed;
+
+    this.boxCollider = new BoxCollider(
+      Vector2.zero,
+      new Vector2(image.width + bleed, image.height + bleed),
+    );
+  };
 }

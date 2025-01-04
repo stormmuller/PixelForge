@@ -4,16 +4,16 @@ export const createText = async (
   renderLayer: rendering.RenderLayer,
   world: ecs.World,
 ) => {
-  const textRenderSource = new rendering.TextRenderSource(
-    'Pixel Forge',
-    500,
-    500,
-    'Verdana',
-    30,
-    'white',
-    'center',
-    'middle',
-  );
+  const textRenderSource = new rendering.TextRenderSource({
+    text: 'Pixel Forge',
+    maxWidth: 500,
+    overflowWidth: 500,
+    fontFamily: 'Verdana',
+    fontSize: 30,
+    color: 'white',
+    textAlign: 'center',
+    textBaseline: 'middle',
+  });
 
   const positionComponent = new common.PositionComponent(
     window.innerWidth / 2,

@@ -3,29 +3,59 @@ import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
+export type TextRenderSourceOptions = {
+  text: string;
+  fontFamily?: string;
+  color?: string;
+  fontSize?: number;
+  textAlign?: CanvasTextAlign;
+  textBaseline?: CanvasTextBaseline;
+  maxWidth?: number;
+  overflowWidth?: number;
+};
+
+const defaultOptions = {
+  fontFamily: 'Arial',
+  color: 'black',
+  fontSize: 16,
+  textAlign: 'center' as CanvasTextAlign,
+  textBaseline: 'middle' as CanvasTextBaseline,
+  maxWidth: 1000,
+  overflowWidth: 1000,
+};
+
 export class TextRenderSource implements RenderSource {
   public text: string;
   public fontFamily: string;
   public color: string;
-  public boxCollider: BoxCollider;
   public fontSize: number;
   public textAlign: CanvasTextAlign;
   public textBaseline: CanvasTextBaseline;
   public maxWidth: number;
   public overflowWidth: number;
+  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
-    text: string,
-    maxWidth: number,
-    overflowWidth: number = maxWidth,
-    fontFamily: string = 'Arial',
-    fontSize: number = 16,
-    color: string = 'black',
-    textAlign: CanvasTextAlign = 'center',
-    textBaseline: CanvasTextBaseline = 'middle',
+    options: TextRenderSourceOptions,
     renderEffects: RenderEffects = {},
   ) {
+    this._validateText(options.text);
+
+    const {
+      text,
+      fontFamily,
+      fontSize,
+      color,
+      textAlign,
+      textBaseline,
+      maxWidth,
+      overflowWidth,
+    } = {
+      ...defaultOptions,
+      ...options,
+    };
+
     this.text = text;
     this.fontFamily = fontFamily;
     this.fontSize = fontSize;
@@ -34,18 +64,15 @@ export class TextRenderSource implements RenderSource {
     this.textBaseline = textBaseline;
     this.maxWidth = maxWidth;
     this.overflowWidth = overflowWidth;
-    this.renderEffects = renderEffects;
 
-    const tempCanvas = document.createElement('canvas').getContext('2d')!;
-    tempCanvas.font = `${this.fontSize}px ${this.fontFamily}`;
-    const metrics = tempCanvas.measureText(this.text);
-    const height =
-      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+    const height = this._calculateTextHeight(text, fontSize, fontFamily);
 
     this.boxCollider = new BoxCollider(
       Vector2.zero,
       new Vector2(maxWidth, height),
     );
+
+    this.renderEffects = renderEffects;
   }
 
   public render = (layer: RenderLayer): void => {
@@ -96,5 +123,65 @@ export class TextRenderSource implements RenderSource {
     } else {
       context.fillText(renderText, x, 0);
     }
-  }
+  };
+
+  public update = (options: Partial<TextRenderSourceOptions>): void => {
+    const {
+      text,
+      fontFamily,
+      fontSize,
+      color,
+      textAlign,
+      textBaseline,
+      maxWidth,
+      overflowWidth,
+    } = {
+      text: this.text,
+      fontFamily: this.fontFamily,
+      fontSize: this.fontSize,
+      color: this.color,
+      textAlign: this.textAlign,
+      textBaseline: this.textBaseline,
+      maxWidth: this.maxWidth,
+      overflowWidth: this.overflowWidth,
+      ...options,
+    };
+
+    this._validateText(text);
+
+    this.text = text;
+    this.fontFamily = fontFamily;
+    this.fontSize = fontSize;
+    this.color = color;
+    this.textAlign = textAlign;
+    this.textBaseline = textBaseline;
+    this.maxWidth = maxWidth;
+    this.overflowWidth = overflowWidth;
+
+    const height = this._calculateTextHeight(text, fontSize, fontFamily);
+
+    this.boxCollider = new BoxCollider(
+      Vector2.zero,
+      new Vector2(maxWidth, height),
+    );
+  };
+
+  private _validateText = (text: string): void => {
+    if (!text) {
+      throw new Error('Text must be provided');
+    }
+  };
+
+  private _calculateTextHeight = (
+    text: string,
+    fontSize: number,
+    fontFamily: string,
+  ): number => {
+    const tempCanvas = document.createElement('canvas').getContext('2d')!; // TODO: can't be creating a new canvas everytime text changes
+    tempCanvas.font = `${fontSize}px ${fontFamily}`;
+    const metrics = tempCanvas.measureText(text);
+    const height =
+      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+    return height;
+  };
 }
