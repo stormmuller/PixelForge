@@ -11,6 +11,16 @@ import { RenderLayer } from '../render-layer';
 import { GlowEffect, RenderEffects } from '../render-sources';
 import { CLEAR_STRATEGY } from '../types';
 
+const debugColors = [
+  '#A834A7',
+  '#B741A9',
+  '#C54DAA',
+  '#D45AAC',
+  '#E267AD',
+  '#F173AF',
+  '#FF80B0',
+];
+
 export class RenderSystem extends System {
   private _layer: RenderLayer;
   private _worldSpace: Space;
@@ -191,13 +201,10 @@ export class RenderSystem extends System {
   };
 
   private _getRandomMagentaShade = (seed: number): string => {
-    const green = Math.abs(seed) % 128;
-    const red = 255;
-    const blue = 255;
-  
-    // Convert RGB to HEX
-    const toHex = (color: number) => color.toString(16).padStart(2, '0');
-    return `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
+    const debugColorIndex = (Math.abs(seed) % debugColors.length) - 1;
+    const debugColor = debugColors[debugColorIndex];
+
+    return debugColor;
   };
 
   private _adjustOpacity = (opacity?: number) => {
