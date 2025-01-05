@@ -3,9 +3,9 @@ import { BoxCollider } from '../physics';
 import { Vector2 } from './types';
 
 export const calculateBoxCollider = (points: Path) => {
-  if (points.length === 0) {
+  if (points.length < 2) {
     throw new Error(
-      'There needs to be atleast 1 point in order to calculate a bounding box',
+      'There needs to be atleast 2 points in order to calculate a bounding box',
     );
   }
 
@@ -35,7 +35,7 @@ export const calculateBoxCollider = (points: Path) => {
     }
   }
 
-  const point = new Vector2(minX, minX);
+  const point = new Vector2(minX, minY);
   const dimentions = new Vector2(maxX - minX, maxY - minY);
 
   return new BoxCollider(point, dimentions);
