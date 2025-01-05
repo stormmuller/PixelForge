@@ -1,4 +1,5 @@
 import { common, ecs, rendering } from '@stormmuller/pixelforge';
+import { colors } from './colors';
 
 export const createBolt = async (
   imageCache: rendering.ImageCache,
@@ -11,7 +12,7 @@ export const createBolt = async (
     1,
     {
       glow: {
-        color: 'rgba(255, 255, 0, 0.35)',
+        color: colors.yellow,
         radius: 50,
       },
     },
