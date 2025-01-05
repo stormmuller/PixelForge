@@ -28,18 +28,18 @@ const defaultOptions: CreateGameOptions = {
 };
 
 export function createGame(options: Partial<CreateGameOptions> = defaultOptions) {
-  const mergedoptions = { ...defaultOptions, ...options };
+  const mergedOptions = { ...defaultOptions, ...options };
 
   const game = new Game();
 
-  const gameContainer = isString(mergedoptions.container)
-    ? createContainer(mergedoptions.container)
-    : mergedoptions.container;
+  const gameContainer = isString(mergedOptions.container)
+    ? createContainer(mergedOptions.container)
+    : mergedOptions.container;
 
-  const scene = new Scene(mergedoptions.sceneName);
+  const scene = new Scene(mergedOptions.sceneName);
   const imageCache = new ImageCache();
 
-  const worldSpace = new Space(mergedoptions.dimentions);
+  const worldSpace = new Space(mergedOptions.dimentions);
   const layerService = new LayerService(gameContainer);
 
   const world = new World(game);
@@ -56,7 +56,7 @@ export function createGame(options: Partial<CreateGameOptions> = defaultOptions)
     new PositionComponent(worldSpace.center.x, worldSpace.center.y),
   ]);
 
-  for (const layerName of mergedoptions.layers) {
+  for (const layerName of mergedOptions.layers) {
     const layer = layerService.createLayer(layerName);
     const layerRenderSystem = new RenderSystem(layer, worldCamera, worldSpace);
 

@@ -146,7 +146,7 @@ export class RenderSystem extends System {
       spriteComponent.debugMode === 'on' ||
       spriteComponent.debugMode === 'colorOnly'
     ) {
-      this._layer.context.fillStyle = this._getRandomMagentaShade();
+      this._layer.context.fillStyle = this._getRandomMagentaShade(entity.id);
       this._layer.context.fillRect(
         spriteComponent.renderSource.boxCollider.minX,
         spriteComponent.renderSource.boxCollider.minY,
@@ -190,16 +190,14 @@ export class RenderSystem extends System {
     this._layer.context.shadowBlur = glow.radius;
   };
 
-  private _getRandomMagentaShade = (): string => {
+  private _getRandomMagentaShade = (seed: number): string => {
+    const green = Math.abs(seed) % 128;
     const red = 255;
-    const green = Math.floor(Math.random() * 128);
     const blue = 255;
-
-    // Convert RGB to Hex
+  
+    // Convert RGB to HEX
     const toHex = (color: number) => color.toString(16).padStart(2, '0');
-
-    const hexColor = `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
-    return hexColor;
+    return `#${toHex(red)}${toHex(green)}${toHex(blue)}`;
   };
 
   private _adjustOpacity = (opacity?: number) => {
