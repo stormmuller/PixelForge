@@ -11,16 +11,6 @@ import { RenderLayer } from '../render-layer';
 import { GlowEffect, RenderEffects } from '../render-sources';
 import { CLEAR_STRATEGY } from '../types';
 
-const debugColors = [
-  '#A834A7',
-  '#B741A9',
-  '#C54DAA',
-  '#D45AAC',
-  '#E267AD',
-  '#F173AF',
-  '#FF80B0',
-];
-
 export class RenderSystem extends System {
   private _layer: RenderLayer;
   private _worldSpace: Space;
@@ -89,8 +79,8 @@ export class RenderSystem extends System {
 
       return (
         position1.y -
-        spriteComponent1.anchor.y -
-        (position2.y - spriteComponent2.anchor.y)
+        spriteComponent1.sprite.anchor.y -
+        (position2.y - spriteComponent2.sprite.anchor.y)
       );
     });
 
@@ -102,7 +92,7 @@ export class RenderSystem extends System {
       SpriteComponent.symbol,
     );
 
-    if (spriteComponent.renderLayerName !== this._layer.name) {
+    if (spriteComponent.renderLayer !== this._layer) {
       return; // Probably not the best way to handle layers/sprite, but the alternatives have their own issues.
     }
 
@@ -144,31 +134,15 @@ export class RenderSystem extends System {
 
     // Translate based on the anchor point of the sprite
     this._layer.context.translate(
-      -spriteComponent.anchor.x,
-      -spriteComponent.anchor.y,
+      -spriteComponent.sprite.anchor.x,
+      -spriteComponent.sprite.anchor.y,
     );
 
     this._renderPreProcessingEffects(
-      spriteComponent.renderSource.renderEffects,
+      spriteComponent.sprite.renderSource.renderEffects,
     );
 
-    if (
-      spriteComponent.debugMode === 'on' ||
-      spriteComponent.debugMode === 'colorOnly'
-    ) {
-      this._layer.context.fillStyle = this._getRandomMagentaShade(entity.id);
-      this._layer.context.fillRect(
-        spriteComponent.renderSource.boxCollider.minX,
-        spriteComponent.renderSource.boxCollider.minY,
-        spriteComponent.renderSource.boxCollider.maxX,
-        spriteComponent.renderSource.boxCollider.maxY,
-      );
-    }
-
-    if (spriteComponent.debugMode !== 'colorOnly') {
-      // Render the sprite
-      spriteComponent.renderSource.render(this._layer);
-    }
+    spriteComponent.sprite.renderSource.render(this._layer);
 
     this._resetCanvas();
   };
@@ -198,13 +172,6 @@ export class RenderSystem extends System {
 
     this._layer.context.shadowColor = glow.color;
     this._layer.context.shadowBlur = glow.radius;
-  };
-
-  private _getRandomMagentaShade = (seed: number): string => {
-    const debugColorIndex = (Math.abs(seed) % debugColors.length) - 1;
-    const debugColor = debugColors[debugColorIndex];
-
-    return debugColor;
   };
 
   private _adjustOpacity = (opacity?: number) => {

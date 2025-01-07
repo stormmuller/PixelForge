@@ -54,7 +54,7 @@ export const createAnimations = async (
     rendering.SpriteComponent.symbol,
   );  
 
-  const textRenderSource = textSpriteComponent.renderSource as rendering.TextRenderSource;
+  const textRenderSource = textSpriteComponent.sprite.renderSource as rendering.TextRenderSource;
 
   textEntity.addComponent(
     new animations.AnimationComponent([

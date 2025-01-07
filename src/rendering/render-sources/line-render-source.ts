@@ -1,6 +1,4 @@
 import { Path } from '../../common';
-import { calculateBoxCollider } from '../../math';
-import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
@@ -22,7 +20,6 @@ export class LineRenderSource implements RenderSource {
   public radius: number;
   public color: string;
   public lineWidth: number;
-  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
@@ -40,8 +37,6 @@ export class LineRenderSource implements RenderSource {
     this.radius = radius;
     this.color = color;
     this.lineWidth = lineWidth;
-
-    this.boxCollider = calculateBoxCollider(this.path);
 
     this.renderEffects = renderEffects;
   }
@@ -75,8 +70,6 @@ export class LineRenderSource implements RenderSource {
     this.radius = radius;
     this.color = color;
     this.lineWidth = lineWidth;
-
-    this.boxCollider = calculateBoxCollider(path);
   };
 
   private _validatePath = (path: Path): void => {

@@ -12,7 +12,6 @@ module.exports = {
       'error',
       { ignoreCase: true, ignoreDeclarationSort: true },
     ],
-    'sort-exports/sort-exports': ['error', { sortExportKindFirst: 'type' }],
     '@typescript-eslint/naming-convention': [
       'error',
       {

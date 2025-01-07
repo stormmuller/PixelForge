@@ -1,5 +1,3 @@
-import { Vector2 } from '../../math';
-import { BoxCollider } from '../../physics';
 import { ImageCache } from '../asset-caches';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
@@ -16,8 +14,9 @@ const defaultOptions = {
 export class ImageRenderSource implements RenderSource {
   public image: HTMLImageElement;
   public bleed: number;
-  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
+  public width: number;
+  public height: number;
 
   constructor(
     options: ImageRenderSourceOptions,
@@ -31,10 +30,8 @@ export class ImageRenderSource implements RenderSource {
     this.image = image;
     this.bleed = bleed;
 
-    this.boxCollider = new BoxCollider(
-      Vector2.zero,
-      new Vector2(image.width + bleed, image.height + bleed),
-    );
+    this.width = image.width + bleed;
+    this.height = image.height + bleed;
 
     this.renderEffects = renderEffects;
   }
@@ -74,10 +71,5 @@ export class ImageRenderSource implements RenderSource {
 
     this.image = image;
     this.bleed = bleed;
-
-    this.boxCollider = new BoxCollider(
-      Vector2.zero,
-      new Vector2(image.width + bleed, image.height + bleed),
-    );
   };
 }
