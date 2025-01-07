@@ -6,20 +6,20 @@ export class PolygonComponent implements Component {
   public name: symbol;
   public path: Path;
   public renderLayerName: string;
-  public anchor: Vector2;
+  public pivot: Vector2;
   public color: string;
 
   public static symbol = Symbol('Polygon');
 
   constructor(
     path: Path,
-    anchor: Vector2,
+    pivot: Vector2,
     renderLayerName: string,
     color: string = 'black',
   ) {
     this.name = PolygonComponent.symbol;
     this.path = path;
-    this.anchor = anchor;
+    this.pivot = pivot;
     this.renderLayerName = renderLayerName;
     this.color = color;
   }
