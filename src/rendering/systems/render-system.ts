@@ -79,8 +79,8 @@ export class RenderSystem extends System {
 
       return (
         position1.y -
-        spriteComponent1.sprite.anchor.y -
-        (position2.y - spriteComponent2.sprite.anchor.y)
+        spriteComponent1.sprite.pivot.y -
+        (position2.y - spriteComponent2.sprite.pivot.y)
       );
     });
 
@@ -132,10 +132,10 @@ export class RenderSystem extends System {
 
     this._layer.context.scale(scale?.x ?? 1, scale?.y ?? 1);
 
-    // Translate based on the anchor point of the sprite
+    // Translate based on the pivot point of the sprite
     this._layer.context.translate(
-      -spriteComponent.sprite.anchor.x,
-      -spriteComponent.sprite.anchor.y,
+      -spriteComponent.sprite.pivot.x,
+      -spriteComponent.sprite.pivot.y,
     );
 
     this._renderPreProcessingEffects(

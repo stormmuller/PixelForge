@@ -57,7 +57,7 @@ export function createButton(options: CreateButtonOptions) {
   );
 
   const collider = new BoxCollider(
-    position.subtract(buttonSprite.anchor),
+    position.subtract(buttonSprite.pivot),
     new Vector2(
       roundedRectangleRenderSourceOptions.width,
       roundedRectangleRenderSourceOptions.height,
