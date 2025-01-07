@@ -1,6 +1,4 @@
 import { Path } from '../../common';
-import { calculateBoxCollider } from '../../math';
-import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
@@ -16,14 +14,13 @@ const defaultOptions = {
 export class PolygonRenderSource implements RenderSource {
   public path: Path;
   public color: string;
-  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
     options: PolygonRenderSourceOptions,
     renderEffects: RenderEffects = {},
   ) {
-    this._validatePath(options.path);    
+    this._validatePath(options.path);
 
     const { path, color } = {
       ...defaultOptions,
@@ -32,8 +29,6 @@ export class PolygonRenderSource implements RenderSource {
 
     this.path = path;
     this.color = color;
-
-    this.boxCollider = calculateBoxCollider(path);
 
     this.renderEffects = renderEffects;
   }
@@ -61,20 +56,18 @@ export class PolygonRenderSource implements RenderSource {
       color: this.color,
       ...options,
     };
-    
+
     this._validatePath(path);
 
     this.path = path;
     this.color = color;
-
-    this.boxCollider = calculateBoxCollider(path);
   };
-  
+
   private _validatePath = (path: Path): void => {
     if (!path || path.length < 3) {
       throw new Error(
         'PolygonRenderSource requires at least 3 points to be defined in the path',
       );
     }
-  }
+  };
 }

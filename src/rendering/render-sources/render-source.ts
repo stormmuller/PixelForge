@@ -1,4 +1,3 @@
-import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 
 export type GlowEffect = {
@@ -13,6 +12,5 @@ export type RenderEffects = {
 
 export interface RenderSource {
   render(layer: RenderLayer): void;
-  boxCollider: BoxCollider;
   renderEffects: RenderEffects;
 }

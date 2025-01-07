@@ -1,5 +1,3 @@
-import { Vector2 } from '../../math';
-import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
@@ -12,13 +10,6 @@ export type RoundedRectangleRenderSourceOptions = {
   lineColor?: string;
 };
 
-const defaultOptions = {
-  radius: 0,
-  color: 'black',
-  lineWidth: 0,
-  lineColor: 'black',
-};
-
 export class RoundedRectangleRenderSource implements RenderSource {
   public width: number;
   public height: number;
@@ -26,7 +17,6 @@ export class RoundedRectangleRenderSource implements RenderSource {
   public color: string;
   public lineWidth: number;
   public lineColor: string;
-  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
@@ -36,7 +26,7 @@ export class RoundedRectangleRenderSource implements RenderSource {
     this._validateDimentions(options.width, options.height);
 
     const { width, height, radius, color, lineColor, lineWidth } = {
-      ...defaultOptions,
+      ...defaultRoundedRectangleRenderSourceOptions,
       ...options,
     };
 
@@ -47,30 +37,23 @@ export class RoundedRectangleRenderSource implements RenderSource {
     this.lineWidth = lineWidth;
     this.lineColor = lineColor;
 
-    this.boxCollider = new BoxCollider(
-      Vector2.zero,
-      new Vector2(this.width, this.height),
-    );
-
     this.renderEffects = renderEffects;
   }
 
   public render = (layer: RenderLayer): void => {
-    const ctx = layer.context;
+    layer.context.lineWidth = this.lineWidth;
+    layer.context.strokeStyle = this.lineColor;
 
-    ctx.lineWidth = this.lineWidth;
-    ctx.strokeStyle = this.lineColor;
-
-    ctx.beginPath();
-    ctx.moveTo(this.radius, 0);
+    layer.context.beginPath();
+    layer.context.moveTo(this.radius, 0);
 
     // Top edge
-    ctx.lineTo(this.width - this.radius, 0);
-    ctx.arcTo(this.width, 0, this.width, this.radius, this.radius);
+    layer.context.lineTo(this.width - this.radius, 0);
+    layer.context.arcTo(this.width, 0, this.width, this.radius, this.radius);
 
     // Right edge
-    ctx.lineTo(this.width, this.height - this.radius);
-    ctx.arcTo(
+    layer.context.lineTo(this.width, this.height - this.radius);
+    layer.context.arcTo(
       this.width,
       this.height,
       this.width - this.radius,
@@ -79,22 +62,24 @@ export class RoundedRectangleRenderSource implements RenderSource {
     );
 
     // Bottom edge
-    ctx.lineTo(this.radius, this.height);
-    ctx.arcTo(0, this.height, 0, this.height - this.radius, this.radius);
+    layer.context.lineTo(this.radius, this.height);
+    layer.context.arcTo(0, this.height, 0, this.height - this.radius, this.radius);
 
     // Left edge
-    ctx.lineTo(0, this.radius);
-    ctx.arcTo(0, 0, this.radius, 0, this.radius);
+    layer.context.lineTo(0, this.radius);
+    layer.context.arcTo(0, 0, this.radius, 0, this.radius);
 
-    ctx.closePath();
+    layer.context.closePath();
 
-    ctx.fillStyle = this.color;
-    ctx.fill();
+    layer.context.fillStyle = this.color;
+    layer.context.fill();
 
-    ctx.stroke();
+    layer.context.stroke();
   };
 
-  public update = (options: Partial<RoundedRectangleRenderSourceOptions>): void => {
+  public update = (
+    options: Partial<RoundedRectangleRenderSourceOptions>,
+  ): void => {
     const { width, height, radius, color, lineColor, lineWidth } = {
       width: this.width,
       height: this.height,
@@ -113,11 +98,6 @@ export class RoundedRectangleRenderSource implements RenderSource {
     this.color = color;
     this.lineWidth = lineWidth;
     this.lineColor = lineColor;
-    
-    this.boxCollider = new BoxCollider(
-      Vector2.zero,
-      new Vector2(this.width, this.height),
-    );
   };
 
   private _validateDimentions = (width: number, height: number) => {
@@ -126,3 +106,10 @@ export class RoundedRectangleRenderSource implements RenderSource {
     }
   };
 }
+
+export const defaultRoundedRectangleRenderSourceOptions = {
+  radius: 0,
+  color: 'black',
+  lineWidth: 0,
+  lineColor: 'black',
+};

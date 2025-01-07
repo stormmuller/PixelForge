@@ -1,5 +1,3 @@
-import { Vector2 } from '../../math';
-import { BoxCollider } from '../../physics';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
@@ -14,7 +12,7 @@ export type TextRenderSourceOptions = {
   overflowWidth?: number;
 };
 
-const defaultOptions = {
+export const defaultTextRenderSourceOptions = {
   fontFamily: 'Arial',
   color: 'black',
   fontSize: 16,
@@ -33,7 +31,6 @@ export class TextRenderSource implements RenderSource {
   public textBaseline: CanvasTextBaseline;
   public maxWidth: number;
   public overflowWidth: number;
-  public boxCollider: BoxCollider;
   public renderEffects: RenderEffects;
 
   constructor(
@@ -52,7 +49,7 @@ export class TextRenderSource implements RenderSource {
       maxWidth,
       overflowWidth,
     } = {
-      ...defaultOptions,
+      ...defaultTextRenderSourceOptions,
       ...options,
     };
 
@@ -64,13 +61,6 @@ export class TextRenderSource implements RenderSource {
     this.textBaseline = textBaseline;
     this.maxWidth = maxWidth;
     this.overflowWidth = overflowWidth;
-
-    const height = this._calculateTextHeight(text, fontSize, fontFamily);
-
-    this.boxCollider = new BoxCollider(
-      Vector2.zero,
-      new Vector2(maxWidth, height),
-    );
 
     this.renderEffects = renderEffects;
   }
@@ -85,8 +75,6 @@ export class TextRenderSource implements RenderSource {
     let renderText = this.text;
     const metrics = context.measureText(this.text);
     const width = metrics.width;
-    const height =
-      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 
     // Handle maxWidth constraint
     if (width > this.overflowWidth) {
@@ -106,8 +94,6 @@ export class TextRenderSource implements RenderSource {
 
       renderText = truncatedText;
     }
-
-    this.boxCollider.dimentions = new Vector2(this.maxWidth, height);
 
     context.fillStyle = this.color;
 
@@ -157,13 +143,6 @@ export class TextRenderSource implements RenderSource {
     this.textBaseline = textBaseline;
     this.maxWidth = maxWidth;
     this.overflowWidth = overflowWidth;
-
-    const height = this._calculateTextHeight(text, fontSize, fontFamily);
-
-    this.boxCollider = new BoxCollider(
-      Vector2.zero,
-      new Vector2(maxWidth, height),
-    );
   };
 
   private _validateText = (text: string): void => {

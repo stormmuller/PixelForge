@@ -1,21 +1,28 @@
-import { common, ecs, rendering } from '@stormmuller/pixelforge';
+import { common, ecs, math, rendering } from '@stormmuller/pixelforge';
 import { colors } from './colors';
 
 export const createBolt = async (
   imageCache: rendering.ImageCache,
   renderLayer: rendering.RenderLayer,
-  world: ecs.World
+  world: ecs.World,
 ) => {
+  const boltRenderEffects = {
+    glow: {
+      color: colors.yellow,
+      radius: 50,
+    },
+  };
+
   const boltRenderSource = await rendering.ImageRenderSource.fromImageCache(
     imageCache,
     'bolt.png',
     1,
-    {
-      glow: {
-        color: colors.yellow,
-        radius: 50,
-      },
-    },
+    boltRenderEffects,
+  );
+
+  const boltSprite = new rendering.Sprite(
+    boltRenderSource,
+    new math.Vector2(boltRenderSource.width / 2, boltRenderSource.height / 2),
   );
 
   const positionComponent = new common.PositionComponent(
@@ -27,7 +34,7 @@ export const createBolt = async (
     positionComponent,
     new common.ScaleComponent(),
     new common.RotationComponent(0),
-    new rendering.SpriteComponent(boltRenderSource, renderLayer.name),
+    new rendering.SpriteComponent(boltSprite, renderLayer),
   ]);
 
   world.addEntity(boltEntity);

@@ -1,4 +1,3 @@
-export * from './composite-render-source';
 export * from './image-render-source';
 export * from './line-render-source';
 export * from './polygon-render-source';
