@@ -63,7 +63,13 @@ export class RoundedRectangleRenderSource implements RenderSource {
 
     // Bottom edge
     layer.context.lineTo(this.radius, this.height);
-    layer.context.arcTo(0, this.height, 0, this.height - this.radius, this.radius);
+    layer.context.arcTo(
+      0,
+      this.height,
+      0,
+      this.height - this.radius,
+      this.radius,
+    );
 
     // Left edge
     layer.context.lineTo(0, this.radius);
@@ -74,7 +80,9 @@ export class RoundedRectangleRenderSource implements RenderSource {
     layer.context.fillStyle = this.color;
     layer.context.fill();
 
-    layer.context.stroke();
+    if (this.lineWidth > 0) {
+      layer.context.stroke();
+    }
   };
 
   public update = (
