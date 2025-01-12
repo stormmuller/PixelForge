@@ -3,7 +3,7 @@ import './style.css';
 import { createBolt } from './create-bolt';
 import { createAnimations } from './create-animation';
 import { createText } from './create-text';
-import { createDocumentationButton } from './create-documentation-button';
+import { createMenu } from './create-menu';
 
 const {
   imageCache,
@@ -23,7 +23,7 @@ const textEntity = await createText(foregroundRenderLayer, world);
 
 createAnimations(boltEntity, textEntity, game, world);
 
-createDocumentationButton(foregroundRenderLayer, world);
+createMenu(world, foregroundRenderLayer);
 
 const hoverableSystem = new ui.HoverableSystem(
   inputsEntity,
