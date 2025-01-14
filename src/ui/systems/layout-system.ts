@@ -27,7 +27,7 @@ export class LayoutSystem extends System {
   public stop = (): void => {};
 
   private _updateContainer = (layoutContainer: LayoutContainer): void => {
-    layoutContainer.layout.update(layoutContainer.children);
+    layoutContainer.layout.update(layoutContainer.children, layoutContainer.position);
 
     for (const child of layoutContainer.children) {
       this._updateContainer(child);
