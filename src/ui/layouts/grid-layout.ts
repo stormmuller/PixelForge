@@ -4,8 +4,8 @@ import { Layout, LayoutContainer } from './layout';
 
 export type GridLayoutOptions = {
   boxCollider: BoxCollider;
-  itemWidth: number;
-  itemHeight: number;
+  columns: number;
+  rows: number;
   itemGap?: number | Vector2;
   layoutPadding?: number | Vector2;
 };
@@ -17,22 +17,22 @@ const defaultOptions = {
 
 export class GridLayout implements Layout {
   private _layoutBox: BoxCollider;
-  private _itemWidth: number;
-  private _itemHeight: number;
+  private _columns: number;
+  private _rows: number;
   private _horizontalItemGap: number;
   private _verticalItemGap: number;
   private _layoutHorizontalPadding: number;
   private _layoutVerticalPadding: number;
 
   constructor(options: GridLayoutOptions) {
-    const { boxCollider, itemWidth, itemHeight, itemGap, layoutPadding } = {
+    const { boxCollider, columns, rows, itemGap, layoutPadding } = {
       ...defaultOptions,
       ...options,
     };
 
     this._layoutBox = boxCollider;
-    this._itemWidth = itemWidth;
-    this._itemHeight = itemHeight;
+    this._columns = columns;
+    this._rows = rows;
     this._horizontalItemGap = typeof itemGap === 'number' ? itemGap : itemGap.x;
     this._verticalItemGap = typeof itemGap === 'number' ? itemGap : itemGap.y;
     this._layoutHorizontalPadding =
@@ -41,14 +41,28 @@ export class GridLayout implements Layout {
       typeof layoutPadding === 'number' ? layoutPadding : layoutPadding.y;
   }
 
-  public update = (children: LayoutContainer[]): void => {
-    const startX = this._layoutBox.minX + this._layoutHorizontalPadding;
-    const startY = this._layoutBox.minY + this._layoutVerticalPadding;
-    const horizontalSpacePerItem = this._itemWidth + this._horizontalItemGap;
-    const verticalSpacePerItem = this._itemHeight + this._verticalItemGap;
-    const itemSpace =
+  public update = (children: LayoutContainer[], offset: Vector2): void => {
+    const startX =
+      this._layoutBox.minX + this._layoutHorizontalPadding + offset.x;
+    const startY =
+      this._layoutBox.minY + this._layoutVerticalPadding + offset.y;
+
+    const avaliableHorizontalSpace =
       this._layoutBox.dimentions.x - 2 * this._layoutHorizontalPadding;
-    const numberOfItemsPerRow = Math.floor(itemSpace / horizontalSpacePerItem);
+    const avaliableVerticalSpace =
+      this._layoutBox.dimentions.y - 2 * this._layoutVerticalPadding;
+
+    const horizontalSpacePerItem =
+      (avaliableHorizontalSpace -
+        this._horizontalItemGap * (this._columns - 1)) /
+      this._columns;
+    const verticalSpacePerItem =
+      (avaliableVerticalSpace - this._verticalItemGap * (this._rows - 1)) /
+      this._rows;
+
+    const numberOfItemsPerRow = Math.floor(
+      avaliableHorizontalSpace / horizontalSpacePerItem,
+    );
 
     for (let index = 0; index < children.length; index++) {
       const child = children[index];

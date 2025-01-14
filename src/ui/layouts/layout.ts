@@ -1,10 +1,12 @@
 import { Vector2 } from '../../math';
+// import { BoxCollider } from '../../physics';
 
 export interface LayoutContainer {
   position: Vector2;
   scale: Vector2;
   children: LayoutContainer[];
   layout: Layout;
+  // boundingBox: BoxCollider;
 }
 
 export type LayoutResult = {
@@ -12,5 +14,5 @@ export type LayoutResult = {
 };
 
 export interface Layout {
-  update: (children: LayoutContainer[]) => void;
+  update: (children: LayoutContainer[], offset: Vector2) => void;
 }
