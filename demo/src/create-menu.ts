@@ -52,8 +52,8 @@ const createButtons = (
         roundedRectangleRenderSourceOptions.height,
       ),
     ),
-    itemWidth: roundedRectangleRenderSourceOptions.width,
-    itemHeight: roundedRectangleRenderSourceOptions.height,
+    columns: 5,
+    rows: 5,
     itemGap: 0,
     layoutPadding: 0,
   });
@@ -77,8 +77,21 @@ const createButtons = (
 
     world.addEntity(buttonEntity);
 
+    const { textPosition, textScale } = createButtonText(
+      buttonText,
+      renderLayer,
+      world,
+    );
+
     buttonLayoutContainers.push({
-      children: [],
+      children: [
+        {
+          children: [],
+          layout,
+          position: textPosition,
+          scale: textScale,
+        },
+      ],
       layout,
       position,
       scale,
@@ -92,10 +105,10 @@ const createRootLayout = (world: ecs.World, children: ui.LayoutContainer[]) => {
   const layout = new ui.GridLayout({
     boxCollider: new physics.BoxCollider(
       new math.Vector2(0, 0),
-      new math.Vector2(500, 300),
+      new math.Vector2(800, 500),
     ),
-    itemWidth: roundedRectangleRenderSourceOptions.width,
-    itemHeight: roundedRectangleRenderSourceOptions.height,
+    columns: 5,
+    rows: 5,
     itemGap: 20,
     layoutPadding: 20,
   });
@@ -115,4 +128,31 @@ const createRootLayout = (world: ecs.World, children: ui.LayoutContainer[]) => {
   ]);
 
   world.addEntity(rootLayout);
+};
+
+const createButtonText = (
+  text: string,
+  renderLayer: rendering.RenderLayer,
+  world: ecs.World,
+) => {
+  const textRenderSource = new rendering.TextRenderSource({
+    text,
+    maxWidth: roundedRectangleRenderSourceOptions.width,
+    color: 'white',
+  });
+
+  const sprite = new rendering.Sprite(textRenderSource, math.Vector2.zero);
+  const textPosition = new common.PositionComponent();
+  const textScale = new common.ScaleComponent();
+
+  const textEntity = new ecs.Entity(`ButtonText ${text}`, [
+    textPosition,
+    new common.RotationComponent(0),
+    textScale,
+    new rendering.SpriteComponent(sprite, renderLayer),
+  ]);
+
+  world.addEntity(textEntity);
+
+  return { textEntity, textPosition, textScale };
 };
