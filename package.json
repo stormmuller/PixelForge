@@ -37,7 +37,7 @@
     "@types/howler": "^2.2.11",
     "@types/seedrandom": "^3.0.8",
     "@vitest/ui": "^2.1.8",
-    "eslint": "^8.57.0",
+    "eslint": "^9.19.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-sort-exports": "^0.9.1",
