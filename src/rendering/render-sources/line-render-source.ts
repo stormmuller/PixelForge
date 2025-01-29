@@ -1,4 +1,5 @@
 import { Path } from '../../common';
+import { calculateBoxCollider } from '../../math';
 import { RenderLayer } from '../render-layer';
 import { RenderEffects, RenderSource } from './render-source';
 
@@ -71,6 +72,17 @@ export class LineRenderSource implements RenderSource {
     this.color = color;
     this.lineWidth = lineWidth;
   };
+
+  public resize = (width: number, height: number): void => {
+    const boundingBox = calculateBoxCollider(this.path);
+    const horizontalRatio = width / boundingBox.maxX;
+    const verticalRatio = height / boundingBox.maxY;
+
+    for (const point of this.path) {
+      point.x *= horizontalRatio;
+      point.y *= verticalRatio;
+    }
+  }
 
   private _validatePath = (path: Path): void => {
     if (!path || path.length < 2) {

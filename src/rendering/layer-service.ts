@@ -2,6 +2,16 @@ import { Vector2 } from '../math';
 import { RenderLayer } from './render-layer';
 import { CLEAR_STRATEGY, CLEAR_STRATEGY_KEYS } from './types';
 
+export interface CreateLayerOptions {
+  dimentions?: { width: number; height: number };
+  clearStrategy?: CLEAR_STRATEGY_KEYS;
+}
+
+const defaultOptions = {
+  dimentions: { width: window.innerWidth, height: window.innerHeight },
+  clearStrategy: CLEAR_STRATEGY.blank,
+} as const;
+
 export class LayerService {
   private _layers: Map<string, RenderLayer>;
   private _container: HTMLElement;
@@ -11,10 +21,7 @@ export class LayerService {
     this._layers = new Map();
   }
 
-  public createLayer= (
-    name: string,
-    clearStrategy: CLEAR_STRATEGY_KEYS = CLEAR_STRATEGY.blank,
-  ) => {
+  public createLayer = (name: string, options: CreateLayerOptions = {}) => {
     const canvas = document.createElement('canvas');
     canvas.id = `pf-canvas-${name}`;
 
@@ -26,15 +33,27 @@ export class LayerService {
       throw new Error('Context not found');
     }
 
-    const center = new Vector2(canvas.width / 2, canvas.height / 2);
-    const layer = new RenderLayer(name, context, center, clearStrategy);
+    const layer = this.registerLayer(name, canvas, options);
+
+    return layer;
+  };
+
+  public registerLayer = (
+    name: string,
+    canvas: HTMLCanvasElement,
+    options: CreateLayerOptions = {},
+  ) => {
+    const mergedOptions = { ...defaultOptions, ...options };
+    const layer = new RenderLayer(name, canvas, mergedOptions.clearStrategy);
+    layer.resize(
+      mergedOptions.dimentions.width,
+      mergedOptions.dimentions.height,
+    );
 
     this._layers.set(name, layer);
 
-    layer.resize();
-
     return layer;
-  }
+  };
 
   public getLayer = (name: string) => {
     const layer = this._layers.get(name);
@@ -44,5 +63,14 @@ export class LayerService {
     }
 
     return layer;
-  }
+  };
+
+  public resizeAllLayers = (dimensions?: Vector2) => {
+    const newDimentions =
+      dimensions || new Vector2(window.innerWidth, window.innerHeight);
+
+    for (const layer of this._layers.values()) {
+      layer.resize(newDimentions.x, newDimentions.y);
+    }
+  };
 }
