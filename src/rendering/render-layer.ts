@@ -3,29 +3,36 @@ import { CLEAR_STRATEGY, CLEAR_STRATEGY_KEYS } from './types';
 
 export class RenderLayer {
   public name: string;
+  public canvas: HTMLCanvasElement;
   public context: CanvasRenderingContext2D;
   public center: Vector2;
   public clearStrategy: CLEAR_STRATEGY_KEYS;
 
   constructor(
     name: string,
-    context: CanvasRenderingContext2D,
-    center: Vector2,
+    canvas: HTMLCanvasElement,
     clearStrategy: CLEAR_STRATEGY_KEYS = CLEAR_STRATEGY.blank,
   ) {
+    const context = canvas.getContext('2d');
+
+    if (!context) {
+      throw new Error('Context not found');
+    }
+
     this.name = name;
+    this.canvas = canvas;
     this.context = context;
-    this.center = center;
+    this.center = new Vector2(canvas.width / 2, canvas.height / 2);
     this.clearStrategy = clearStrategy;
   }
 
-  public resize = () => {
-    this.context.canvas.width = window.innerWidth;
-    this.context.canvas.height = window.innerHeight;
+  public resize = (width: number, height: number) => {
+    this.canvas.width = width;
+    this.canvas.height = height;
 
     this.center = new Vector2(
-      this.context.canvas.width / 2,
-      this.context.canvas.height / 2,
+      this.canvas.width / 2,
+      this.canvas.height / 2,
     );
   }
 }
