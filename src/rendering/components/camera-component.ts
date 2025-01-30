@@ -40,7 +40,7 @@ export class CameraComponent implements Component {
     camera.isStatic = isStatic;
 
     return camera;
-  }
+  };
 
   constructor(options: Partial<CameraComponentOptions> = defaultOptions) {
     const mergedOptions: CameraComponentOptions = {

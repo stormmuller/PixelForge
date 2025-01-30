@@ -60,7 +60,7 @@ export class CameraSystem extends System {
         position.x += zoomPanMultiplier;
       }
     }
-  }
+  };
 
-  public stop = (): void => {}
+  public stop = (): void => {};
 }

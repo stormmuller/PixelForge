@@ -76,5 +76,5 @@ export class ImageRenderSource implements RenderSource {
   public resize = (width: number, height: number): void => {
     this.width = width;
     this.height = height;
-  }
+  };
 }

@@ -131,11 +131,11 @@ export class World implements Updateable, Stoppable {
     this.raiseOnEntitiesChangedEvent();
 
     return this;
-  }
+  };
 
   public stop = () => {
     for (const system of this.systems) {
       system.stop();
     }
-  }
+  };
 }

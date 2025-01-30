@@ -34,11 +34,11 @@ export class Game implements Stoppable {
 
   public registerScene = (scene: Scene) => {
     this._scenes.add(scene);
-  }
+  };
 
   public deregisterScene = (scene: Scene) => {
     this._scenes.delete(scene);
-  }
+  };
 
   public stop = () => {
     window.removeEventListener('resize', this.onWindowResize.raise);
@@ -46,5 +46,5 @@ export class Game implements Stoppable {
     for (const scene of this._scenes) {
       scene.stop();
     }
-  }
+  };
 }
