@@ -1,4 +1,4 @@
-import { ecs, input } from '@stormmuller/pixelforge';
+import { ecs, input } from '../../src';
 
 export const createInputs = (world: ecs.World, gameContainer: HTMLElement) => {
   const inputsEntity = new ecs.Entity('input', [new input.InputsComponent()]);

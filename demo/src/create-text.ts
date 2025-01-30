@@ -1,5 +1,4 @@
-import { common, ecs, rendering } from '@stormmuller/pixelforge';
-import { Vector2 } from '../../dist/math';
+import { common, ecs, math, rendering } from '../../src';
 
 export const createText = async (
   renderLayer: rendering.RenderLayer,
@@ -16,7 +15,7 @@ export const createText = async (
     textBaseline: 'middle',
   });
 
-  const textSprite = new rendering.Sprite(textRenderSource, Vector2.zero);
+  const textSprite = new rendering.Sprite(textRenderSource, math.Vector2.zero);
 
   const positionComponent = new common.PositionComponent(
     window.innerWidth / 2,

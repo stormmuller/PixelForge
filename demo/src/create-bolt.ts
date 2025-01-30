@@ -1,4 +1,4 @@
-import { common, ecs, math, rendering } from '@stormmuller/pixelforge';
+import { common, ecs, math, rendering } from '../../src';
 import { colors } from './colors';
 
 export const createBolt = async (
