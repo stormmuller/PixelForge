@@ -108,6 +108,11 @@ export class RoundedRectangleRenderSource implements RenderSource {
     this.lineColor = lineColor;
   };
 
+  public resize = (width: number, height: number): void => {
+    this.width = width;
+    this.height = height;
+  };
+
   private _validateDimentions = (width: number, height: number) => {
     if (width <= 0 || height <= 0) {
       throw new Error('Width and height must be positive');

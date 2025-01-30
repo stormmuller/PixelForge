@@ -65,7 +65,11 @@ describe('LineRenderSource', () => {
       stroke: vi.fn(),
     } as unknown as CanvasRenderingContext2D;
 
-    const mockLayer = new RenderLayer('mock-render-layer', mockContext, Vector2.zero);
+    const mockCanvas = {
+      getContext: vi.fn(() => mockContext),
+    } as unknown as HTMLCanvasElement;
+
+    const mockLayer = new RenderLayer('mock-render-layer', mockCanvas);
 
     lineRenderSource.render(mockLayer);
 

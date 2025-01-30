@@ -10,6 +10,8 @@ export class Vector2 {
   public set = (value: Vector2) => {
     this.x = value.x;
     this.y = value.y;
+
+    return this;
   };
 
   public add = (value: Vector2): Vector2 => {
