@@ -1,19 +1,13 @@
-import { ui, utilities } from '@stormmuller/pixelforge';
+import { utilities } from '@stormmuller/pixelforge';
+import { Rive } from '@rive-app/canvas';
 import './style.css';
 import { createBolt } from './create-bolt';
 import { createAnimations } from './create-animation';
 import { createText } from './create-text';
-import { createMenu } from './create-menu';
 
-const {
-  imageCache,
-  world,
-  game,
-  layerService,
-  inputsEntity,
-  worldCamera,
-  worldSpace,
-} = utilities.createGame();
+const { imageCache, world, game, layerService } = utilities.createGame({
+  container: document.getElementById('game-container') as HTMLDivElement,
+});
 
 const foregroundRenderLayer = layerService.getLayer('foreground');
 const backgroundRenderLayer = layerService.getLayer('background');
@@ -23,14 +17,24 @@ const textEntity = await createText(foregroundRenderLayer, world);
 
 createAnimations(boltEntity, textEntity, game, world);
 
-createMenu(world, foregroundRenderLayer);
-
-const hoverableSystem = new ui.HoverableSystem(
-  inputsEntity,
-  worldCamera,
-  worldSpace,
-);
-
-world.addSystem(hoverableSystem);
-
 game.run();
+
+const riveCanvas = document.getElementById('rive-canvas') as HTMLCanvasElement;
+
+layerService.registerLayer('rive', riveCanvas);
+
+const r = new Rive({
+  src: './ui.riv',
+  canvas: riveCanvas,
+  autoplay: true,
+  onLoad: () => {
+    r.resizeDrawingSurfaceToCanvas();
+  },
+});
+
+const onWindowResize = () => {
+  layerService.resizeAllLayers();
+  r.resizeDrawingSurfaceToCanvas();
+};
+
+window.addEventListener('resize', onWindowResize);

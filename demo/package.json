@@ -10,9 +10,10 @@
   },
   "devDependencies": {
     "typescript": "~5.6.2",
-    "vite": "^6.0.5"
+    "vite": "^6.0.9"
   },
   "dependencies": {
+    "@rive-app/canvas": "^2.25.7",
     "@stormmuller/pixelforge": "file:.."
   }
 }

@@ -13,4 +13,5 @@ export type RenderEffects = {
 export interface RenderSource {
   render(layer: RenderLayer): void;
   renderEffects: RenderEffects;
+  resize(width: number, height: number): void;
 }

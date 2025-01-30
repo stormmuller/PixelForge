@@ -145,22 +145,15 @@ export class TextRenderSource implements RenderSource {
     this.overflowWidth = overflowWidth;
   };
 
+  public resize = (width: number, height: number): void => {
+    this.maxWidth = width;
+    this.overflowWidth = width;
+    this.fontSize = height;
+  }
+
   private _validateText = (text: string): void => {
     if (!text) {
       throw new Error('Text must be provided');
     }
-  };
-
-  private _calculateTextHeight = (
-    text: string,
-    fontSize: number,
-    fontFamily: string,
-  ): number => {
-    const tempCanvas = document.createElement('canvas').getContext('2d')!; // TODO: can't be creating a new canvas everytime text changes
-    tempCanvas.font = `${fontSize}px ${fontFamily}`;
-    const metrics = tempCanvas.measureText(text);
-    const height =
-      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
-    return height;
   };
 }
