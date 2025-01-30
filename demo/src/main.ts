@@ -1,5 +1,5 @@
 import { utilities } from '@stormmuller/pixelforge';
-import { Rive } from '@rive-app/canvas';
+import { Fit, Layout, Rive } from '@rive-app/canvas';
 import './style.css';
 import { createBolt } from './create-bolt';
 import { createAnimations } from './create-animation';
@@ -30,6 +30,9 @@ const r = new Rive({
   onLoad: () => {
     r.resizeDrawingSurfaceToCanvas();
   },
+  layout: new Layout({
+    fit: Fit.Layout,
+  }),
 });
 
 const onWindowResize = () => {
