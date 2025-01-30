@@ -42,6 +42,6 @@ The engine is not a place to store code that is hyper specific to a game. For ex
 You can make a seperate folder or package outside of the engine.
 
 ## Acknowledgements
-Howler.js
-Vite
-Rive
+ - [Howler.js](https://howlerjs.com/)
+ - [Vite](https://vite.dev/)
+ - [Rive](https://rive.app/)
