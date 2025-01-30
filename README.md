@@ -2,7 +2,7 @@
 
 ![logo](assets/pixel-forge-logo.png)
 
-Forge is a browser based, code only game engine. It has everything you'd expect from an engine including rendering, auio, input, animations, ecs, etc.
+Forge is a browser-based, code only game engine. It has everything you'd expect from an engine, including rendering, audio, input, animations, ECS, etc.
 
 ## Installation
 Clone the repository and install the dependencies:
@@ -24,7 +24,7 @@ To build the project:
 npm run build
 ```
 
-Running Tests
+## Running Tests
 To run the tests:
 ```sh
 npm test
@@ -35,11 +35,11 @@ The engine is where all the code is stored that is usable for most types of game
 
 ## What the engine is not
 
-The engine is not a place to store code that is hyper specific to a game. For example: a system for collecting coins.
+The engine is not a place to store code that is hyper-specific to a game. For example: a system for collecting coins.
 
 ## What if my system is specific to a particular genre?
 
-You can make a seperate folder or package outside of the engine.
+You can make a separate folder or package outside of the engine.
 
 ## Acknowledgements
  - [Howler.js](https://howlerjs.com/)
