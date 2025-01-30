@@ -2,7 +2,7 @@
 
 ![logo](assets/pixel-forge-logo.png)
 
-Forge is a browser based, code only game engine. It has everythinmg you'd expect from an engine including rendering, auio, input, animations, ecs, etc.
+Forge is a browser based, code only game engine. It has everything you'd expect from an engine including rendering, auio, input, animations, ecs, etc.
 
 ## Installation
 Clone the repository and install the dependencies:
