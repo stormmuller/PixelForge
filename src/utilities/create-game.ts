@@ -6,6 +6,7 @@ import { Vector2 } from '../math';
 import {
   CameraComponent,
   CameraSystem,
+  DEFAULT_LAYER_NAMES,
   ImageCache,
   LayerService,
   RenderSystem,
@@ -23,7 +24,7 @@ export type CreateGameOptions = {
 const defaultOptions: CreateGameOptions = {
   sceneName: 'main',
   container: 'pf-game',
-  layers: ['background', 'foreground', 'ui'],
+  layers: DEFAULT_LAYER_NAMES,
   dimentions: new Vector2(window.innerWidth, window.innerHeight),
 };
 
