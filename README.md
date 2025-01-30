@@ -1,6 +1,6 @@
 # PixelForge
 
-![logo](https://github.com/stormmuller/PixelForge/blob/v1.0.0/assets/pixel-forge-logo.png)
+![logo](assets/pixel-forge-logo.png)
 
 ## What the engine is
 
