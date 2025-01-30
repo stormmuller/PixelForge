@@ -1,4 +1,4 @@
-import { common, ecs, game, rendering } from '@stormmuller/pixelforge';
+import { common, ecs, game, rendering } from '../../src';
 
 export const createCameras = (
   world: ecs.World,

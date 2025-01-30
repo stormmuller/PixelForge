@@ -1,4 +1,4 @@
-import { common, ecs, rendering } from '@stormmuller/pixelforge';
+import { common, ecs, rendering } from '../../src';
 
 export const createRenderLayer = (
   layerService: rendering.LayerService,

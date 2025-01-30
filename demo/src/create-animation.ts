@@ -1,10 +1,4 @@
-import {
-  animations,
-  common,
-  ecs,
-  game,
-  rendering,
-} from '@stormmuller/pixelforge';
+import { animations, common, ecs, game, rendering } from '../../src';
 
 export const createAnimations = async (
   boltEntity: ecs.Entity,
