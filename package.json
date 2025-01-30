@@ -32,7 +32,7 @@
     "demo:preview": "vite preview --config demo/vite.config.mjs"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
