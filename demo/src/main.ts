@@ -19,13 +19,13 @@ createAnimations(boltEntity, textEntity, game, world);
 
 game.run();
 
-const riveCanvas = document.getElementById('rive-canvas') as HTMLCanvasElement;
-
-layerService.registerLayer('rive', riveCanvas);
+const riveRenderLayer = layerService.createLayer('rive', {
+  clearStrategy: 'none',
+});
 
 const r = new Rive({
   src: './ui.riv',
-  canvas: riveCanvas,
+  canvas: riveRenderLayer.canvas,
   autoplay: true,
   onLoad: () => {
     r.resizeDrawingSurfaceToCanvas();

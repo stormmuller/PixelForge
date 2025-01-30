@@ -24,6 +24,8 @@ export class LayerService {
   public createLayer = (name: string, options: CreateLayerOptions = {}) => {
     const canvas = document.createElement('canvas');
     canvas.id = `pf-canvas-${name}`;
+    canvas.width = options.dimentions?.width || window.innerWidth;
+    canvas.height = options.dimentions?.height || window.innerHeight;
 
     this._container.appendChild(canvas);
 
@@ -55,7 +57,7 @@ export class LayerService {
     return layer;
   };
 
-  public getLayer = (name: string) => {
+  public getLayer = (name: string): RenderLayer => {
     const layer = this._layers.get(name);
 
     if (!layer) {
