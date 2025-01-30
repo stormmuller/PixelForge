@@ -30,9 +30,6 @@ export class RenderLayer {
     this.canvas.width = width;
     this.canvas.height = height;
 
-    this.center = new Vector2(
-      this.canvas.width / 2,
-      this.canvas.height / 2,
-    );
-  }
+    this.center = new Vector2(this.canvas.width / 2, this.canvas.height / 2);
+  };
 }

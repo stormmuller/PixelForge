@@ -13,6 +13,6 @@ export class ProgressSystem extends System {
 
     console.log(progressComponent.calculateProgress());
   };
-  
-  public stop = (): void => {}
+
+  public stop = (): void => {};
 }

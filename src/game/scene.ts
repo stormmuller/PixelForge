@@ -2,12 +2,14 @@ import { Stoppable, Time } from '../common';
 import { Updateable } from './interfaces';
 
 export class Scene implements Updateable, Stoppable {
-  private _name: string;
+  public name: string;
+
   private _updateables: Set<Updateable>;
   private _stoppables: Set<Stoppable>;
 
   constructor(name: string) {
-    this._name = name;
+    this.name = name;
+
     this._updateables = new Set<Updateable>();
     this._stoppables = new Set<Stoppable>();
   }

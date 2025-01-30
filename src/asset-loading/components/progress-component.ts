@@ -16,13 +16,13 @@ export class ProgressComponent implements Component {
 
   public include = (total: number) => {
     this.total += total;
-  }
+  };
 
   public calculateProgress = () => {
     return this._progress / this.total; // TODO: feature - potentially prevent the reported progress from dropping (clamp it what ever it was previously and greater)
-  }
+  };
 
   public increment = () => {
     this._progress++;
-  }
+  };
 }

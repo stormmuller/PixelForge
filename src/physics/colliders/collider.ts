@@ -1,4 +1,4 @@
-import { Vector2 } from "../../math";
+import { Vector2 } from '../../math';
 
 export interface Collider<T extends Collider<T>> {
   maxX: number;

@@ -1,5 +1,5 @@
-import { Vector2 } from "../../math";
-import { Collider } from "./collider";
+import { Vector2 } from '../../math';
+import { Collider } from './collider';
 
 export class BoxCollider implements Collider<BoxCollider> {
   public point: Vector2;
@@ -58,8 +58,8 @@ export class BoxCollider implements Collider<BoxCollider> {
     return new BoxCollider(
       new Vector2(minX, minY),
       new Vector2(maxX - minX, maxY - minY),
-    );    
-  }
+    );
+  };
 
   public combineAll = (others: BoxCollider[]): BoxCollider => {
     let minX = this.minX;
@@ -88,9 +88,7 @@ export class BoxCollider implements Collider<BoxCollider> {
     );
   };
 
-  public static fromOtherBoxes = (
-    boxColliders: BoxCollider[],
-  ): BoxCollider => {
+  public static fromOtherBoxes = (boxColliders: BoxCollider[]): BoxCollider => {
     if (boxColliders.length === 0) {
       throw new Error('No boxes to combine');
     }

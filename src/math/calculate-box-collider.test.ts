@@ -8,7 +8,7 @@ describe('calculateBoxCollider', () => {
     const path = new Path([new Vector2(0, 0)]);
 
     expect(() => calculateBoxCollider(path)).toThrow(
-      'There needs to be atleast 2 points in order to calculate a bounding box'
+      'There needs to be atleast 2 points in order to calculate a bounding box',
     );
   });
 

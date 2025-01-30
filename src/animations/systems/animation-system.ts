@@ -89,6 +89,6 @@ export class AnimationSystem extends System {
 
     return true;
   };
-  
-  public stop = (): void => {}
+
+  public stop = (): void => {};
 }

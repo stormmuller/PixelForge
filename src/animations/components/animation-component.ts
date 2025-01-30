@@ -27,5 +27,5 @@ export class AnimationComponent implements Component {
 
   public addAnimation = (animation: AnimatedProperty) => {
     this.animations.push(animation);
-  }
+  };
 }

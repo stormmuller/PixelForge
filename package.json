@@ -26,7 +26,10 @@
     "lint:fix": "eslint src --fix",
     "prettier": "prettier . --check",
     "prettier:write": "prettier . --write",
-    "prepare": "husky"
+    "prepare": "husky",
+    "demo:dev": "vite --config demo/vite.config.mjs",
+    "demo:build": "tsc && vite build --config demo/vite.config.mjs",
+    "demo:preview": "vite preview --config demo/vite.config.mjs"
   },
   "author": "",
   "license": "ISC",
@@ -34,10 +37,11 @@
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
+    "@rive-app/canvas": "^2.25.7",
     "@types/howler": "^2.2.11",
     "@types/seedrandom": "^3.0.8",
-    "@vitest/ui": "^2.1.8",
-    "eslint": "^8.57.0",
+    "@vitest/ui": "^3.0.4",
+    "eslint": "^9.19.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-sort-exports": "^0.9.1",
@@ -47,7 +51,8 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.21.0",
-    "vitest": "^2.1.8"
+    "vite": "^5.4.14",
+    "vitest": "^3.0.4"
   },
   "dependencies": {
     "howler": "^2.2.4",

@@ -1,5 +1,5 @@
-import { utilities } from '@stormmuller/pixelforge';
 import { Fit, Layout, Rive } from '@rive-app/canvas';
+import { utilities } from '../../src';
 import './style.css';
 import { createBolt } from './create-bolt';
 import { createAnimations } from './create-animation';

@@ -1,10 +1,4 @@
-import {
-  animations,
-  common,
-  ecs,
-  game,
-  rendering
-} from '@stormmuller/pixelforge';
+import { animations, common, ecs, game, rendering } from '../../src';
 
 export const createAnimations = async (
   boltEntity: ecs.Entity,
@@ -50,11 +44,13 @@ export const createAnimations = async (
     ]),
   );
 
-  const textSpriteComponent = textEntity.getComponentRequired<rendering.SpriteComponent>(
-    rendering.SpriteComponent.symbol,
-  );  
+  const textSpriteComponent =
+    textEntity.getComponentRequired<rendering.SpriteComponent>(
+      rendering.SpriteComponent.symbol,
+    );
 
-  const textRenderSource = textSpriteComponent.sprite.renderSource as rendering.TextRenderSource;
+  const textRenderSource = textSpriteComponent.sprite
+    .renderSource as rendering.TextRenderSource;
 
   textEntity.addComponent(
     new animations.AnimationComponent([

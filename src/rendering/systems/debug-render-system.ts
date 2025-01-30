@@ -56,7 +56,7 @@ export class DebugRenderSystem extends System {
       false,
     );
     this._layer.context.fill();
-  }
+  };
 
-  public stop = (): void => {}
+  public stop = (): void => {};
 }

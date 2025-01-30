@@ -1,7 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 import { Vector2 } from '../../math';
 import { Path } from '../../common/path/path';
-import { LineRenderSource, LineRenderSourceOptions } from './line-render-source';
+import {
+  LineRenderSource,
+  LineRenderSourceOptions,
+} from './line-render-source';
 import { RenderEffects } from './render-source';
 import { RenderLayer } from '../render-layer';
 
@@ -38,7 +41,7 @@ describe('LineRenderSource', () => {
     const options: LineRenderSourceOptions = { path };
 
     expect(() => new LineRenderSource(options)).toThrow(
-      'LineRenderSource requires at least 2 points to be defined in the path'
+      'LineRenderSource requires at least 2 points to be defined in the path',
     );
   });
 
