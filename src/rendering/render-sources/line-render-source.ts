@@ -82,7 +82,7 @@ export class LineRenderSource implements RenderSource {
       point.x *= horizontalRatio;
       point.y *= verticalRatio;
     }
-  }
+  };
 
   private _validatePath = (path: Path): void => {
     if (!path || path.length < 2) {
@@ -90,5 +90,5 @@ export class LineRenderSource implements RenderSource {
         'LineRenderSource requires at least 2 points to be defined in the path',
       );
     }
-  }
+  };
 }

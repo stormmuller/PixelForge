@@ -40,5 +40,5 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
     }
 
     return this.get(path);
-  }
+  };
 }

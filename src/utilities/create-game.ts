@@ -27,7 +27,9 @@ const defaultOptions: CreateGameOptions = {
   dimentions: new Vector2(window.innerWidth, window.innerHeight),
 };
 
-export function createGame(options: Partial<CreateGameOptions> = defaultOptions) {
+export function createGame(
+  options: Partial<CreateGameOptions> = defaultOptions,
+) {
   const mergedOptions = { ...defaultOptions, ...options };
 
   const game = new Game();

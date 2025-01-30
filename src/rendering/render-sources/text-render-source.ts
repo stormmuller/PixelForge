@@ -149,7 +149,7 @@ export class TextRenderSource implements RenderSource {
     this.maxWidth = width;
     this.overflowWidth = width;
     this.fontSize = height;
-  }
+  };
 
   private _validateText = (text: string): void => {
     if (!text) {

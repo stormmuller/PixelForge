@@ -32,35 +32,40 @@ describe('PolygonCollider', () => {
   });
 
   describe('should correctly determine if a point is contained within the polygon(square)', () => {
-    const points = [new Vector2(0, 0), new Vector2(4, 0), new Vector2(4, 4), new Vector2(0, 4)];
+    const points = [
+      new Vector2(0, 0),
+      new Vector2(4, 0),
+      new Vector2(4, 4),
+      new Vector2(0, 4),
+    ];
     const collider = new PolygonCollider(points);
 
-    it ('return true if the point is in the polygon [+x inside, +y inside]', () => {
+    it('return true if the point is in the polygon [+x inside, +y inside]', () => {
       expect(collider.contains(new Vector2(2, 2))).toBe(true);
     });
 
-    it ('return false if the point is not in the polygon [+x outside, +y outside]', () => {
-      expect(collider.contains(new Vector2(5, 5))).toBe(false); 
+    it('return false if the point is not in the polygon [+x outside, +y outside]', () => {
+      expect(collider.contains(new Vector2(5, 5))).toBe(false);
     });
 
-    it ('return false if the point is not in the polygon [+x inside, +y outside]', () => {
-      expect(collider.contains(new Vector2(2, 5))).toBe(false); 
+    it('return false if the point is not in the polygon [+x inside, +y outside]', () => {
+      expect(collider.contains(new Vector2(2, 5))).toBe(false);
     });
 
-    it ('return false if the point is not in the polygon [+x outside, -y outside]', () => {
-      expect(collider.contains(new Vector2(5, -2))).toBe(false); 
+    it('return false if the point is not in the polygon [+x outside, -y outside]', () => {
+      expect(collider.contains(new Vector2(5, -2))).toBe(false);
     });
 
-    it ('return false if the point is not in the polygon [-x outside, -y outside]', () => {
-      expect(collider.contains(new Vector2(-2, -2))).toBe(false); 
+    it('return false if the point is not in the polygon [-x outside, -y outside]', () => {
+      expect(collider.contains(new Vector2(-2, -2))).toBe(false);
     });
 
-    it ('return false if the point is on the corner', () => {
-      expect(collider.contains(new Vector2(0, 0))).toBe(true); 
+    it('return false if the point is on the corner', () => {
+      expect(collider.contains(new Vector2(0, 0))).toBe(true);
     });
 
-    it ('return false if the point is on an edge', () => {
-      expect(collider.contains(new Vector2(0, 2))).toBe(true); 
+    it('return false if the point is on an edge', () => {
+      expect(collider.contains(new Vector2(0, 2))).toBe(true);
     });
   });
 
@@ -80,7 +85,9 @@ describe('PolygonCollider', () => {
     expect(combined.points[0].toString()).toEqual(new Vector2(0, 0).toString());
     expect(combined.points[1].toString()).toEqual(new Vector2(2, 1).toString());
     expect(combined.points[2].toString()).toEqual(new Vector2(3, 3).toString());
-    expect(combined.points[3].toString()).toEqual(new Vector2(2.5, 5).toString());
+    expect(combined.points[3].toString()).toEqual(
+      new Vector2(2.5, 5).toString(),
+    );
     expect(combined.points[4].toString()).toEqual(new Vector2(0, 5).toString());
 
     expect(combined.contains(new Vector2(1, 1))).toBe(true);

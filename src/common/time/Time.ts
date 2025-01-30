@@ -19,7 +19,7 @@ export class Time {
     this.times = [];
   }
 
-  public update= (time: number) => {
+  public update = (time: number) => {
     this.frames++;
     this.previousTime = this.rawTime;
     this.rawTime = time;
@@ -32,5 +32,5 @@ export class Time {
     }
 
     this.times.push(time);
-  }
+  };
 }

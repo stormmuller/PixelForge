@@ -109,12 +109,16 @@ export class PolygonCollider implements Collider<PolygonCollider> {
    * Returns = 0 if 'point2' is exactly on the line
    * Returns < 0 otherwise
    */
-  private _isLeft = (point0: Vector2, point1: Vector2, point2: Vector2): number => {
+  private _isLeft = (
+    point0: Vector2,
+    point1: Vector2,
+    point2: Vector2,
+  ): number => {
     return (
       (point1.x - point0.x) * (point2.y - point0.y) -
       (point2.x - point0.x) * (point1.y - point0.y)
     );
-  }
+  };
 
   /**
    * Computes the convex hull of a set of points using the Monotone Chain algorithm.
@@ -159,12 +163,12 @@ export class PolygonCollider implements Collider<PolygonCollider> {
 
     // The hull is the concatenation of lower and upper
     return lower.concat(upper);
-  }
+  };
 
   /**
    * Cross product of vectors (p1 -> p2) x (p1 -> p3).
    */
   private _cross = (p1: Vector2, p2: Vector2, p3: Vector2): number => {
     return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
-  }
+  };
 }

@@ -3,7 +3,7 @@ import {
   common,
   ecs,
   game,
-  rendering
+  rendering,
 } from '@stormmuller/pixelforge';
 
 export const createAnimations = async (
@@ -50,11 +50,13 @@ export const createAnimations = async (
     ]),
   );
 
-  const textSpriteComponent = textEntity.getComponentRequired<rendering.SpriteComponent>(
-    rendering.SpriteComponent.symbol,
-  );  
+  const textSpriteComponent =
+    textEntity.getComponentRequired<rendering.SpriteComponent>(
+      rendering.SpriteComponent.symbol,
+    );
 
-  const textRenderSource = textSpriteComponent.sprite.renderSource as rendering.TextRenderSource;
+  const textRenderSource = textSpriteComponent.sprite
+    .renderSource as rendering.TextRenderSource;
 
   textEntity.addComponent(
     new animations.AnimationComponent([

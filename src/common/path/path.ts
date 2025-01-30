@@ -46,5 +46,5 @@ export class Path implements Iterable<Vector2> {
         }
       },
     };
-  }
+  };
 }

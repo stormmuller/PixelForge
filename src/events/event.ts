@@ -15,15 +15,15 @@ export class Event {
 
   public registerListener = (listener: Listener) => {
     this._listeners.push(listener);
-  }
+  };
 
   public deregisterListener = (listener: Listener) => {
     this._listeners = this._listeners.filter((l) => l !== listener);
-  }
+  };
 
   public clear = () => {
     this._listeners = [];
-  }
+  };
 
   public raise = () => {
     for (const listener of this._listeners) {
@@ -32,5 +32,5 @@ export class Event {
         throw error;
       });
     }
-  }
+  };
 }

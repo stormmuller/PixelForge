@@ -23,7 +23,7 @@ export class ParameterisedEvent<TInput = null> {
 
   public clear = () => {
     this._listeners = [];
-  }
+  };
 
   public raise = (input: TInput) => {
     for (const listener of this._listeners) {
@@ -32,5 +32,5 @@ export class ParameterisedEvent<TInput = null> {
         throw error;
       });
     }
-  }
+  };
 }

@@ -16,6 +16,6 @@ export class AudioSystem extends System {
       soundComponent.playSound = false;
     }
   };
-  
-  public stop = (): void => {}
+
+  public stop = (): void => {};
 }

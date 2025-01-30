@@ -15,7 +15,6 @@ export class SpriteComponent implements Component {
     renderLayer: RenderLayer,
     enabled: boolean = true,
   ) {
-
     this.name = SpriteComponent.symbol;
 
     this.sprite = sprite;
