@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stormmuller/PixelForge.git"
+    "url": "git+https://github.com/stormmuller/Forge.git"
   },
   "scripts": {
     "test": "vitest",
