@@ -15,5 +15,6 @@
         "assets": "dist/*.tgz"
       }
     ]
-  ]
+  ],
+  "repositoryUrl": "https://github.com/stormmuller/Forge.git"
 }
