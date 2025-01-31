@@ -29,9 +29,9 @@ export class InputSystem extends System {
   }
 
   public run = async (entity: Entity): Promise<void> => {
-    const inputs = entity.getComponent(
+    const inputs = entity.getComponentRequired<InputsComponent>(
       InputsComponent.symbol,
-    ) as InputsComponent; // TODO: feature - Make singleton components?
+    ); // TODO: feature - Make singleton components?
 
     inputs.keyPresses = this._keyPresses;
     inputs.keyUps = this._keyUps;
