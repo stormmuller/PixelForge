@@ -1,14 +1,14 @@
 # Forge
 
-![logo](assets/pixel-forge-logo.png)
+![logo](assets/forge-logo.png)
 
 Forge is a browser-based, code only game engine. It has everything you'd expect from an engine, including rendering, audio, input, animations, ECS, etc.
 
 ## Installation
 Clone the repository and install the dependencies:
 ``` sh
-git clone https://github.com/stormmuller/PixelForge.git
-cd PixelForge
+git clone https://github.com/stormmuller/Forge.git
+cd Forge
 npm install
 ```
 
