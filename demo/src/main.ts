@@ -1,21 +1,32 @@
-import { Rive } from '@rive-app/canvas';
-import { utilities } from '../../src';
+import { Fit, Layout, Rive } from '@rive-app/canvas';
+import { animations, utilities } from '../../src';
 import './style.css';
-import { createBolt } from './create-bolt';
-import { createAnimations } from './create-animation';
-import { createText } from './create-text';
+import { createShip } from './create-ship';
+import { DEFAULT_LAYERS } from '../../src/rendering';
+import { ShipMovementSystem } from './ship';
+import { createStarfield } from './create-starfield';
+import { StarfieldSystem } from './starfield';
 
-const { imageCache, world, game, layerService } = utilities.createGame({
-  container: document.getElementById('game-container') as HTMLDivElement,
-});
+const { imageCache, world, game, layerService, inputsEntity } =
+  utilities.createGame({
+    container: document.getElementById('game-container') as HTMLDivElement,
+  });
 
-const foregroundRenderLayer = layerService.getLayer('foreground');
-const backgroundRenderLayer = layerService.getLayer('background');
+const foregroundRenderLayer = layerService.getLayer(DEFAULT_LAYERS.foreground);
+const backgroundRenderLayer = layerService.getLayer(DEFAULT_LAYERS.background);
 
-const boltEntity = await createBolt(imageCache, backgroundRenderLayer, world);
-const textEntity = await createText(foregroundRenderLayer, world);
+await createShip(imageCache, foregroundRenderLayer, world);
+createStarfield(world);
 
-createAnimations(boltEntity, textEntity, game, world);
+const shipMovementSystem = new ShipMovementSystem(inputsEntity, game.time);
+const starfieldSystem = new StarfieldSystem(
+  world,
+  imageCache,
+  backgroundRenderLayer,
+);
+const animationSystem = new animations.AnimationSystem(game.time);
+
+world.addSystems([shipMovementSystem, starfieldSystem, animationSystem]);
 
 game.run();
 
@@ -27,6 +38,9 @@ const r = new Rive({
   src: './ui.riv',
   canvas: riveRenderLayer.canvas,
   autoplay: true,
+  layout: new Layout({
+    fit: Fit.Layout,
+  }),
   onLoad: () => {
     r.resizeDrawingSurfaceToCanvas();
   },

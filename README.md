@@ -15,7 +15,7 @@ npm install
 ## Running the Demo
 To run the demo application:
 ``` sh
-npm run demo:dev
+npm run dev
 ```
 
 ## Building the Project
@@ -45,3 +45,4 @@ You can make a separate folder or package outside of the engine.
  - [Howler.js](https://howlerjs.com/)
  - [Vite](https://vite.dev/)
  - [Rive](https://rive.app/)
+ - [Kenny](https://www.kenney.nl/)

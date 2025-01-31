@@ -18,16 +18,16 @@
     "url": "git+https://github.com/stormmuller/Forge.git"
   },
   "scripts": {
-    "test": "vitest",
-    "test:ui": "vitest --reporter=html",
+    "dev": "vite --config demo/vite.config.mjs",
     "build": "tsc",
+    "test:ui": "vitest --reporter=html",
+    "test": "vitest",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "prettier": "prettier . --check",
     "prettier:write": "prettier . --write",
     "prepare": "husky",
-    "demo:dev": "vite --config demo/vite.config.mjs",
     "demo:build": "tsc && vite build --config demo/vite.config.mjs",
     "demo:preview": "vite preview --config demo/vite.config.mjs"
   },

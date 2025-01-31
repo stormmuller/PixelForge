@@ -55,7 +55,7 @@ export function createGame(
   world.addSystem(inputSystem);
 
   const worldCamera = new Entity('world camera', [
-    new CameraComponent(),
+    new CameraComponent({ allowZooming: false, allowPanning: false }),
     new PositionComponent(worldSpace.center.x, worldSpace.center.y),
   ]);
 
