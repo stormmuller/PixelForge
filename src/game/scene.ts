@@ -30,14 +30,10 @@ export class Scene implements Updateable, Stoppable {
     this._stoppables.delete(stoppable);
   };
 
-  public update = async (time: Time) => {
-    const updateablePromises: Promise<void>[] = [];
-
+  public update = (time: Time) => {
     for (const updateable of this._updateables) {
-      updateablePromises.push(updateable.update(time));
+      updateable.update(time);
     }
-
-    await Promise.all(updateablePromises);
   };
 
   public stop = () => {
