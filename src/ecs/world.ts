@@ -20,9 +20,7 @@ export class World implements Updateable, Stoppable {
     this.game = game;
   }
 
-  public update = async () => {
-    const systemPromises: Promise<void>[] = [];
-
+  public update = () => {
     for (const system of this.systems) {
       const entities = this.systemEntities.get(system.name);
 
@@ -32,10 +30,8 @@ export class World implements Updateable, Stoppable {
 
       const enabledEntities = entities.filter((e) => e.enabled);
 
-      systemPromises.push(system.runSystem(enabledEntities));
+      system.runSystem(enabledEntities);
     }
-
-    await Promise.all(systemPromises);
   };
 
   public onSystemsChanged = (callback: (systems: Set<System>) => void) => {

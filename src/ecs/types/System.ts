@@ -11,23 +11,23 @@ export abstract class System implements Stoppable {
     this.operatesOnCompoents = operatesOnCompoents;
   }
 
-  public runSystem = async (entities: Entity[]) => {
+  public runSystem = (entities: Entity[]) => {
     if (!this.isEnabled) {
       return;
     }
 
-    const modifiedEntities = await this.beforeAll(entities);
+    const modifiedEntities = this.beforeAll(entities);
 
     for (let i = 0; i < modifiedEntities.length; i++) {
       const entity = modifiedEntities[i];
 
-      await this.run(entity);
+      this.run(entity);
     }
   };
 
-  public abstract run(entity: Entity): Promise<void>;
+  public abstract run(entity: Entity): void;
 
-  public beforeAll = async (entities: Entity[]) => {
+  public beforeAll = (entities: Entity[]) => {
     return entities;
   };
 

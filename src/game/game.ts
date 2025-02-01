@@ -18,16 +18,12 @@ export class Game implements Stoppable {
     });
   }
 
-  public run = async (time = 0) => {
+  public run = (time = 0) => {
     this.time.update(time);
 
-    const scenePromises: Promise<void>[] = [];
-
     for (const scene of this._scenes) {
-      scenePromises.push(scene.update(this.time));
+      scene.update(this.time);
     }
-
-    await Promise.all(scenePromises);
 
     requestAnimationFrame(this.run);
   };

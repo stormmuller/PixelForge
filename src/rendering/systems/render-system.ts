@@ -47,7 +47,7 @@ export class RenderSystem extends System {
     this._camera = camera;
   }
 
-  public override beforeAll = async (entities: Entity[]) => {
+  public override beforeAll = (entities: Entity[]) => {
     if (
       isNil(this._layer.clearStrategy) ||
       this._layer.clearStrategy === CLEAR_STRATEGY.blank
