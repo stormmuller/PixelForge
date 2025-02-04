@@ -29,7 +29,7 @@ export class LayerService {
 
     this._container.appendChild(canvas);
 
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext('webgl2');
 
     if (!context) {
       throw new Error('Context not found');
