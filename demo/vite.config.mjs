@@ -5,5 +5,5 @@ export default defineConfig({
   root: path.resolve(__dirname),
   build: {
     target: 'es2022',
-  },
+  }
 });

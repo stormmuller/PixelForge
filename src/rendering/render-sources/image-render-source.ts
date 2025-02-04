@@ -1,6 +1,5 @@
 import { ImageCache } from '../asset-caches';
-import { RenderLayer } from '../render-layer';
-import { RenderEffects, RenderSource } from './render-source';
+import { RenderSource } from './render-source';
 
 export type ImageRenderSourceOptions = {
   image: HTMLImageElement;
@@ -14,14 +13,10 @@ const defaultOptions = {
 export class ImageRenderSource implements RenderSource {
   public image: HTMLImageElement;
   public bleed: number;
-  public renderEffects: RenderEffects;
   public width: number;
   public height: number;
 
-  constructor(
-    options: ImageRenderSourceOptions,
-    renderEffects: RenderEffects = {},
-  ) {
+  constructor(options: ImageRenderSourceOptions) {
     const { image, bleed } = {
       ...defaultOptions,
       ...options,
@@ -32,34 +27,18 @@ export class ImageRenderSource implements RenderSource {
 
     this.width = image.width + bleed;
     this.height = image.height + bleed;
-
-    this.renderEffects = renderEffects;
   }
-
-  public render = (layer: RenderLayer): void => {
-    layer.context.drawImage(
-      this.image,
-      0,
-      0,
-      this.image.width + this.bleed,
-      this.image.height + this.bleed,
-    );
-  };
 
   public static fromImageCache = async (
     imageCache: ImageCache,
     path: string,
     bleed: number = 1,
-    renderEffects: RenderEffects = {},
   ) => {
     const image = await imageCache.getOrLoad(path);
-    return new ImageRenderSource(
-      {
-        image,
-        bleed,
-      },
-      renderEffects,
-    );
+    return new ImageRenderSource({
+      image,
+      bleed,
+    });
   };
 
   public update = (options: Partial<ImageRenderSourceOptions>): void => {

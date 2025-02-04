@@ -6,10 +6,13 @@ import { Vector2 } from '../math';
 import {
   CameraComponent,
   CameraSystem,
+  createProgram,
   DEFAULT_LAYER_NAMES,
   ImageCache,
   LayerService,
   RenderSystem,
+  spriteFragmentShader,
+  spriteVertexShader,
 } from '../rendering';
 import { createContainer } from './create-container';
 import { isString } from './is-string';
@@ -28,7 +31,7 @@ const defaultOptions: CreateGameOptions = {
   dimentions: new Vector2(window.innerWidth, window.innerHeight),
 };
 
-export function createGame(
+export async function createGame(
   options: Partial<CreateGameOptions> = defaultOptions,
 ) {
   const mergedOptions = { ...defaultOptions, ...options };
@@ -61,7 +64,12 @@ export function createGame(
 
   for (const layerName of mergedOptions.layers) {
     const layer = layerService.createLayer(layerName);
-    const layerRenderSystem = new RenderSystem(layer, worldCamera, worldSpace);
+    const program = createProgram(
+      layer.context,
+      spriteVertexShader,
+      spriteFragmentShader,
+    );
+    const layerRenderSystem = new RenderSystem(layer, worldCamera, program);
 
     world.addSystem(layerRenderSystem);
   }
