@@ -3,25 +3,23 @@ import {
   PositionComponent,
   RotationComponent,
   ScaleComponent,
-  Space,
 } from '../../common';
 import { Entity, System } from '../../ecs';
 import { CameraComponent, SpriteComponent } from '../components';
 import { RenderLayer } from '../render-layer';
-import { GlowEffect, RenderEffects } from '../render-sources';
-import { CLEAR_STRATEGY } from '../types';
+import { createTextureFromImage } from '../shaders';
+import { ImageRenderSource } from '../render-sources';
+import { createProjectionMatrix } from '../shaders/utils/create-projection-matrix';
+import { Vector2 } from '../../math';
 
 export class RenderSystem extends System {
   private _layer: RenderLayer;
-  private _worldSpace: Space;
-  private _cameraPosition: PositionComponent;
-  private _camera: CameraComponent;
+  private _program: WebGLProgram;
 
-  constructor(layer: RenderLayer, cameraEntity: Entity, worldSpace: Space) {
+  constructor(layer: RenderLayer, cameraEntity: Entity, program: WebGLProgram) {
     super('renderer', [PositionComponent.symbol, SpriteComponent.symbol]);
 
     this._layer = layer;
-    this._worldSpace = worldSpace;
 
     const cameraPosition = cameraEntity.getComponentRequired<PositionComponent>(
       PositionComponent.symbol,
@@ -43,22 +41,12 @@ export class RenderSystem extends System {
       );
     }
 
-    this._cameraPosition = cameraPosition;
-    this._camera = camera;
+    this._program = program;
   }
 
   public override beforeAll = (entities: Entity[]) => {
-    if (
-      isNil(this._layer.clearStrategy) ||
-      this._layer.clearStrategy === CLEAR_STRATEGY.blank
-    ) {
-      this._layer.context.clearRect(
-        0,
-        0,
-        this._layer.context.canvas.width,
-        this._layer.context.canvas.height,
-      );
-    }
+    this._layer.context.clear(this._layer.context.COLOR_BUFFER_BIT);
+    this._layer.context.useProgram(this._program);
 
     const sortedEntities = entities.sort((entity1, entity2) => {
       const position1 = entity1.getComponentRequired<PositionComponent>(
@@ -110,76 +98,124 @@ export class RenderSystem extends System {
       RotationComponent.symbol,
     );
 
-    this._layer.context.translate(
-      this._worldSpace.center.x,
-      this._worldSpace.center.y,
+    this._getSpriteBuffers(this._program);
+
+    const imageRenderSource = spriteComponent.sprite
+      .renderSource as ImageRenderSource;
+
+    const texture = createTextureFromImage(
+      this._layer.context,
+      imageRenderSource.image,
     );
 
-    // Apply zoom and translate based on the camera position
-    this._layer.context.scale(this._camera.zoom, this._camera.zoom);
-
-    this._layer.context.translate(
-      -this._cameraPosition.x,
-      -this._cameraPosition.y,
+    const uMatrixLoc = this._layer.context.getUniformLocation(
+      this._program,
+      'u_matrix',
     );
 
-    // Translate to the position of the entity
-    this._layer.context.translate(position.x, position.y);
+    this._layer.context.activeTexture(this._layer.context.TEXTURE0);
+    this._layer.context.bindTexture(this._layer.context.TEXTURE_2D, texture);
 
-    if (rotation) {
-      this._layer.context.rotate(rotation.radians);
-    }
+    // Set u_texture uniform to texture unit 0
+    const uTextureLoc = this._layer.context.getUniformLocation(
+      this._program,
+      'u_texture',
+    );
+    this._layer.context.uniform1i(uTextureLoc, 0);
 
-    this._layer.context.scale(scale?.x ?? 1, scale?.y ?? 1);
-
-    // Translate based on the pivot point of the sprite
-    this._layer.context.translate(
-      -spriteComponent.sprite.pivot.x,
-      -spriteComponent.sprite.pivot.y,
+    // Compute transformation matrix
+    const mat = this._getSpriteMatrix(
+      position,
+      rotation?.radians ?? 0,
+      new Vector2(
+        imageRenderSource.width * (scale?.x ?? 1),
+        imageRenderSource.height * (scale?.y ?? 1),
+      ),
     );
 
-    this._renderPreProcessingEffects(
-      spriteComponent.sprite.renderSource.renderEffects,
+    // Send it to the GPU
+    this._layer.context.uniformMatrix3fv(uMatrixLoc, false, mat);
+
+    // Draw the quad (two triangles, 6 vertices)
+    this._layer.context.drawArrays(this._layer.context.TRIANGLES, 0, 6);
+  };
+
+  private _getSpriteBuffers = (program: WebGLProgram) => {
+    const gl = this._layer.context;
+
+    // Create a single quad with 2 triangles.
+    const positions = new Float32Array([
+      //  X,   Y
+      0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0,
+    ]);
+
+    const texCoords = new Float32Array([
+      // U, V
+      0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0,
+    ]);
+
+    // Position buffer
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+    const aPositionLoc = gl.getAttribLocation(program, 'a_position');
+    gl.enableVertexAttribArray(aPositionLoc);
+    gl.vertexAttribPointer(aPositionLoc, 2, gl.FLOAT, false, 0, 0);
+
+    // Texture coordinate buffer
+    const texCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, texCoords, gl.STATIC_DRAW);
+    const aTexCoordLoc = gl.getAttribLocation(program, 'a_texCoord');
+    gl.enableVertexAttribArray(aTexCoordLoc);
+    gl.vertexAttribPointer(aTexCoordLoc, 2, gl.FLOAT, false, 0, 0);
+
+    return { positionBuffer, texCoordBuffer };
+  };
+
+  private _translate = (matrix: number[], tx: number, ty: number) => {
+    matrix[6] += matrix[0] * tx + matrix[3] * ty;
+    matrix[7] += matrix[1] * tx + matrix[4] * ty;
+    return matrix;
+  };
+
+  private _rotate = (matrix: number[], radians: number) => {
+    const c = Math.cos(radians);
+    const s = Math.sin(radians);
+    const m0 = matrix[0],
+      m1 = matrix[1],
+      m3 = matrix[3],
+      m4 = matrix[4];
+    matrix[0] = c * m0 + s * m3;
+    matrix[1] = c * m1 + s * m4;
+    matrix[3] = -s * m0 + c * m3;
+    matrix[4] = -s * m1 + c * m4;
+    return matrix;
+  };
+
+  private _scale = (matrix: number[], sx: number, sy: number) => {
+    matrix[0] *= sx;
+    matrix[1] *= sx;
+    matrix[3] *= sy;
+    matrix[4] *= sy;
+    return matrix;
+  };
+
+  private _getSpriteMatrix = (
+    position: Vector2,
+    rotation: number,
+    scale: Vector2,
+  ) => {
+    const matrix = createProjectionMatrix(
+      this._layer.canvas.width,
+      this._layer.canvas.height,
     );
 
-    spriteComponent.sprite.renderSource.render(this._layer);
+    this._translate(matrix, position.x, position.y);
+    this._rotate(matrix, rotation);
+    this._scale(matrix, scale.x, scale.y);
 
-    this._resetCanvas();
-  };
-
-  private _resetCanvas = () => {
-    // Reset transformation matrix
-    this._layer.context.setTransform(1, 0, 0, 1, 0, 0);
-
-    // Reset filter
-    this._layer.context.filter = 'none';
-
-    // reset glow
-    this._layer.context.shadowColor = 'rgba(0, 0, 0, 0)';
-    this._layer.context.shadowBlur = 0;
-    this._layer.context.globalAlpha = 1;
-  };
-
-  private _renderPreProcessingEffects = (renderEffects: RenderEffects) => {
-    this._renderGlow(renderEffects.glow);
-    this._adjustOpacity(renderEffects.opacity);
-  };
-
-  private _renderGlow = (glow?: GlowEffect) => {
-    if (!glow) {
-      return;
-    }
-
-    this._layer.context.shadowColor = glow.color;
-    this._layer.context.shadowBlur = glow.radius;
-  };
-
-  private _adjustOpacity = (opacity?: number) => {
-    if (!opacity) {
-      return;
-    }
-
-    this._layer.context.globalAlpha = opacity;
+    return matrix;
   };
 
   public stop = (): void => {};

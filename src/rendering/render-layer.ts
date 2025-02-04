@@ -4,7 +4,7 @@ import { CLEAR_STRATEGY, CLEAR_STRATEGY_KEYS } from './types';
 export class RenderLayer {
   public name: string;
   public canvas: HTMLCanvasElement;
-  public context: CanvasRenderingContext2D;
+  public context: WebGL2RenderingContext;
   public center: Vector2;
   public clearStrategy: CLEAR_STRATEGY_KEYS;
 
@@ -13,7 +13,7 @@ export class RenderLayer {
     canvas: HTMLCanvasElement,
     clearStrategy: CLEAR_STRATEGY_KEYS = CLEAR_STRATEGY.blank,
   ) {
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext('webgl2');
 
     if (!context) {
       throw new Error('Context not found');
