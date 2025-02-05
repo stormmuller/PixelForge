@@ -36,16 +36,12 @@ export class StarfieldSystem extends ecs.System {
   public stop = (): void => {};
 
   private _createStar = async (starfieldComponent: StarfieldComponent) => {
-    const starRenderSource = await rendering.ImageRenderSource.fromImageCache(
-      this._imageCahce,
-      'star_small.png',
-      1,
-    );
+    const image = await this._imageCahce.getOrLoad('star_small.png');
 
-    const sprite = new rendering.Sprite(
-      starRenderSource,
-      new math.Vector2(starRenderSource.width / 2, starRenderSource.height / 2),
-    );
+    const sprite = new rendering.Sprite({
+      image,
+      renderLayer: this._renderLayer,
+    });
 
     const scaleComponent = new common.ScaleComponent(0.5, 0.5);
 
@@ -57,7 +53,7 @@ export class StarfieldSystem extends ecs.System {
         ),
         scaleComponent,
         new common.RotationComponent(0),
-        new rendering.SpriteComponent(sprite, this._renderLayer),
+        new rendering.SpriteComponent(sprite),
         new animations.AnimationComponent([
           {
             startValue: 0,
