@@ -7,8 +7,6 @@ import {
 import { Entity, System } from '../../ecs';
 import { CameraComponent, SpriteComponent } from '../components';
 import { RenderLayer } from '../render-layer';
-import { createTextureFromImage } from '../shaders';
-import { ImageRenderSource } from '../render-sources';
 import { createProjectionMatrix } from '../shaders/utils/create-projection-matrix';
 import { Vector2 } from '../../math';
 
@@ -42,11 +40,22 @@ export class RenderSystem extends System {
     }
 
     this._program = program;
+
+    this._layer.context.useProgram(program);
+    this._getSpriteBuffers(program);
+
+    // Enable blending
+    this._layer.context.enable(this._layer.context.BLEND);
+
+    // Common blend function for standard alpha blending:
+    this._layer.context.blendFunc(
+      this._layer.context.SRC_ALPHA,
+      this._layer.context.ONE_MINUS_SRC_ALPHA,
+    );
   }
 
   public override beforeAll = (entities: Entity[]) => {
     this._layer.context.clear(this._layer.context.COLOR_BUFFER_BIT);
-    this._layer.context.useProgram(this._program);
 
     const sortedEntities = entities.sort((entity1, entity2) => {
       const position1 = entity1.getComponentRequired<PositionComponent>(
@@ -80,7 +89,7 @@ export class RenderSystem extends System {
       SpriteComponent.symbol,
     );
 
-    if (spriteComponent.renderLayer !== this._layer) {
+    if (spriteComponent.sprite.renderLayer !== this._layer) {
       return; // Probably not the best way to handle layers/sprite, but the alternatives have their own issues.
     }
 
@@ -98,23 +107,16 @@ export class RenderSystem extends System {
       RotationComponent.symbol,
     );
 
-    this._getSpriteBuffers(this._program);
-
-    const imageRenderSource = spriteComponent.sprite
-      .renderSource as ImageRenderSource;
-
-    const texture = createTextureFromImage(
-      this._layer.context,
-      imageRenderSource.image,
-    );
-
     const uMatrixLoc = this._layer.context.getUniformLocation(
       this._program,
       'u_matrix',
     );
 
     this._layer.context.activeTexture(this._layer.context.TEXTURE0);
-    this._layer.context.bindTexture(this._layer.context.TEXTURE_2D, texture);
+    this._layer.context.bindTexture(
+      this._layer.context.TEXTURE_2D,
+      spriteComponent.sprite.texture,
+    );
 
     // Set u_texture uniform to texture unit 0
     const uTextureLoc = this._layer.context.getUniformLocation(
@@ -127,10 +129,10 @@ export class RenderSystem extends System {
     const mat = this._getSpriteMatrix(
       position,
       rotation?.radians ?? 0,
-      new Vector2(
-        imageRenderSource.width * (scale?.x ?? 1),
-        imageRenderSource.height * (scale?.y ?? 1),
-      ),
+      spriteComponent.sprite.width,
+      spriteComponent.sprite.height,
+      scale ?? Vector2.one,
+      spriteComponent.sprite.pivot,
     );
 
     // Send it to the GPU
@@ -204,7 +206,10 @@ export class RenderSystem extends System {
   private _getSpriteMatrix = (
     position: Vector2,
     rotation: number,
+    spriteWidth: number,
+    spriteHeight: number,
     scale: Vector2,
+    pivot: Vector2,
   ) => {
     const matrix = createProjectionMatrix(
       this._layer.canvas.width,
@@ -213,7 +218,8 @@ export class RenderSystem extends System {
 
     this._translate(matrix, position.x, position.y);
     this._rotate(matrix, rotation);
-    this._scale(matrix, scale.x, scale.y);
+    this._scale(matrix, scale.x * spriteWidth, scale.y * spriteHeight);
+    this._translate(matrix, -pivot.x, -pivot.y);
 
     return matrix;
   };
