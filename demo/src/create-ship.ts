@@ -18,7 +18,6 @@ export const createShip = async (
   );
 
   const scaleComponent = new common.ScaleComponent();
-  // const scaleComponent = new common.ScaleComponent(0.5, 0.5);
 
   const shipEntity = new ecs.Entity('ship', [
     positionComponent,
@@ -29,20 +28,6 @@ export const createShip = async (
       rotationSpeed: 0.5,
       speed: 0.5,
     }),
-    // new animations.AnimationComponent([
-    //   {
-    //     startValue: 1,
-    //     endValue: 3,
-    //     elapsed: 0,
-    //     duration: 3000,
-    //     updateCallback: (value: number) => {
-    //       scaleComponent.x = value;
-    //       scaleComponent.y = value;
-    //     },
-    //     easing: (t: number) => t,
-    //     loop: 'pingpong',
-    //   },
-    // ]),
   ]);
 
   world.addEntity(shipEntity);
