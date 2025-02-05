@@ -1,4 +1,3 @@
-import { Fit, Layout, Rive } from '@rive-app/canvas';
 import { animations, utilities } from '../../src';
 import './style.css';
 import { createShip } from './create-ship';
@@ -14,7 +13,6 @@ const { imageCache, world, game, layerService, inputsEntity } =
   });
 
 const foregroundRenderLayer = layerService.getLayer(DEFAULT_LAYERS.foreground);
-// const backgroundRenderLayer = layerService.getLayer(DEFAULT_LAYERS.background);
 
 await createShip(imageCache, foregroundRenderLayer, world);
 createStarfield(world);
@@ -30,26 +28,3 @@ const animationSystem = new animations.AnimationSystem(game.time);
 world.addSystems([shipMovementSystem, starfieldSystem, animationSystem]);
 
 game.run();
-
-// const riveRenderLayer = layerService.createLayer('rive', {
-//   clearStrategy: 'none',
-// });
-
-// const r = new Rive({
-//   src: './ui.riv',
-//   canvas: riveRenderLayer.canvas,
-//   autoplay: true,
-//   layout: new Layout({
-//     fit: Fit.Layout,
-//   }),
-//   onLoad: () => {
-//     r.resizeDrawingSurfaceToCanvas();
-//   },
-// });
-
-// const onWindowResize = () => {
-//   layerService.resizeAllLayers();
-//   r.resizeDrawingSurfaceToCanvas();
-// };
-
-// window.addEventListener('resize', onWindowResize);
