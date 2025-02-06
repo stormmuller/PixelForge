@@ -9,13 +9,26 @@ import { CameraComponent, SpriteComponent } from '../components';
 import { RenderLayer } from '../render-layer';
 import { createProjectionMatrix } from '../shaders/utils/create-projection-matrix';
 import { Vector2 } from '../../math';
+import {
+  createProgram,
+  spriteFragmentShader,
+  spriteVertexShader,
+} from '../shaders';
+
+export interface RenderSystemOptions {
+  layer: RenderLayer;
+  cameraEntity: Entity;
+  program?: WebGLProgram;
+}
 
 export class RenderSystem extends System {
   private _layer: RenderLayer;
   private _program: WebGLProgram;
 
-  constructor(layer: RenderLayer, cameraEntity: Entity, program: WebGLProgram) {
+  constructor(options: RenderSystemOptions) {
     super('renderer', [PositionComponent.symbol, SpriteComponent.symbol]);
+
+    const { layer, cameraEntity, program } = options;
 
     this._layer = layer;
 
@@ -39,19 +52,18 @@ export class RenderSystem extends System {
       );
     }
 
-    this._program = program;
+    this._program =
+      program ??
+      createProgram(layer.context, spriteVertexShader, spriteFragmentShader);
 
-    this._layer.context.useProgram(program);
-    this._getSpriteBuffers(program);
+    const { context } = this._layer;
 
-    // Enable blending
-    this._layer.context.enable(this._layer.context.BLEND);
+    context.useProgram(this._program);
+    this._getSpriteBuffers(this._program);
 
-    // Common blend function for standard alpha blending:
-    this._layer.context.blendFunc(
-      this._layer.context.SRC_ALPHA,
-      this._layer.context.ONE_MINUS_SRC_ALPHA,
-    );
+    context.enable(context.BLEND);
+
+    context.blendFunc(context.SRC_ALPHA, context.ONE_MINUS_SRC_ALPHA);
   }
 
   public override beforeAll = (entities: Entity[]) => {
