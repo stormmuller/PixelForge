@@ -1,4 +1,4 @@
-export const spriteVertexShader = `#version 300 es
+#version 300 es
 
 in vec2 a_position;    // 2D vertex position
 in vec2 a_texCoord;    // Texture coordinate
@@ -17,4 +17,3 @@ void main() {
   // Pass texture coordinates to the fragment shader
     v_texCoord = a_texCoord;
 }
-`;
