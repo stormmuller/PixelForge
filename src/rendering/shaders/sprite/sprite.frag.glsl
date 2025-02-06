@@ -1,4 +1,4 @@
-export const spriteFragmentShader = `#version 300 es
+#version 300 es
 precision mediump float;
 
 uniform sampler2D u_texture;  // The sprite texture
@@ -9,4 +9,3 @@ out vec4 fragColor;           // Output color
 void main() {
   fragColor = texture(u_texture, v_texCoord);
 }
-`;
