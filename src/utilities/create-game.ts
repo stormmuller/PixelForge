@@ -6,13 +6,10 @@ import { Vector2 } from '../math';
 import {
   CameraComponent,
   CameraSystem,
-  createProgram,
   DEFAULT_LAYER_NAMES,
   ImageCache,
   LayerService,
   RenderSystem,
-  spriteFragmentShader,
-  spriteVertexShader,
 } from '../rendering';
 import { createContainer } from './create-container';
 import { isString } from './is-string';
@@ -57,26 +54,24 @@ export async function createGame(
   world.addEntity(inputsEntity);
   world.addSystem(inputSystem);
 
-  const worldCamera = new Entity('world camera', [
+  const cameraEntity = new Entity('world camera', [
     new CameraComponent({ allowZooming: false, allowPanning: false }),
     new PositionComponent(worldSpace.center.x, worldSpace.center.y),
   ]);
 
   for (const layerName of mergedOptions.layers) {
     const layer = layerService.createLayer(layerName);
-    const program = createProgram(
-      layer.context,
-      spriteVertexShader,
-      spriteFragmentShader,
-    );
-    const layerRenderSystem = new RenderSystem(layer, worldCamera, program);
+    const layerRenderSystem = new RenderSystem({
+      layer,
+      cameraEntity,
+    });
 
     world.addSystem(layerRenderSystem);
   }
 
   const cameraSystem = new CameraSystem(inputsEntity, game.time);
 
-  world.addEntity(worldCamera);
+  world.addEntity(cameraEntity);
   world.addSystem(cameraSystem);
 
   scene.registerUpdateable(world);
@@ -92,7 +87,7 @@ export async function createGame(
     world,
     inputsEntity,
     inputSystem,
-    worldCamera,
+    cameraEntity,
     cameraSystem,
   };
 }
