@@ -1,0 +1,20 @@
+{
+  "name": "Node.js 22 Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workspace",
+  "remoteUser": "node",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ],
+  "postCreateCommand": "npm install",
+  "forwardPorts": [5173],
+  "shutdownAction": "stopContainer"
+}
