@@ -1,10 +1,10 @@
 import { Stoppable } from '../common';
 import { Game } from '../game';
-import { Updateable } from '../game/interfaces';
+import { Updatable } from '../game/interfaces';
 import { Entity, filterEntitiesByComponents } from './entity';
 import type { System } from './types';
 
-export class World implements Updateable, Stoppable {
+export class World implements Updatable, Stoppable {
   public onSystemsChangedCallbacks = new Set<(systems: Set<System>) => void>();
   public onEntitiesChangedCallbacks = new Set<
     (entities: Set<Entity>) => void

@@ -2,14 +2,25 @@ import { Entity, System } from '../../ecs';
 import { Time } from '../../common';
 import { AnimatedProperty, AnimationComponent } from '../components';
 
+/**
+ * System that manages and updates animations for entities.
+ */
 export class AnimationSystem extends System {
   private _time: Time;
 
+  /**
+   * Creates an instance of AnimationSystem.
+   * @param time - The Time instance.
+   */
   constructor(time: Time) {
     super('animation', [AnimationComponent.symbol]);
     this._time = time;
   }
 
+  /**
+   * Runs the animation system for a given entity.
+   * @param entity - The entity to update animations for.
+   */
   public run = async (entity: Entity): Promise<void> => {
     const animationComponent = entity.getComponentRequired<AnimationComponent>(
       AnimationComponent.symbol,
@@ -27,10 +38,8 @@ export class AnimationSystem extends System {
       const animationComplete = this._updateAnimation(animation, deltaTime);
 
       if (animationComplete) {
-        // Animation reached the end value
         animation.updateCallback(animation.endValue);
 
-        // Handle looping and remove if needed
         const shouldRemove = !this._handleLooping(animation);
 
         if (shouldRemove) {
@@ -41,8 +50,14 @@ export class AnimationSystem extends System {
     }
   };
 
+  /**
+   * Updates a single animation.
+   * @param animation - The animation to update.
+   * @param deltaTime - The time elapsed since the last update.
+   * @returns True if the animation is complete, false otherwise.
+   */
   private _updateAnimation = (
-    animation: AnimatedProperty,
+    animation: Required<AnimatedProperty>,
     deltaTime: number,
   ): boolean => {
     animation.elapsed += deltaTime;
@@ -60,16 +75,20 @@ export class AnimationSystem extends System {
     return t >= 1;
   };
 
-  private _handleLooping = (animation: AnimatedProperty): boolean => {
+  /**
+   * Handles looping for an animation.
+   * @param animation - The animation to handle looping for.
+   * @returns True if the animation should continue, false if it should be removed.
+   */
+  private _handleLooping = (animation: Required<AnimatedProperty>): boolean => {
     if (!animation.loop || animation.loop === 'none') {
-      return false; // No looping, remove the animation
+      return false;
     }
 
-    // If loopCount is provided, decrement it
-    if (animation.loopCount !== undefined && animation.loopCount !== null) {
+    if (animation.loopCount !== -1) {
       animation.loopCount--;
       if (animation.loopCount <= 0) {
-        return false; // No more loops allowed
+        return false;
       }
     }
 
@@ -79,9 +98,9 @@ export class AnimationSystem extends System {
       animation.updateCallback(animation.startValue);
     } else if (animation.loop === 'pingpong') {
       // Swap start and end for next iteration
-      const temp = animation.startValue;
+      const originalStartValue = animation.startValue;
       animation.startValue = animation.endValue;
-      animation.endValue = temp;
+      animation.endValue = originalStartValue;
 
       // Start again at the new startValue
       animation.updateCallback(animation.startValue);
@@ -90,5 +109,8 @@ export class AnimationSystem extends System {
     return true;
   };
 
+  /**
+   * Stops the animation system.
+   */
   public stop = (): void => {};
 }

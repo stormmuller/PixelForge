@@ -1,5 +1,5 @@
 import { Time } from '../../common';
 
-export interface Updateable {
+export interface Updatable {
   update: (time: Time) => void;
 }

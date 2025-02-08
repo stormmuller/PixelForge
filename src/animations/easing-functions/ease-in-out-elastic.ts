@@ -1,3 +1,13 @@
+/**
+ * Easing function for "easeInOutElastic".
+ *
+ * This function creates an elastic effect that starts and ends with a bounce.
+ *
+ * @param t - The input value (typically between 0 and 1).
+ * @returns The eased value.
+ *
+ * @see {@link https://easings.net/#easeInOutElastic}
+ */
 export function easeInOutElastic(x: number): number {
   const c5 = (2 * Math.PI) / 4.5;
 
