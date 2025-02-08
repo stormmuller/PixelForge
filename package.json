@@ -18,7 +18,7 @@
     "url": "git+https://github.com/stormmuller/Forge.git"
   },
   "scripts": {
-    "dev": "vite --config demo/vite.config.mjs",
+    "dev": "vite",
     "build": "tsc",
     "test:ui": "vitest --reporter=html",
     "test": "vitest",
@@ -28,8 +28,8 @@
     "prettier": "prettier . --check",
     "prettier:write": "prettier . --write",
     "prepare": "husky",
-    "demo:build": "tsc && vite build --config demo/vite.config.mjs",
-    "demo:preview": "vite preview --config demo/vite.config.mjs"
+    "demo:build": "tsc && vite build",
+    "demo:preview": "vite preview"
   },
   "author": "",
   "license": "MIT",
