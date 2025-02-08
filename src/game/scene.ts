@@ -1,25 +1,25 @@
 import { Stoppable, Time } from '../common';
-import { Updateable } from './interfaces';
+import { Updatable } from './interfaces';
 
-export class Scene implements Updateable, Stoppable {
+export class Scene implements Updatable, Stoppable {
   public name: string;
 
-  private _updateables: Set<Updateable>;
+  private _updatables: Set<Updatable>;
   private _stoppables: Set<Stoppable>;
 
   constructor(name: string) {
     this.name = name;
 
-    this._updateables = new Set<Updateable>();
+    this._updatables = new Set<Updatable>();
     this._stoppables = new Set<Stoppable>();
   }
 
-  public registerUpdateable = (updateable: Updateable) => {
-    this._updateables.add(updateable);
+  public registerUpdatable = (updatable: Updatable) => {
+    this._updatables.add(updatable);
   };
 
-  public deregisterUpdateable = (updateable: Updateable) => {
-    this._updateables.delete(updateable);
+  public deregisterUpdatable = (updatable: Updatable) => {
+    this._updatables.delete(updatable);
   };
 
   public registerStoppable = (stoppable: Stoppable) => {
@@ -31,8 +31,8 @@ export class Scene implements Updateable, Stoppable {
   };
 
   public update = (time: Time) => {
-    for (const updateable of this._updateables) {
-      updateable.update(time);
+    for (const updatable of this._updatables) {
+      updatable.update(time);
     }
   };
 
