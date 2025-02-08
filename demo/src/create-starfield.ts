@@ -2,7 +2,7 @@ import { ecs } from '../../src';
 import { StarfieldComponent } from './starfield';
 
 export const createStarfield = async (world: ecs.World) => {
-  const starfieldComponent = new StarfieldComponent(2500);
+  const starfieldComponent = new StarfieldComponent(500);
   const starfieldEntity = new ecs.Entity('starfield', [starfieldComponent]);
 
   world.addEntity(starfieldEntity);
