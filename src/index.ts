@@ -1,5 +1,4 @@
 export * as animations from './animations';
-export * as assetLoading from './asset-loading';
 export * as audio from './audio';
 export * as common from './common';
 export * as ecs from './ecs';
