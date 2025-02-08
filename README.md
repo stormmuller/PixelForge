@@ -4,31 +4,45 @@
 
 Forge is a browser-based, code only game engine. It has everything you'd expect from an engine, including rendering, audio, input, animations, ECS, etc.
 
+## Prerequisites
+
+- Install Docker: https://www.docker.com/products/docker-desktop/
+- Install vscode: https://code.visualstudio.com/
+
 ## Installation
-Clone the repository and install the dependencies:
-``` sh
-git clone https://github.com/stormmuller/Forge.git
-cd Forge
-npm install
+
+Clone the repository and open up the dev environment:
+
+```sh
+git clone https://github.com/stormmuller/Forge.git && \
+cd Forge && \
+code .
 ```
 
 ## Running the Demo
+
 To run the demo application:
-``` sh
+
+```sh
 npm run dev
 ```
 
 ## Building the Project
+
 To build the project:
-``` sh
+
+```sh
 npm run build
 ```
 
 ## Running Tests
+
 To run the tests:
+
 ```sh
 npm test
 ```
+
 ## What the engine is
 
 The engine is where all the code is stored that is usable for most types of games. For example: the renderer, audio systems, animations, mouse pointer, etc.
@@ -42,7 +56,8 @@ The engine is not a place to store code that is hyper-specific to a game. For ex
 You can make a separate folder or package outside of the engine.
 
 ## Acknowledgements
- - [Howler.js](https://howlerjs.com/)
- - [Vite](https://vite.dev/)
- - [Rive](https://rive.app/)
- - [Kenny](https://www.kenney.nl/)
+
+- [Howler.js](https://howlerjs.com/)
+- [Vite](https://vite.dev/)
+- [Rive](https://rive.app/)
+- [Kenny](https://www.kenney.nl/)
