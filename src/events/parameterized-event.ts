@@ -1,9 +1,11 @@
-type Listener = () => Promise<void>;
+type Listener<T> = (eventData: T) => Promise<void>;
 
 /**
- * An event that can be raised and listened to.
+ * An parameterized event that can be raised and listened to.
+ *
+ * @template TInput - The type of the input parameter for the listeners.
  */
-export class Event {
+export class ParameterizedEvent<TInput = null> {
   /**
    * The name of the event.
    */
@@ -12,7 +14,7 @@ export class Event {
   /**
    * The list of listeners registered to this event.
    */
-  private _listeners: Listener[];
+  private _listeners: Listener<TInput>[];
 
   /**
    * Gets the list of listeners registered to this event.
@@ -22,7 +24,7 @@ export class Event {
   }
 
   /**
-   * Creates a new event.
+   * Creates a new ParameterizedEvent instance.
    * @param name - The name of the event.
    */
   constructor(name: string) {
@@ -34,7 +36,7 @@ export class Event {
    * Registers a listener to the event.
    * @param listener - The listener to register.
    */
-  public registerListener = (listener: Listener) => {
+  public registerListener = (listener: Listener<TInput>) => {
     this._listeners.push(listener);
   };
 
@@ -42,7 +44,7 @@ export class Event {
    * Deregisters a listener from the event.
    * @param listener - The listener to deregister.
    */
-  public deregisterListener = (listener: Listener) => {
+  public deregisterListener = (listener: Listener<TInput>) => {
     this._listeners = this._listeners.filter((l) => l !== listener);
   };
 
@@ -54,11 +56,12 @@ export class Event {
   };
 
   /**
-   * Raises the event, calling all registered listeners.
+   * Raises the event, calling all registered listeners with the provided input.
+   * @param input - The input parameter to pass to the listeners.
    */
-  public raise = () => {
+  public raise = (input: TInput) => {
     for (const listener of this._listeners) {
-      listener().catch((error) => {
+      listener(input).catch((error) => {
         console.error(`Error in listener for event ${this.name}:`, error);
         throw error;
       });
