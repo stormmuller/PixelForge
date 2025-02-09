@@ -35,6 +35,13 @@ export class Game implements Stoppable {
   }
 
   /**
+   * Gets the current time instance.
+   */
+  get time(): Time {
+    return this._time;
+  }
+
+  /**
    * Starts the game loop.
    * @param time - The initial time value.
    */
