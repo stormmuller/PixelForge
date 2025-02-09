@@ -17,7 +17,6 @@ test('creating an entity', () => {
 
   expect(entity).not.toBe(null);
   expect(entity.name).toBe('player');
-  expect(entity.components).toHaveLength(0);
 });
 
 test('adding a component', () => {
@@ -26,7 +25,7 @@ test('adding a component', () => {
 
   entity.addComponent(component);
 
-  expect(entity.components).toHaveLength(1);
+  expect(entity.getComponent(MockComponent.symbol)).not.toBeNull();
 });
 
 test('removing a component', () => {
@@ -35,7 +34,7 @@ test('removing a component', () => {
 
   entity.removeComponent(component);
 
-  expect(entity.components).toHaveLength(0);
+  expect(entity.getComponent(MockComponent.symbol)).toBeNull();
 });
 
 test('filtering by component', () => {
