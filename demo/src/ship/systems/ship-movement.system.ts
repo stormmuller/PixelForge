@@ -57,6 +57,4 @@ export class ShipMovementSystem extends ecs.System {
       rotation.radians += (player.rotationSpeed / 100) * this._time.deltaTime;
     }
   };
-
-  public stop = (): void => {};
 }

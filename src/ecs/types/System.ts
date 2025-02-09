@@ -31,5 +31,5 @@ export abstract class System implements Stoppable {
     return entities;
   };
 
-  public abstract stop(): void;
+  public stop = () => void 0;
 }

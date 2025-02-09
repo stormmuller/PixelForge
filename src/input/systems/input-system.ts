@@ -95,6 +95,4 @@ export class InputSystem extends System {
     this._mouseButtonPresses.delete(event.button);
     this._mouseButtonUps.add(event.button);
   };
-
-  public stop = (): void => {};
 }
