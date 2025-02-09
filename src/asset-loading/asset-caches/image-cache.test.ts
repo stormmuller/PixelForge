@@ -34,7 +34,7 @@ describe('ImageCache', () => {
 
     mockImage.onload?.(new Event('load'));
 
-    expect(imageLoadPromise).resolves.toBeUndefined();
+    await expect(imageLoadPromise).resolves.toBeUndefined();
   });
 
   it('should throw an error if the image fails to load', async () => {
