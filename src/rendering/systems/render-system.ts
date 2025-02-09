@@ -235,6 +235,4 @@ export class RenderSystem extends System {
 
     return matrix;
   };
-
-  public stop = (): void => {};
 }

@@ -85,11 +85,12 @@ export class AnimationSystem extends System {
       return false;
     }
 
-    if (animation.loopCount !== -1) {
-      animation.loopCount--;
-      if (animation.loopCount <= 0) {
+    if (animation.loopCount > -1) {
+      if (animation.loopCount === 0) {
         return false;
       }
+
+      animation.loopCount--;
     }
 
     animation.elapsed = 0;
@@ -108,9 +109,4 @@ export class AnimationSystem extends System {
 
     return true;
   };
-
-  /**
-   * Stops the animation system.
-   */
-  public stop = (): void => {};
 }

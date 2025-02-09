@@ -1,15 +1,22 @@
-import { animations, common, ecs, math, rendering } from '../../../../src';
+import {
+  animations,
+  assetLoading,
+  common,
+  ecs,
+  math,
+  rendering,
+} from '../../../../src';
 import { StarfieldComponent } from '../components';
 
 export class StarfieldSystem extends ecs.System {
   private _world: ecs.World;
-  private _imageCache: rendering.ImageCache;
+  private _imageCache: assetLoading.ImageCache;
   private _renderLayer: rendering.RenderLayer;
   private _random: math.Random;
 
   constructor(
     world: ecs.World,
-    imageCache: rendering.ImageCache,
+    imageCache: assetLoading.ImageCache,
     renderLayer: rendering.RenderLayer,
   ) {
     super('starfield', [StarfieldComponent.symbol]);
@@ -32,8 +39,6 @@ export class StarfieldSystem extends ecs.System {
       await this._createStar(starfieldComponent);
     }
   };
-
-  public stop = (): void => {};
 
   private _createStar = async (starfieldComponent: StarfieldComponent) => {
     const image = await this._imageCache.getOrLoad('star_small.png');

@@ -30,6 +30,4 @@ export class MousePointerSystem extends System {
   public shutdown = (): void => {
     window.removeEventListener('mousemove', this.updateCursorPosition);
   };
-
-  public stop = (): void => {};
 }

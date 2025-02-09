@@ -61,6 +61,4 @@ export class CameraSystem extends System {
       }
     }
   };
-
-  public stop = (): void => {};
 }

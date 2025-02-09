@@ -49,6 +49,4 @@ export class TimerSystem extends System {
       }
     }
   };
-
-  public stop = (): void => {};
 }
