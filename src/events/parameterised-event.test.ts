@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { ParameterisedEvent } from './parameterized-event';
+import { ParameterizedEvent } from './parameterized-event';
 
 describe('When creating an event', () => {
-  const event = new ParameterisedEvent<string>('test-event');
+  const event = new ParameterizedEvent<string>('test-event');
   const logic = vi.fn();
   const listener = async (data: string) => {
     logic(`processed ${data}`);
@@ -28,14 +28,14 @@ describe('When creating an event', () => {
     describe('and raising an event', () => {
       test('it should call the listener', () => {
         event.registerListener(listener);
-        event.raise('yeet');
+        event.raise('foo');
 
         expect(logic).toHaveBeenCalledOnce();
-        expect(logic).toHaveBeenCalledWith('processed yeet');
+        expect(logic).toHaveBeenCalledWith('processed foo');
       });
     });
 
-    describe('and deregistering the listener', () => {
+    describe('and de-registering the listener', () => {
       test('it should have no listeners', () => {
         event.registerListener(listener);
         event.deregisterListener(listener);
