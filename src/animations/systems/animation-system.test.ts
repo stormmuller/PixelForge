@@ -9,7 +9,7 @@ describe('AnimationSystem', () => {
     const mockUpdateCallback = vi.fn();
     const mockFinishedCallback = vi.fn();
     const time = new Time();
-    time.deltaTime = 1000;
+    time.update(1000);
 
     const animation: Required<AnimatedProperty> = {
       startValue: 0,
@@ -37,7 +37,7 @@ describe('AnimationSystem', () => {
   it('should handle looping animations', async () => {
     const mockUpdateCallback = vi.fn();
     const time = new Time();
-    time.deltaTime = 1000;
+    time.update(1000);
 
     const animation: Required<AnimatedProperty> = {
       startValue: 0,
@@ -65,7 +65,7 @@ describe('AnimationSystem', () => {
   it('should handle pingpong animations', async () => {
     const mockUpdateCallback = vi.fn();
     const time = new Time();
-    time.deltaTime = 1000;
+    time.update(1000);
 
     const animation: Required<AnimatedProperty> = {
       startValue: 0,
@@ -95,7 +95,7 @@ describe('AnimationSystem', () => {
   it('should remove animations when loopCount reaches 0', async () => {
     const mockUpdateCallback = vi.fn();
     const time = new Time();
-    time.deltaTime = 1000;
+    time.update(1000);
 
     const animation: Required<AnimatedProperty> = {
       startValue: 0,
