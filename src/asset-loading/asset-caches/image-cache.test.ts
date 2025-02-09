@@ -51,7 +51,7 @@ describe('ImageCache', () => {
 
     mockImage.onerror?.(new Event('error'));
 
-    expect(imageLoadPromise).rejects.toThrow(
+    await expect(imageLoadPromise).rejects.toThrow(
       'Failed to load image at path/to/image.png',
     );
   });
