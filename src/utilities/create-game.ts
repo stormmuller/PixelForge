@@ -71,7 +71,7 @@ export async function createGame(
   const worldSpace = new Space(mergedOptions.dimensions);
   const layerService = new LayerService(gameContainer);
 
-  const world = new World(game);
+  const world = new World();
 
   const inputsEntity = new Entity('inputs', [new InputsComponent()]);
 
