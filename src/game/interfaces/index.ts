@@ -1,1 +1,1 @@
-export * from './Updateable';
+export * from './Updatable';
