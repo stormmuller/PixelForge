@@ -1,3 +1,4 @@
+import { ImageCache } from '../asset-loading';
 import { PositionComponent, Space } from '../common';
 import { Entity, World } from '../ecs';
 import { Game, Scene } from '../game';
@@ -7,7 +8,6 @@ import {
   CameraComponent,
   CameraSystem,
   DEFAULT_LAYER_NAMES,
-  ImageCache,
   LayerService,
   RenderSystem,
 } from '../rendering';
