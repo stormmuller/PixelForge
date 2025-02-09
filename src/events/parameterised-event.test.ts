@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { ParameterisedEvent } from './parameterised-event';
+import { ParameterisedEvent } from './parameterized-event';
 
 describe('When creating an event', () => {
   const event = new ParameterisedEvent<string>('test-event');
