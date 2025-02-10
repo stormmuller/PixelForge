@@ -101,6 +101,8 @@ export async function createGame(
   world.addSystem(cameraSystem);
 
   scene.registerUpdatable(world);
+  scene.registerStoppable(world);
+
   game.registerScene(scene);
 
   return {
