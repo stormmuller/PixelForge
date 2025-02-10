@@ -1,11 +1,18 @@
 import { Path } from '../common';
 import { BoxCollider } from '../physics';
-import { Vector2 } from './types';
+import { Vector2 } from './vector2';
 
-export const calculateBoxCollider = (points: Path) => {
+/**
+ * Calculates a bounding box (BoxCollider) that encompasses all the points in the given path.
+ *
+ * @param points - An array of Vector2 points representing the path.
+ * @returns A BoxCollider that represents the bounding box of the given points.
+ * @throws An error if the path contains fewer than 2 points.
+ */
+export const calculateBoxCollider = (points: Path): BoxCollider => {
   if (points.length < 2) {
     throw new Error(
-      'There needs to be atleast 2 points in order to calculate a bounding box',
+      'There needs to be at least 2 points in order to calculate a bounding box',
     );
   }
 
@@ -36,7 +43,7 @@ export const calculateBoxCollider = (points: Path) => {
   }
 
   const point = new Vector2(minX, minY);
-  const dimentions = new Vector2(maxX - minX, maxY - minY);
+  const dimensions = new Vector2(maxX - minX, maxY - minY);
 
-  return new BoxCollider(point, dimentions);
+  return new BoxCollider(point, dimensions);
 };

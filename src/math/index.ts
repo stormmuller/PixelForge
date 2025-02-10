@@ -5,5 +5,5 @@ export * from './lerp';
 export * from './matrices';
 export * from './random';
 export * from './scale-relative-to-point';
-export * from './types';
+export * from './vector2';
 export * from './vector-to-radians';
