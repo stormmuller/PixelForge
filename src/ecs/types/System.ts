@@ -70,5 +70,7 @@ export abstract class System implements Stoppable {
   /**
    * Stops the system. This method can be overridden by subclasses.
    */
-  public stop = () => void 0;
+  public stop = () => {
+    return;
+  };
 }
