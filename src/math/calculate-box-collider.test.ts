@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { Vector2 } from './types';
 import { Path } from '../common/path/path';
 import { calculateBoxCollider } from './calculate-box-collider';
+import { Vector2 } from './vector2';
 
 describe('calculateBoxCollider', () => {
   it('should throw an error if the path has less than 2 points', () => {
     const path = new Path([new Vector2(0, 0)]);
 
     expect(() => calculateBoxCollider(path)).toThrow(
-      'There needs to be atleast 2 points in order to calculate a bounding box',
+      'There needs to be at least 2 points in order to calculate a bounding box',
     );
   });
 
