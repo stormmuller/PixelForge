@@ -1,8 +1,8 @@
-import { animations, common, ecs, rendering } from '../../src';
+import { assetLoading, common, ecs, rendering } from '../../src';
 import { ShipComponent } from './ship';
 
 export const createShip = async (
-  imageCache: rendering.ImageCache,
+  imageCache: assetLoading.ImageCache,
   renderLayer: rendering.RenderLayer,
   world: ecs.World,
 ) => {
