@@ -1,18 +1,16 @@
-import { common, ecs, rendering } from '../../src';
+import { ecs, rendering } from '../../src';
 
 export const createRenderLayer = (
   layerService: rendering.LayerService,
   cameraEntity: ecs.Entity,
-  worldSpace: common.Space,
   world: ecs.World,
 ) => {
   const foregroundRenderLayer = layerService.createLayer('foreground');
 
-  const foregroundRenderSystem = new rendering.RenderSystem(
-    foregroundRenderLayer,
+  const foregroundRenderSystem = new rendering.RenderSystem({
+    layer: foregroundRenderLayer,
     cameraEntity,
-    worldSpace,
-  );
+  });
 
   world.addSystem(foregroundRenderSystem);
 

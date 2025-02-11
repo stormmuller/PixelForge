@@ -22,7 +22,7 @@
     "build": "tsc",
     "test:ui": "vitest --reporter=html",
     "test": "vitest",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsc --noEmit --project ci.tsconfig.json",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "prettier": "prettier . --check",
