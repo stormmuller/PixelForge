@@ -1,47 +1,96 @@
 import { Vector2 } from '../../math';
 import { Collider } from './collider';
 
+/**
+ * The `BoxCollider` class represents a rectangular collider defined by a point and dimensions.
+ * It provides methods to check containment, combine with other colliders, and calculate bounding boxes.
+ */
 export class BoxCollider implements Collider<BoxCollider> {
+  /** The bottom-left corner point of the box collider */
   public point: Vector2;
-  public dimentions: Vector2;
 
-  constructor(point: Vector2, dimentions: Vector2) {
+  /** The dimensions of the box collider */
+  public dimensions: Vector2;
+
+  /**
+   * Creates a new instance of the `BoxCollider` class.
+   * @param point - The bottom-left corner point of the box collider.
+   * @param dimensions - The dimensions of the box collider.
+   */
+  constructor(point: Vector2, dimensions: Vector2) {
     this.point = point;
-    this.dimentions = dimentions;
+    this.dimensions = dimensions;
   }
 
+  /**
+   * Gets the minimum x-coordinate of the box collider.
+   * @returns The minimum x-coordinate.
+   */
   get minX(): number {
     return this.point.x;
   }
 
+  /**
+   * Gets the maximum x-coordinate of the box collider.
+   * @returns The maximum x-coordinate.
+   */
   get maxX(): number {
-    return this.point.x + this.dimentions.x;
+    return this.point.x + this.dimensions.x;
   }
 
+  /**
+   * Gets the minimum y-coordinate of the box collider.
+   * @returns The minimum y-coordinate.
+   */
   get minY(): number {
     return this.point.y;
   }
 
+  /**
+   * Gets the maximum y-coordinate of the box collider.
+   * @returns The maximum y-coordinate.
+   */
   get maxY(): number {
-    return this.point.y + this.dimentions.y;
+    return this.point.y + this.dimensions.y;
   }
 
+  /**
+   * Gets the middle point of the top edge of the box collider.
+   * @returns A `Vector2` representing the middle point of the top edge.
+   */
   get middleTop(): Vector2 {
-    return new Vector2(this.point.x + this.dimentions.x / 2, this.minY);
+    return new Vector2(this.point.x + this.dimensions.x / 2, this.minY);
   }
 
+  /**
+   * Gets the middle point of the bottom edge of the box collider.
+   * @returns A `Vector2` representing the middle point of the bottom edge.
+   */
   get middleBottom(): Vector2 {
-    return new Vector2(this.point.x + this.dimentions.x / 2, this.maxY);
+    return new Vector2(this.point.x + this.dimensions.x / 2, this.maxY);
   }
 
+  /**
+   * Gets the middle point of the left edge of the box collider.
+   * @returns A `Vector2` representing the middle point of the left edge.
+   */
   get middleLeft(): Vector2 {
-    return new Vector2(this.minX, this.point.y + this.dimentions.y / 2);
+    return new Vector2(this.minX, this.point.y + this.dimensions.y / 2);
   }
 
+  /**
+   * Gets the middle point of the right edge of the box collider.
+   * @returns A `Vector2` representing the middle point of the right edge.
+   */
   get middleRight(): Vector2 {
-    return new Vector2(this.maxX, this.point.y + this.dimentions.y / 2);
+    return new Vector2(this.maxX, this.point.y + this.dimensions.y / 2);
   }
 
+  /**
+   * Checks if a given point is contained within the box collider.
+   * @param point - The point to check.
+   * @returns `true` if the point is within the box collider, `false` otherwise.
+   */
   public contains = (point: Vector2): boolean => {
     const inXBounds = point.x >= this.minX && point.x <= this.maxX;
     const inYBounds = point.y >= this.minY && point.y <= this.maxY;
@@ -49,6 +98,11 @@ export class BoxCollider implements Collider<BoxCollider> {
     return inXBounds && inYBounds;
   };
 
+  /**
+   * Combines this box collider with another box collider to create a new bounding box.
+   * @param other - The other box collider to combine with.
+   * @returns A new `BoxCollider` representing the combined bounding box.
+   */
   public combine = (other: BoxCollider): BoxCollider => {
     const minX = Math.min(this.minX, other.minX);
     const minY = Math.min(this.minY, other.minY);
@@ -61,6 +115,11 @@ export class BoxCollider implements Collider<BoxCollider> {
     );
   };
 
+  /**
+   * Combines this box collider with an array of other box colliders to create a new bounding box.
+   * @param others - An array of other box colliders to combine with.
+   * @returns A new `BoxCollider` representing the combined bounding box.
+   */
   public combineAll = (others: BoxCollider[]): BoxCollider => {
     let minX = this.minX;
     let minY = this.minY;
@@ -88,6 +147,12 @@ export class BoxCollider implements Collider<BoxCollider> {
     );
   };
 
+  /**
+   * Creates a new bounding box that encompasses all the given box colliders.
+   * @param boxColliders - An array of box colliders to combine.
+   * @returns A new `BoxCollider` representing the combined bounding box.
+   * @throws An error if the array of box colliders is empty.
+   */
   public static fromOtherBoxes = (boxColliders: BoxCollider[]): BoxCollider => {
     if (boxColliders.length === 0) {
       throw new Error('No boxes to combine');
