@@ -1,13 +1,26 @@
 import { Vector2 } from '../../math';
 import { Collider } from './collider';
 
+/**
+ * The `PolygonCollider` class represents a polygonal collider defined by an array of points.
+ * It provides methods to check containment, combine with other colliders, and calculate bounding boxes.
+ */
 export class PolygonCollider implements Collider<PolygonCollider> {
+  /** The points defining the polygon */
   public points: Vector2[];
 
+  /**
+   * Creates a new instance of the `PolygonCollider` class.
+   * @param points - The points defining the polygon.
+   */
   constructor(points: Vector2[]) {
     this.points = points;
   }
 
+  /**
+   * Gets the minimum x-coordinate of the polygon.
+   * @returns The minimum x-coordinate.
+   */
   get minX(): number {
     let min = this.points[0].x;
     for (let i = 1; i < this.points.length; i++) {
@@ -18,6 +31,10 @@ export class PolygonCollider implements Collider<PolygonCollider> {
     return min;
   }
 
+  /**
+   * Gets the maximum x-coordinate of the polygon.
+   * @returns The maximum x-coordinate.
+   */
   get maxX(): number {
     let max = this.points[0].x;
     for (let i = 1; i < this.points.length; i++) {
@@ -28,6 +45,10 @@ export class PolygonCollider implements Collider<PolygonCollider> {
     return max;
   }
 
+  /**
+   * Gets the minimum y-coordinate of the polygon.
+   * @returns The minimum y-coordinate.
+   */
   get minY(): number {
     let min = this.points[0].y;
     for (let i = 1; i < this.points.length; i++) {
@@ -38,6 +59,10 @@ export class PolygonCollider implements Collider<PolygonCollider> {
     return min;
   }
 
+  /**
+   * Gets the maximum y-coordinate of the polygon.
+   * @returns The maximum y-coordinate.
+   */
   get maxY(): number {
     let max = this.points[0].y;
     for (let i = 1; i < this.points.length; i++) {
@@ -49,7 +74,9 @@ export class PolygonCollider implements Collider<PolygonCollider> {
   }
 
   /**
-   * Check if a point lies inside this polygon using the winding number algorithm
+   * Checks if a point lies inside this polygon using the winding number algorithm.
+   * @param point - The point to check.
+   * @returns `true` if the point is within the polygon, `false` otherwise.
    */
   public contains = (point: Vector2): boolean => {
     let windingNumber = 0;
@@ -82,8 +109,9 @@ export class PolygonCollider implements Collider<PolygonCollider> {
   };
 
   /**
-   * Combine (union) this polygon with another polygon by taking
-   * the convex hull of all points.
+   * Combines (unions) this polygon with another polygon by taking the convex hull of all points.
+   * @param other - The other polygon collider to combine with.
+   * @returns A new `PolygonCollider` representing the combined bounding polygon.
    */
   public combine = (other: PolygonCollider): PolygonCollider => {
     const allPoints = [...this.points, ...other.points];
@@ -92,8 +120,9 @@ export class PolygonCollider implements Collider<PolygonCollider> {
   };
 
   /**
-   * Combine (union) this polygon with multiple polygons by taking
-   * the convex hull of all points.
+   * Combines (unions) this polygon with multiple polygons by taking the convex hull of all points.
+   * @param others - An array of other polygon colliders to combine with.
+   * @returns A new `PolygonCollider` representing the combined bounding polygon.
    */
   public combineAll = (others: PolygonCollider[]): PolygonCollider => {
     let allPoints = [...this.points];
@@ -105,9 +134,13 @@ export class PolygonCollider implements Collider<PolygonCollider> {
   };
 
   /**
-   * Returns > 0 if 'point2' is left of the directed segment (point0 -> point1)
-   * Returns = 0 if 'point2' is exactly on the line
-   * Returns < 0 otherwise
+   * Returns > 0 if 'point2' is left of the directed segment (point0 -> point1).
+   * Returns = 0 if 'point2' is exactly on the line.
+   * Returns < 0 otherwise.
+   * @param point0 - The starting point of the segment.
+   * @param point1 - The ending point of the segment.
+   * @param point2 - The point to check.
+   * @returns A number indicating the relative position of `point2`.
    */
   private _isLeft = (
     point0: Vector2,
@@ -122,6 +155,8 @@ export class PolygonCollider implements Collider<PolygonCollider> {
 
   /**
    * Computes the convex hull of a set of points using the Monotone Chain algorithm.
+   * @param points - The points to compute the convex hull for.
+   * @returns An array of points representing the convex hull.
    */
   private _computeConvexHull = (points: Vector2[]): Vector2[] => {
     if (points.length < 3) {
@@ -167,6 +202,10 @@ export class PolygonCollider implements Collider<PolygonCollider> {
 
   /**
    * Cross product of vectors (p1 -> p2) x (p1 -> p3).
+   * @param p1 - The starting point of the first vector.
+   * @param p2 - The ending point of the first vector.
+   * @param p3 - The ending point of the second vector.
+   * @returns The cross product of the vectors.
    */
   private _cross = (p1: Vector2, p2: Vector2, p3: Vector2): number => {
     return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
