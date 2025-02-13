@@ -1,6 +1,13 @@
 import { Vector2 } from '../../math';
 
+/**
+ * Converts a position from canvas space to world space.
+ *
+ * @param canvasPosition - The position in canvas space.
+ * @param worldCenter - The center of the world space.
+ * @returns The position in world space.
+ */
 export const canvasToWorldSpace = (
   canvasPosition: Vector2,
   worldCenter: Vector2,
-) => canvasPosition.add(worldCenter);
+): Vector2 => canvasPosition.add(worldCenter);

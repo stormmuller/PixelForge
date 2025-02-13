@@ -15,16 +15,31 @@ import {
   spriteVertexShader,
 } from '../shaders';
 
+/**
+ * Options for configuring the `RenderSystem`.
+ */
 export interface RenderSystemOptions {
+  /** The render layer to use for rendering. */
   layer: RenderLayer;
+
+  /** The entity that contains the camera component. */
   cameraEntity: Entity;
+
+  /** The WebGL program to use for rendering (optional). */
   program?: WebGLProgram;
 }
 
+/**
+ * The `RenderSystem` class extends the `System` class and manages the rendering of sprites.
+ */
 export class RenderSystem extends System {
   private _layer: RenderLayer;
   private _program: WebGLProgram;
 
+  /**
+   * Constructs a new instance of the `RenderSystem` class.
+   * @param options - The options for configuring the render system.
+   */
   constructor(options: RenderSystemOptions) {
     super('renderer', [PositionComponent.symbol, SpriteComponent.symbol]);
 
@@ -66,6 +81,11 @@ export class RenderSystem extends System {
     context.blendFunc(context.SRC_ALPHA, context.ONE_MINUS_SRC_ALPHA);
   }
 
+  /**
+   * Prepares the render system before processing all entities.
+   * @param entities - The array of entities to process.
+   * @returns The sorted array of entities.
+   */
   public override beforeAll = (entities: Entity[]) => {
     this._layer.context.clear(this._layer.context.COLOR_BUFFER_BIT);
 
@@ -96,6 +116,10 @@ export class RenderSystem extends System {
     return sortedEntities;
   };
 
+  /**
+   * Runs the render system for the given entity, rendering the sprite.
+   * @param entity - The entity that contains the `SpriteComponent` and `PositionComponent`.
+   */
   public run = async (entity: Entity): Promise<void> => {
     const spriteComponent = entity.getComponentRequired<SpriteComponent>(
       SpriteComponent.symbol,
@@ -154,6 +178,10 @@ export class RenderSystem extends System {
     this._layer.context.drawArrays(this._layer.context.TRIANGLES, 0, 6);
   };
 
+  /**
+   * Creates and sets up the buffers for rendering sprites.
+   * @param program - The WebGL program to use for rendering.
+   */
   private _getSpriteBuffers = (program: WebGLProgram) => {
     const gl = this._layer.context;
 
@@ -187,12 +215,25 @@ export class RenderSystem extends System {
     return { positionBuffer, texCoordBuffer };
   };
 
+  /**
+   * Translates the given matrix by the specified x and y values.
+   * @param matrix - The matrix to translate.
+   * @param tx - The x translation value.
+   * @param ty - The y translation value.
+   * @returns The translated matrix.
+   */
   private _translate = (matrix: number[], tx: number, ty: number) => {
     matrix[6] += matrix[0] * tx + matrix[3] * ty;
     matrix[7] += matrix[1] * tx + matrix[4] * ty;
     return matrix;
   };
 
+  /**
+   * Rotates the given matrix by the specified radians.
+   * @param matrix - The matrix to rotate.
+   * @param radians - The rotation angle in radians.
+   * @returns The rotated matrix.
+   */
   private _rotate = (matrix: number[], radians: number) => {
     const c = Math.cos(radians);
     const s = Math.sin(radians);
@@ -207,6 +248,13 @@ export class RenderSystem extends System {
     return matrix;
   };
 
+  /**
+   * Scales the given matrix by the specified x and y values.
+   * @param matrix - The matrix to scale.
+   * @param sx - The x scale value.
+   * @param sy - The y scale value.
+   * @returns The scaled matrix.
+   */
   private _scale = (matrix: number[], sx: number, sy: number) => {
     matrix[0] *= sx;
     matrix[1] *= sx;
@@ -215,6 +263,16 @@ export class RenderSystem extends System {
     return matrix;
   };
 
+  /**
+   * Computes the transformation matrix for rendering a sprite.
+   * @param position - The position of the sprite.
+   * @param rotation - The rotation angle of the sprite in radians.
+   * @param spriteWidth - The width of the sprite.
+   * @param spriteHeight - The height of the sprite.
+   * @param scale - The scale of the sprite.
+   * @param pivot - The pivot point of the sprite.
+   * @returns The computed transformation matrix.
+   */
   private _getSpriteMatrix = (
     position: Vector2,
     rotation: number,

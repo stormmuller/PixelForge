@@ -1,3 +1,10 @@
+/**
+ * Creates a projection matrix for mapping 0..width to -1..1 in X and 0..height to -1..1 in Y.
+ *
+ * @param width - The width of the projection area.
+ * @param height - The height of the projection area.
+ * @returns A 3x3 projection matrix.
+ */
 export const createProjectionMatrix = (width: number, height: number) => {
   // This matrix maps 0..width to 0..2, so that 0..width -> -1..1 in X
   // and 0..height -> -1..1 in Y
