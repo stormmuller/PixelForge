@@ -4,10 +4,19 @@ import { Entity, System } from '../../ecs';
 import { InputsComponent, keyCodes } from '../../input';
 import { CameraComponent } from '../components';
 
+/**
+ * The `CameraSystem` class manages the camera's
+ * zooming and panning based on user inputs.
+ */
 export class CameraSystem extends System {
   private _inputComponent: InputsComponent;
   private _time: Time;
 
+  /**
+   * Constructs a new instance of the `CameraSystem` class.
+   * @param inputEntity - The entity that contains the `InputsComponent`.
+   * @param time - The `Time` instance for managing time-related operations.
+   */
   constructor(inputEntity: Entity, time: Time) {
     super('camera', [CameraComponent.symbol, PositionComponent.symbol]);
 
@@ -17,6 +26,11 @@ export class CameraSystem extends System {
     this._time = time;
   }
 
+  /**
+   * Runs the camera system for the given entity, updating the camera's zoom and position
+   * based on user inputs.
+   * @param entity - The entity that contains the `CameraComponent` and `PositionComponent`.
+   */
   public run = async (entity: Entity): Promise<void> => {
     const cameraComponent = entity.getComponentRequired<CameraComponent>(
       CameraComponent.symbol,

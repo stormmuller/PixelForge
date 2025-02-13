@@ -1,3 +1,10 @@
+/**
+ * Creates a WebGL texture from an image.
+ *
+ * @param gl - The WebGL2 rendering context.
+ * @param image - The image source to create the texture from.
+ * @returns The created WebGL texture.
+ */
 export const createTextureFromImage = (
   gl: WebGL2RenderingContext,
   image: TexImageSource,
