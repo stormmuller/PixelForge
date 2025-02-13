@@ -35,7 +35,7 @@ describe('When creating an event', () => {
       });
     });
 
-    describe('and deregistering the listener', () => {
+    describe('and de-registering the listener', () => {
       test('it should have no listeners', () => {
         event.registerListener(listener);
         event.deregisterListener(listener);
