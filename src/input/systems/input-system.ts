@@ -27,14 +27,24 @@ export class InputSystem extends System {
 
     this._gameContainer = gameContainer;
 
-    gameContainer.addEventListener('wheel', this.onWheelEventHandler);
-    document.addEventListener('keydown', this.onKeyDownHandler);
-    document.addEventListener('keyup', this.onKeyUpHandler);
-    window.addEventListener('mousemove', this.updateCursorPosition, {
-      passive: true,
-    });
-    window.addEventListener('mousedown', this.onMouseDownHandler);
-    window.addEventListener('mouseup', this.onMouseUpHandler);
+    gameContainer.addEventListener('wheel', (event) =>
+      this.onWheelEventHandler(event),
+    );
+    document.addEventListener('keydown', (event) =>
+      this.onKeyDownHandler(event),
+    );
+    document.addEventListener('keyup', (event) => this.onKeyUpHandler(event));
+    window.addEventListener(
+      'mousemove',
+      (event) => this.updateCursorPosition(event),
+      {
+        passive: true,
+      },
+    );
+    window.addEventListener('mousedown', (event) =>
+      this.onMouseDownHandler(event),
+    );
+    window.addEventListener('mouseup', (event) => this.onMouseUpHandler(event));
   }
 
   /**
@@ -63,12 +73,24 @@ export class InputSystem extends System {
    * Stops the input system, removing all event listeners.
    */
   public override stop(): void {
-    this._gameContainer.removeEventListener('wheel', this.onWheelEventHandler);
-    document.removeEventListener('keydown', this.onKeyDownHandler);
-    document.removeEventListener('keyup', this.onKeyUpHandler);
-    window.removeEventListener('mousemove', this.updateCursorPosition);
-    window.removeEventListener('mousedown', this.onMouseDownHandler);
-    window.removeEventListener('mouseup', this.onMouseUpHandler);
+    this._gameContainer.removeEventListener('wheel', (event) =>
+      this.onWheelEventHandler(event),
+    );
+    document.removeEventListener('keydown', (event) =>
+      this.onKeyDownHandler(event),
+    );
+    document.removeEventListener('keyup', (event) =>
+      this.onKeyUpHandler(event),
+    );
+    window.removeEventListener('mousemove', (event) =>
+      this.updateCursorPosition(event),
+    );
+    window.removeEventListener('mousedown', (event) =>
+      this.onMouseDownHandler(event),
+    );
+    window.removeEventListener('mouseup', (event) =>
+      this.onMouseUpHandler(event),
+    );
   }
 
   /**
