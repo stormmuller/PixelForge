@@ -21,7 +21,7 @@ export class AnimationSystem extends System {
    * Runs the animation system for a given entity.
    * @param entity - The entity to update animations for.
    */
-  public run = async (entity: Entity): Promise<void> => {
+  public async run(entity: Entity): Promise<void> {
     const animationComponent = entity.getComponentRequired<AnimationComponent>(
       AnimationComponent.symbol,
     );
@@ -48,7 +48,7 @@ export class AnimationSystem extends System {
         }
       }
     }
-  };
+  }
 
   /**
    * Updates a single animation.
@@ -56,10 +56,10 @@ export class AnimationSystem extends System {
    * @param deltaTime - The time elapsed since the last update.
    * @returns True if the animation is complete, false otherwise.
    */
-  private _updateAnimation = (
+  private _updateAnimation(
     animation: Required<AnimatedProperty>,
     deltaTime: number,
-  ): boolean => {
+  ): boolean {
     animation.elapsed += deltaTime;
 
     let t = animation.elapsed / animation.duration;
@@ -73,14 +73,14 @@ export class AnimationSystem extends System {
     animation.updateCallback(currentValue);
 
     return t >= 1;
-  };
+  }
 
   /**
    * Handles looping for an animation.
    * @param animation - The animation to handle looping for.
    * @returns True if the animation should continue, false if it should be removed.
    */
-  private _handleLooping = (animation: Required<AnimatedProperty>): boolean => {
+  private _handleLooping(animation: Required<AnimatedProperty>): boolean {
     if (!animation.loop || animation.loop === 'none') {
       return false;
     }
@@ -108,5 +108,5 @@ export class AnimationSystem extends System {
     }
 
     return true;
-  };
+  }
 }

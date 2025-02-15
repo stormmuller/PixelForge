@@ -78,8 +78,8 @@ export default [
       'no-restricted-syntax': [
         'error',
         {
-          selector: 'ClassBody > MethodDefinition[kind="method"]',
-          message: 'Use arrow functions instead of traditional class methods.',
+          selector: 'PropertyDefinition[value.type="ArrowFunctionExpression"]',
+          message: 'Class methods should never be arrow functions.',
         },
       ],
     },

@@ -24,17 +24,17 @@ export class Path implements Iterable<Vector2> {
    * @param index - The index of the point to retrieve.
    * @returns The point at the specified index.
    */
-  public at = (index: number): Vector2 => {
+  public at(index: number): Vector2 {
     return this.path[index];
-  };
+  }
 
   /**
    * Adds a point to the end of the path.
    * @param point - The point to add.
    */
-  public push = (point: Vector2): void => {
+  public push(point: Vector2): void {
     this.path.push(point);
-  };
+  }
 
   /**
    * Maps the path to a new array using the provided callback function.
@@ -44,9 +44,9 @@ export class Path implements Iterable<Vector2> {
    * const pointStrings = path.map(point => `[${point.x},${point.y}]`);
    * console.log(pointStrings); // ['[0,0]', '[1,1]']
    */
-  public map = <T>(callback: MapPathCallback<T>): T[] => {
+  public map<T>(callback: MapPathCallback<T>): T[] {
     return this.path.map(callback);
-  };
+  }
 
   /**
    * Gets the first point in the path.
@@ -80,7 +80,7 @@ export class Path implements Iterable<Vector2> {
    *   console.log(point);
    * }
    */
-  public [Symbol.iterator] = (): Iterator<Vector2> => {
+  public [Symbol.iterator](): Iterator<Vector2> {
     let index = 0;
     const path = this.path;
 
@@ -93,5 +93,5 @@ export class Path implements Iterable<Vector2> {
         }
       },
     };
-  };
+  }
 }

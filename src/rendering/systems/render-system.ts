@@ -86,7 +86,7 @@ export class RenderSystem extends System {
    * @param entities - The array of entities to process.
    * @returns The sorted array of entities.
    */
-  public override beforeAll = (entities: Entity[]) => {
+  public override beforeAll(entities: Entity[]) {
     this._layer.context.clear(this._layer.context.COLOR_BUFFER_BIT);
 
     const sortedEntities = entities.sort((entity1, entity2) => {
@@ -114,13 +114,13 @@ export class RenderSystem extends System {
     });
 
     return sortedEntities;
-  };
+  }
 
   /**
    * Runs the render system for the given entity, rendering the sprite.
    * @param entity - The entity that contains the `SpriteComponent` and `PositionComponent`.
    */
-  public run = async (entity: Entity): Promise<void> => {
+  public async run(entity: Entity): Promise<void> {
     const spriteComponent = entity.getComponentRequired<SpriteComponent>(
       SpriteComponent.symbol,
     );
@@ -176,13 +176,13 @@ export class RenderSystem extends System {
 
     // Draw the quad (two triangles, 6 vertices)
     this._layer.context.drawArrays(this._layer.context.TRIANGLES, 0, 6);
-  };
+  }
 
   /**
    * Creates and sets up the buffers for rendering sprites.
    * @param program - The WebGL program to use for rendering.
    */
-  private _getSpriteBuffers = (program: WebGLProgram) => {
+  private _getSpriteBuffers(program: WebGLProgram) {
     const gl = this._layer.context;
 
     // Create a single quad with 2 triangles.
@@ -213,7 +213,7 @@ export class RenderSystem extends System {
     gl.vertexAttribPointer(aTexCoordLoc, 2, gl.FLOAT, false, 0, 0);
 
     return { positionBuffer, texCoordBuffer };
-  };
+  }
 
   /**
    * Translates the given matrix by the specified x and y values.
@@ -222,11 +222,11 @@ export class RenderSystem extends System {
    * @param ty - The y translation value.
    * @returns The translated matrix.
    */
-  private _translate = (matrix: number[], tx: number, ty: number) => {
+  private _translate(matrix: number[], tx: number, ty: number) {
     matrix[6] += matrix[0] * tx + matrix[3] * ty;
     matrix[7] += matrix[1] * tx + matrix[4] * ty;
     return matrix;
-  };
+  }
 
   /**
    * Rotates the given matrix by the specified radians.
@@ -234,7 +234,7 @@ export class RenderSystem extends System {
    * @param radians - The rotation angle in radians.
    * @returns The rotated matrix.
    */
-  private _rotate = (matrix: number[], radians: number) => {
+  private _rotate(matrix: number[], radians: number) {
     const c = Math.cos(radians);
     const s = Math.sin(radians);
     const m0 = matrix[0],
@@ -246,7 +246,7 @@ export class RenderSystem extends System {
     matrix[3] = -s * m0 + c * m3;
     matrix[4] = -s * m1 + c * m4;
     return matrix;
-  };
+  }
 
   /**
    * Scales the given matrix by the specified x and y values.
@@ -255,13 +255,13 @@ export class RenderSystem extends System {
    * @param sy - The y scale value.
    * @returns The scaled matrix.
    */
-  private _scale = (matrix: number[], sx: number, sy: number) => {
+  private _scale(matrix: number[], sx: number, sy: number) {
     matrix[0] *= sx;
     matrix[1] *= sx;
     matrix[3] *= sy;
     matrix[4] *= sy;
     return matrix;
-  };
+  }
 
   /**
    * Computes the transformation matrix for rendering a sprite.
@@ -273,14 +273,14 @@ export class RenderSystem extends System {
    * @param pivot - The pivot point of the sprite.
    * @returns The computed transformation matrix.
    */
-  private _getSpriteMatrix = (
+  private _getSpriteMatrix(
     position: Vector2,
     rotation: number,
     spriteWidth: number,
     spriteHeight: number,
     scale: Vector2,
     pivot: Vector2,
-  ) => {
+  ) {
     const matrix = createProjectionMatrix(
       this._layer.canvas.width,
       this._layer.canvas.height,
@@ -292,5 +292,5 @@ export class RenderSystem extends System {
     this._translate(matrix, -pivot.x, -pivot.y);
 
     return matrix;
-  };
+  }
 }

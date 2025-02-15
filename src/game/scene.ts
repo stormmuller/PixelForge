@@ -35,50 +35,50 @@ export class Scene implements Updatable, Stoppable {
    * Registers an updatable object to the scene.
    * @param updatable - The updatable object to register.
    */
-  public registerUpdatable = (updatable: Updatable) => {
+  public registerUpdatable(updatable: Updatable) {
     this._updatables.add(updatable);
-  };
+  }
 
   /**
    * Deregisters an updatable object from the scene.
    * @param updatable - The updatable object to deregister.
    */
-  public deregisterUpdatable = (updatable: Updatable) => {
+  public deregisterUpdatable(updatable: Updatable) {
     this._updatables.delete(updatable);
-  };
+  }
 
   /**
    * Registers a stoppable object to the scene.
    * @param stoppable - The stoppable object to register.
    */
-  public registerStoppable = (stoppable: Stoppable) => {
+  public registerStoppable(stoppable: Stoppable) {
     this._stoppables.add(stoppable);
-  };
+  }
 
   /**
    * Deregisters a stoppable object from the scene.
    * @param stoppable - The stoppable object to deregister.
    */
-  public deregisterStoppable = (stoppable: Stoppable) => {
+  public deregisterStoppable(stoppable: Stoppable) {
     this._stoppables.delete(stoppable);
-  };
+  }
 
   /**
    * Updates all registered updatable objects in the scene.
    * @param time - The current time.
    */
-  public update = (time: Time) => {
+  public update(time: Time) {
     for (const updatable of this._updatables) {
       updatable.update(time);
     }
-  };
+  }
 
   /**
    * Stops all registered stoppable objects in the scene.
    */
-  public stop = () => {
+  public stop() {
     for (const stoppable of this._stoppables) {
       stoppable.stop();
     }
-  };
+  }
 }

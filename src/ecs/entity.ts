@@ -54,16 +54,16 @@ export class Entity {
    * Adds a component to the entity.
    * @param component - The component to add.
    */
-  public addComponent = (component: Component) => {
+  public addComponent(component: Component) {
     this._components.add(component);
-  };
+  }
 
   /**
    * Checks if the entity contains all specified components.
    * @param componentSymbols - The symbols of the components to check.
    * @returns True if the entity contains all specified components, otherwise false.
    */
-  public checkIfEntityContainsAllComponents = (componentSymbols: symbol[]) => {
+  public checkIfEntityContainsAllComponents(componentSymbols: symbol[]) {
     let allSymbolsMatch = true;
 
     for (const symbol of componentSymbols) {
@@ -87,16 +87,14 @@ export class Entity {
     }
 
     return false;
-  };
+  }
 
   /**
    * Gets a component by its name.
    * @param componentName - The name of the component to get.
    * @returns The component if found, otherwise null.
    */
-  public getComponent = <T extends Component>(
-    componentName: symbol,
-  ): OrNull<T> => {
+  public getComponent<T extends Component>(componentName: symbol): OrNull<T> {
     for (const component of this._components) {
       if (component.name === componentName) {
         return component as T;
@@ -104,7 +102,7 @@ export class Entity {
     }
 
     return null;
-  };
+  }
 
   /**
    * Gets a component by its name.
@@ -112,9 +110,7 @@ export class Entity {
    * @returns The component if found.
    * @throws An error if the component is not found.
    */
-  public getComponentRequired = <T extends Component>(
-    componentName: symbol,
-  ): T => {
+  public getComponentRequired<T extends Component>(componentName: symbol): T {
     const component = this.getComponent<T>(componentName);
 
     if (component === null) {
@@ -124,34 +120,34 @@ export class Entity {
     }
 
     return component;
-  };
+  }
 
   /**
    * Gets multiple components by their names.
    * @param componentNames - The names of the components to get.
    * @returns An array of components.
    */
-  public getComponents = <T extends Component>(
+  public getComponents<T extends Component>(
     componentNames: symbol[],
-  ): OrNull<T>[] => {
+  ): OrNull<T>[] {
     return componentNames.map(this.getComponent<T>);
-  };
+  }
 
   /**
    * Removes a component from the entity.
    * @param component - The component to remove.
    */
-  public removeComponent = (component: Component) => {
+  public removeComponent(component: Component) {
     this._components.delete(component);
-  };
+  }
 
   /**
    * Generates a unique identifier for the entity.
    * @returns The unique identifier.
    */
-  private static _generateId = () => {
+  private static _generateId() {
     return Entity._idCounter++;
-  };
+  }
 
   /**
    * The counter for generating unique identifiers.

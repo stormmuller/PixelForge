@@ -42,7 +42,7 @@ export class InputSystem extends System {
    * with the current input states.
    * @param entity - The entity to update.
    */
-  public run = async (entity: Entity): Promise<void> => {
+  public async run(entity: Entity): Promise<void> {
     const inputs = entity.getComponentRequired<InputsComponent>(
       InputsComponent.symbol,
     );
@@ -57,86 +57,86 @@ export class InputSystem extends System {
     inputs.mouseCoordinates = this._mouseCoordinates;
 
     this.clearInputs();
-  };
+  }
 
   /**
    * Stops the input system, removing all event listeners.
    */
-  public override stop = (): void => {
+  public override stop(): void {
     this._gameContainer.removeEventListener('wheel', this.onWheelEventHandler);
     document.removeEventListener('keydown', this.onKeyDownHandler);
     document.removeEventListener('keyup', this.onKeyUpHandler);
     window.removeEventListener('mousemove', this.updateCursorPosition);
     window.removeEventListener('mousedown', this.onMouseDownHandler);
     window.removeEventListener('mouseup', this.onMouseUpHandler);
-  };
+  }
 
   /**
    * Clears the current input states.
    */
-  public clearInputs = () => {
+  public clearInputs() {
     this._scrollDelta = 0;
     this._keyDowns = new Set();
     this._keyUps = new Set();
     this._mouseButtonDowns = new Set();
     this._mouseButtonUps = new Set();
-  };
+  }
 
   /**
    * Handles the wheel event, updating the scroll delta value.
    * @param event - The wheel event.
    */
-  public onWheelEventHandler = (event: WheelEvent) => {
+  public onWheelEventHandler(event: WheelEvent) {
     this._scrollDelta = event.deltaY;
     event.preventDefault();
-  };
+  }
 
   /**
    * Handles the key up event, updating the key press and key up states.
    * @param event - The keyboard event.
    */
-  public onKeyUpHandler = (event: KeyboardEvent) => {
+  public onKeyUpHandler(event: KeyboardEvent) {
     this._keyPresses.delete(event.code);
     this._keyUps.add(event.code);
-  };
+  }
 
   /**
    * Handles the key down event, updating the key press and key down states.
    * @param event - The keyboard event.
    */
-  public onKeyDownHandler = (event: KeyboardEvent) => {
+  public onKeyDownHandler(event: KeyboardEvent) {
     if (event.repeat) {
       return;
     }
 
     this._keyPresses.add(event.code);
     this._keyDowns.add(event.code);
-  };
+  }
 
   /**
    * Updates the mouse cursor position.
    * @param event - The mouse event.
    */
-  public updateCursorPosition = (event: MouseEvent) => {
+  public updateCursorPosition(event: MouseEvent) {
     this._mouseCoordinates.x = event.clientX;
     this._mouseCoordinates.y = event.clientY;
-  };
+  }
 
   /**
    * Handles the mouse down event, updating the mouse button press and mouse button down states.
    * @param event - The mouse event.
    */
-  public onMouseDownHandler = (event: MouseEvent) => {
+  public onMouseDownHandler(event: MouseEvent) {
     this._mouseButtonPresses.add(event.button);
     this._mouseButtonDowns.add(event.button);
-  };
+  }
 
   /**
    * Handles the mouse up event, updating the mouse button press and mouse button up states.
    * @param event - The mouse event.
    */
-  public onMouseUpHandler = (event: MouseEvent) => {
+  public onMouseUpHandler(event: MouseEvent) {
     this._mouseButtonPresses.delete(event.button);
     this._mouseButtonUps.add(event.button);
-  };
+  }
 }

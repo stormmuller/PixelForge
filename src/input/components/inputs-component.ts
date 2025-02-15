@@ -60,52 +60,52 @@ export class InputsComponent implements Component {
    * @param code - The key code to check.
    * @returns True if the key is pressed, false otherwise.
    */
-  public keyPressed = (code: string) => {
+  public keyPressed(code: string) {
     return this.keyPresses.has(code);
-  };
+  }
 
   /**
    * Checks if a key is currently down.
    * @param code - The key code to check.
    * @returns True if the key is down, false otherwise.
    */
-  public keyPressedDown = (code: string) => {
+  public keyPressedDown(code: string) {
     return this.keyDowns.has(code);
-  };
+  }
 
   /**
    * Checks if a key has been released.
    * @param code - The key code to check.
    * @returns True if the key is released, false otherwise.
    */
-  public keyPressedUp = (code: string) => {
+  public keyPressedUp(code: string) {
     return this.keyUps.has(code);
-  };
+  }
 
   /**
    * Checks if a mouse button is currently down.
    * @param button - The mouse button to check.
    * @returns True if the mouse button is down, false otherwise.
    */
-  public isMouseButtonDown = (button: MouseButton) => {
+  public isMouseButtonDown(button: MouseButton) {
     return this.mouseButtonDowns.has(button);
-  };
+  }
 
   /**
    * Checks if a mouse button has been released.
    * @param button - The mouse button to check.
    * @returns True if the mouse button is released, false otherwise.
    */
-  public isMouseButtonUp = (button: MouseButton) => {
+  public isMouseButtonUp(button: MouseButton) {
     return this.mouseButtonUps.has(button);
-  };
+  }
 
   /**
    * Checks if a mouse button is currently pressed.
    * @param button - The mouse button to check.
    * @returns True if the mouse button is pressed, false otherwise.
    */
-  public isMouseButtonPressed = (button: MouseButton) => {
+  public isMouseButtonPressed(button: MouseButton) {
     return this.mouseButtonPresses.has(button);
-  };
+  }
 }

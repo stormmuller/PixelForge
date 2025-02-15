@@ -36,35 +36,35 @@ export class ParameterizedEvent<TInput = null> {
    * Registers a listener to the event.
    * @param listener - The listener to register.
    */
-  public registerListener = (listener: Listener<TInput>) => {
+  public registerListener(listener: Listener<TInput>) {
     this._listeners.push(listener);
-  };
+  }
 
   /**
    * Deregisters a listener from the event.
    * @param listener - The listener to deregister.
    */
-  public deregisterListener = (listener: Listener<TInput>) => {
+  public deregisterListener(listener: Listener<TInput>) {
     this._listeners = this._listeners.filter((l) => l !== listener);
-  };
+  }
 
   /**
    * Clears all listeners from the event.
    */
-  public clear = () => {
+  public clear() {
     this._listeners = [];
-  };
+  }
 
   /**
    * Raises the event, calling all registered listeners with the provided input.
    * @param input - The input parameter to pass to the listeners.
    */
-  public raise = (input: TInput) => {
+  public raise(input: TInput) {
     for (const listener of this._listeners) {
       listener(input).catch((error) => {
         console.error(`Error in listener for event ${this.name}:`, error);
         throw error;
       });
     }
-  };
+  }
 }

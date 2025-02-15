@@ -21,7 +21,7 @@ export class ShipMovementSystem extends ecs.System {
     this._time = time;
   }
 
-  public run = async (entity: ecs.Entity): Promise<void> => {
+  public async run(entity: ecs.Entity): Promise<void>  {
     const player = entity.getComponentRequired<ShipComponent>(
       ShipComponent.symbol,
     );

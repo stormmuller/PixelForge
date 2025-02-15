@@ -50,10 +50,10 @@ export class RenderLayer {
    * @param width - The new width of the canvas.
    * @param height - The new height of the canvas.
    */
-  public resize = (width: number, height: number) => {
+  public resize(width: number, height: number) {
     this.canvas.width = width;
     this.canvas.height = height;
 
     this.center = new Vector2(this.canvas.width / 2, this.canvas.height / 2);
-  };
+  }
 }

@@ -24,72 +24,72 @@ export class Vector2 {
    * @param value - The vector to copy components from
    * @returns This vector for chaining
    */
-  public set = (value: Vector2) => {
+  public set(value: Vector2) {
     this.x = value.x;
     this.y = value.y;
 
     return this;
-  };
+  }
 
   /**
    * Returns a new vector that is the sum of this vector and another vector.
    * @param value - The vector to add
    * @returns A new Vector2 representing the sum
    */
-  public add = (value: Vector2): Vector2 => {
+  public add(value: Vector2): Vector2 {
     const x = this.x + value.x;
     const y = this.y + value.y;
 
     return new Vector2(x, y);
-  };
+  }
 
   /**
    * Returns a new vector that is the difference between this vector and another vector.
    * @param value - The vector to subtract
    * @returns A new Vector2 representing the difference
    */
-  public subtract = (value: Vector2): Vector2 => {
+  public subtract(value: Vector2): Vector2 {
     const x = this.x - value.x;
     const y = this.y - value.y;
 
     return new Vector2(x, y);
-  };
+  }
 
   /**
    * Multiplies this vector by a scalar value.
    * @param scalar - The scalar value to multiply by
    * @returns A new Vector2 scaled by the input value
    */
-  public multiply = (scalar: number): Vector2 => {
+  public multiply(scalar: number): Vector2 {
     const x = this.x * scalar;
     const y = this.y * scalar;
 
     return new Vector2(x, y);
-  };
+  }
 
   /**
    * Multiplies this vector's components by another vector's components.
    * @param vector - The vector to multiply components with
    * @returns A new Vector2 with multiplied components
    */
-  public multiplyComponents = (vector: Vector2): Vector2 => {
+  public multiplyComponents(vector: Vector2): Vector2 {
     const x = this.x * vector.x;
     const y = this.y * vector.y;
 
     return new Vector2(x, y);
-  };
+  }
 
   /**
    * Divides this vector by a scalar value.
    * @param scalar - The scalar value to divide by
    * @returns A new Vector2 divided by the scalar
    */
-  public divide = (scalar: number): Vector2 => {
+  public divide(scalar: number): Vector2 {
     const x = this.x / scalar;
     const y = this.y / scalar;
 
     return new Vector2(x, y);
-  };
+  }
 
   /**
    * Returns a unit vector pointing upward (0, 1).
@@ -137,61 +137,61 @@ export class Vector2 {
    * Calculates the magnitude (length) of this vector.
    * @returns The magnitude of the vector
    */
-  public magnitude = (): number => {
+  public magnitude(): number {
     return Math.sqrt(this.magnitudeSquared());
-  };
+  }
 
   /**
    * Calculates the squared magnitude of this vector.
    * This is faster than magnitude() as it avoids the square root.
    * @returns The squared magnitude of the vector
    */
-  public magnitudeSquared = (): number => {
+  public magnitudeSquared(): number {
     return this.x * this.x + this.y * this.y;
-  };
+  }
 
   /**
    * Returns a normalized (unit length) version of this vector.
    * @returns A new Vector2 with magnitude 1 in the same direction
    */
-  public normalize = (): Vector2 => {
+  public normalize(): Vector2 {
     const length = this.magnitude();
 
     if (length === 0) return this;
 
     return this.divide(length);
-  };
+  }
 
   /**
    * Returns a new vector with components rounded down to the nearest integer.
    * @returns A new Vector2 with floored components
    */
-  public floorComponents = (): Vector2 => {
+  public floorComponents(): Vector2 {
     return new Vector2(Math.floor(this.x), Math.floor(this.y));
-  };
+  }
 
   /**
    * Creates a deep copy of this vector.
    * @returns A new Vector2 with the same component values
    */
-  public clone = (): Vector2 => {
+  public clone(): Vector2 {
     return new Vector2(this.x, this.y);
-  };
+  }
 
   /**
    * Returns a string representation of this vector.
    * @returns A string in the format "(x, y)" with components rounded to 1 decimal place
    */
-  public toString = (): string => {
+  public toString(): string {
     return `(${this.x.toFixed(1)}, ${this.y.toFixed(1)})`;
-  };
+  }
 
   /**
    * Checks if this vector is equal to another vector.
    * @param value - The vector to compare
    * @returns True if the vectors have the same components, false otherwise
    */
-  public equals = (value: Vector2): boolean => {
+  public equals(value: Vector2): boolean {
     return this.x === value.x && this.y === value.y;
-  };
+  }
 }

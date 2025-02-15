@@ -34,34 +34,34 @@ export class Event {
    * Registers a listener to the event.
    * @param listener - The listener to register.
    */
-  public registerListener = (listener: Listener) => {
+  public registerListener(listener: Listener) {
     this._listeners.push(listener);
-  };
+  }
 
   /**
    * Deregisters a listener from the event.
    * @param listener - The listener to deregister.
    */
-  public deregisterListener = (listener: Listener) => {
+  public deregisterListener(listener: Listener) {
     this._listeners = this._listeners.filter((l) => l !== listener);
-  };
+  }
 
   /**
    * Clears all listeners from the event.
    */
-  public clear = () => {
+  public clear() {
     this._listeners = [];
-  };
+  }
 
   /**
    * Raises the event, calling all registered listeners.
    */
-  public raise = () => {
+  public raise() {
     for (const listener of this._listeners) {
       listener().catch((error) => {
         console.error(`Error in listener for event ${this.name}:`, error);
         throw error;
       });
     }
-  };
+  }
 }

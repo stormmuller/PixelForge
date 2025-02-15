@@ -12,7 +12,7 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
    * @returns The cached image element.
    * @throws Will throw an error if the image is not found in the cache.
    */
-  public get = (path: string): HTMLImageElement => {
+  public get(path: string): HTMLImageElement {
     const image = this.assets.get(path);
 
     if (!image) {
@@ -20,7 +20,7 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
     }
 
     return image;
-  };
+  }
 
   /**
    * Loads an image from the specified path and caches it.
@@ -28,7 +28,7 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
    * @returns A promise that resolves when the image is loaded and cached.
    * @throws Will throw an error if the image fails to load.
    */
-  public load = async (path: string): Promise<void> => {
+  public async load(path: string): Promise<void> {
     const image = new Image();
     image.src = path;
 
@@ -47,18 +47,18 @@ export class ImageCache implements AssetCache<HTMLImageElement> {
         reject(new Error(`Failed to load image at ${path}`));
       };
     });
-  };
+  }
 
   /**
    * Retrieves an image from the cache if it exists, otherwise loads and caches it.
    * @param path - The path of the image to retrieve or load.
    * @returns A promise that resolves to the image element.
    */
-  public getOrLoad = async (path: string): Promise<HTMLImageElement> => {
+  public async getOrLoad(path: string): Promise<HTMLImageElement> {
     if (!this.assets.has(path)) {
       await this.load(path);
     }
 
     return this.get(path);
-  };
+  }
 }

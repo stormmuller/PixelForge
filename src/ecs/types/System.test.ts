@@ -3,9 +3,9 @@ import { System } from './System';
 import { Entity } from '../entity';
 
 class TestSystem extends System {
-  public run = (): void => {
+  public run(): void {
     // Implement the abstract method for testing
-  };
+  }
 }
 
 describe('System', () => {

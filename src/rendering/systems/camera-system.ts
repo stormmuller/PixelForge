@@ -31,7 +31,7 @@ export class CameraSystem extends System {
    * based on user inputs.
    * @param entity - The entity that contains the `CameraComponent` and `PositionComponent`.
    */
-  public run = async (entity: Entity): Promise<void> => {
+  public async run(entity: Entity): Promise<void> {
     const cameraComponent = entity.getComponentRequired<CameraComponent>(
       CameraComponent.symbol,
     );
@@ -74,5 +74,5 @@ export class CameraSystem extends System {
         position.x += zoomPanMultiplier;
       }
     }
-  };
+  }
 }
