@@ -131,7 +131,10 @@ export class World implements Updatable, Stoppable {
    * @returns The world instance.
    */
   public addSystems(systems: System[]) {
-    systems.forEach(this.addSystem);
+    for (const system of systems) {
+      this.addSystem(system);
+    }
+
     this.raiseOnSystemsChangedEvent();
 
     return this;

@@ -52,7 +52,7 @@ export class Game implements Stoppable {
       scene.update(this._time);
     }
 
-    requestAnimationFrame(this.run);
+    requestAnimationFrame((t) => this.run(t));
   }
 
   /**
