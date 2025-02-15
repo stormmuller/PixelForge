@@ -27,7 +27,7 @@ export class StarfieldSystem extends ecs.System {
     this._random = new math.Random('starfield');
   }
 
-  public run = async (entity: ecs.Entity): Promise<void> => {
+  public async run(entity: ecs.Entity): Promise<void>  {
     const starfieldComponent = entity.getComponentRequired<StarfieldComponent>(
       StarfieldComponent.symbol,
     );
@@ -40,7 +40,7 @@ export class StarfieldSystem extends ecs.System {
     }
   };
 
-  private _createStar = async (starfieldComponent: StarfieldComponent) => {
+  private async _createStar(starfieldComponent: StarfieldComponent) {
     const image = await this._imageCache.getOrLoad('star_small.png');
 
     const sprite = new rendering.Sprite({

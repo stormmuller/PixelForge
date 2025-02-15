@@ -78,7 +78,7 @@ export class PolygonCollider implements Collider<PolygonCollider> {
    * @param point - The point to check.
    * @returns `true` if the point is within the polygon, `false` otherwise.
    */
-  public contains = (point: Vector2): boolean => {
+  public contains(point: Vector2): boolean {
     let windingNumber = 0;
     const n = this.points.length;
 
@@ -106,32 +106,32 @@ export class PolygonCollider implements Collider<PolygonCollider> {
 
     // If the winding number is nonzero, the point is inside
     return windingNumber !== 0;
-  };
+  }
 
   /**
    * Combines (unions) this polygon with another polygon by taking the convex hull of all points.
    * @param other - The other polygon collider to combine with.
    * @returns A new `PolygonCollider` representing the combined bounding polygon.
    */
-  public combine = (other: PolygonCollider): PolygonCollider => {
+  public combine(other: PolygonCollider): PolygonCollider {
     const allPoints = [...this.points, ...other.points];
     const hull = this._computeConvexHull(allPoints);
     return new PolygonCollider(hull);
-  };
+  }
 
   /**
    * Combines (unions) this polygon with multiple polygons by taking the convex hull of all points.
    * @param others - An array of other polygon colliders to combine with.
    * @returns A new `PolygonCollider` representing the combined bounding polygon.
    */
-  public combineAll = (others: PolygonCollider[]): PolygonCollider => {
+  public combineAll(others: PolygonCollider[]): PolygonCollider {
     let allPoints = [...this.points];
     for (const pc of others) {
       allPoints = allPoints.concat(pc.points);
     }
     const hull = this._computeConvexHull(allPoints);
     return new PolygonCollider(hull);
-  };
+  }
 
   /**
    * Returns > 0 if 'point2' is left of the directed segment (point0 -> point1).
@@ -142,23 +142,19 @@ export class PolygonCollider implements Collider<PolygonCollider> {
    * @param point2 - The point to check.
    * @returns A number indicating the relative position of `point2`.
    */
-  private _isLeft = (
-    point0: Vector2,
-    point1: Vector2,
-    point2: Vector2,
-  ): number => {
+  private _isLeft(point0: Vector2, point1: Vector2, point2: Vector2): number {
     return (
       (point1.x - point0.x) * (point2.y - point0.y) -
       (point2.x - point0.x) * (point1.y - point0.y)
     );
-  };
+  }
 
   /**
    * Computes the convex hull of a set of points using the Monotone Chain algorithm.
    * @param points - The points to compute the convex hull for.
    * @returns An array of points representing the convex hull.
    */
-  private _computeConvexHull = (points: Vector2[]): Vector2[] => {
+  private _computeConvexHull(points: Vector2[]): Vector2[] {
     if (points.length < 3) {
       // With fewer than 3 points, the hull is just the set of points itself.
       return points;
@@ -198,7 +194,7 @@ export class PolygonCollider implements Collider<PolygonCollider> {
 
     // The hull is the concatenation of lower and upper
     return lower.concat(upper);
-  };
+  }
 
   /**
    * Cross product of vectors (p1 -> p2) x (p1 -> p3).
@@ -207,7 +203,7 @@ export class PolygonCollider implements Collider<PolygonCollider> {
    * @param p3 - The ending point of the second vector.
    * @returns The cross product of the vectors.
    */
-  private _cross = (p1: Vector2, p2: Vector2, p3: Vector2): number => {
+  private _cross(p1: Vector2, p2: Vector2, p3: Vector2): number {
     return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
-  };
+  }
 }

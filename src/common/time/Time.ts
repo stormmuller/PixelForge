@@ -101,7 +101,7 @@ export class Time {
    * Updates the time-related information.
    * @param time - The current time.
    */
-  public update = (time: number) => {
+  public update(time: number) {
     this._frames++;
     this._previousTime = this._rawTime;
     this._rawTime = time;
@@ -114,5 +114,5 @@ export class Time {
     }
 
     this._times.push(time);
-  };
+  }
 }

@@ -10,7 +10,7 @@ export class TimerSystem extends System {
     this._time = time;
   }
 
-  public run = async (entity: Entity): Promise<void> => {
+  public async run(entity: Entity): Promise<void> {
     const timerComponent = entity.getComponentRequired<TimerComponent>(
       TimerComponent.symbol,
     );
@@ -48,5 +48,5 @@ export class TimerSystem extends System {
         }
       }
     }
-  };
+  }
 }

@@ -106,12 +106,12 @@ export class CameraComponent implements Component {
    * @param isStatic - Indicates if the camera should be static (default: false).
    * @returns A new `CameraComponent` instance with default settings.
    */
-  public static createDefaultCamera = (
+  public static createDefaultCamera(
     isStatic: boolean = false,
-  ): CameraComponent => {
+  ): CameraComponent {
     const camera = new CameraComponent();
     camera.isStatic = isStatic;
 
     return camera;
-  };
+  }
 }

@@ -61,7 +61,7 @@ export class Space {
    * @param dimensions - The new dimensions of the space.
    * @returns The updated Space instance.
    */
-  public setValue = (dimensions: Vector2): Space => {
+  public setValue(dimensions: Vector2): Space {
     this._width = dimensions.x;
     this._height = dimensions.y;
 
@@ -70,14 +70,14 @@ export class Space {
     this.onSpaceChange.raise();
 
     return this;
-  };
+  }
 
   /**
    * Calculates the center point of the space based on its dimensions.
    * @param dimensions - The dimensions of the space.
    * @returns The center point of the space.
    */
-  private _calculateCenter = (dimensions: Vector2): Vector2 => {
+  private _calculateCenter(dimensions: Vector2): Vector2 {
     return new Vector2(dimensions.x / 2, dimensions.y / 2);
-  };
+  }
 }

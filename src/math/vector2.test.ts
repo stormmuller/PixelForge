@@ -54,7 +54,7 @@ describe('Vector2', () => {
     it('should set vector components', () => {
       const vector = new Vector2();
       vector.set(v1);
-      expect(vector.equals(v1)).toBe(true);
+      expect(vector).toEqual(v1);
     });
 
     it('should add vectors', () => {
@@ -118,7 +118,7 @@ describe('Vector2', () => {
     it('should clone vector', () => {
       const original = new Vector2(2, 3);
       const clone = original.clone();
-      expect(clone.equals(original)).toBe(true);
+      expect(clone).toEqual(original);
       expect(clone).not.toBe(original);
     });
 

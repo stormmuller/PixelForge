@@ -44,7 +44,7 @@ export class LayerService {
    * @returns The created `RenderLayer` instance.
    * @throws An error if the WebGL2 context is not found.
    */
-  public createLayer = (name: string, options: CreateLayerOptions = {}) => {
+  public createLayer(name: string, options: CreateLayerOptions = {}) {
     const canvas = document.createElement('canvas');
     canvas.id = `pf-canvas-${name}`;
     canvas.width = options.dimensions?.width || window.innerWidth;
@@ -61,7 +61,7 @@ export class LayerService {
     const layer = this.registerLayer(name, canvas, options);
 
     return layer;
-  };
+  }
 
   /**
    * Registers an existing canvas element as a render layer.
@@ -70,11 +70,11 @@ export class LayerService {
    * @param options - The options for creating the layer.
    * @returns The registered `RenderLayer` instance.
    */
-  public registerLayer = (
+  public registerLayer(
     name: string,
     canvas: HTMLCanvasElement,
     options: CreateLayerOptions = {},
-  ) => {
+  ) {
     const mergedOptions = { ...defaultOptions, ...options };
     const layer = new RenderLayer(name, canvas, mergedOptions.clearStrategy);
     layer.resize(
@@ -85,7 +85,7 @@ export class LayerService {
     this._layers.set(name, layer);
 
     return layer;
-  };
+  }
 
   /**
    * Retrieves a render layer by its name.
@@ -93,7 +93,7 @@ export class LayerService {
    * @returns The `RenderLayer` instance.
    * @throws An error if the layer is not found.
    */
-  public getLayer = (name: string): RenderLayer => {
+  public getLayer(name: string): RenderLayer {
     const layer = this._layers.get(name);
 
     if (!layer) {
@@ -101,18 +101,18 @@ export class LayerService {
     }
 
     return layer;
-  };
+  }
 
   /**
    * Resizes all registered layers to the specified dimensions.
    * @param dimensions - The new dimensions for the layers. If not provided, the window dimensions are used.
    */
-  public resizeAllLayers = (dimensions?: Vector2) => {
+  public resizeAllLayers(dimensions?: Vector2) {
     const newDimensions =
       dimensions || new Vector2(window.innerWidth, window.innerHeight);
 
     for (const layer of this._layers.values()) {
       layer.resize(newDimensions.x, newDimensions.y);
     }
-  };
+  }
 }

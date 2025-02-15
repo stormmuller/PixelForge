@@ -45,7 +45,7 @@ export class Game implements Stoppable {
    * Starts the game loop.
    * @param time - The initial time value.
    */
-  public run = (time = 0) => {
+  public run(time = 0) {
     this._time.update(time);
 
     for (const scene of this._scenes) {
@@ -53,32 +53,32 @@ export class Game implements Stoppable {
     }
 
     requestAnimationFrame(this.run);
-  };
+  }
 
   /**
    * Registers a scene to the game.
    * @param scene - The scene to register.
    */
-  public registerScene = (scene: Scene) => {
+  public registerScene(scene: Scene) {
     this._scenes.add(scene);
-  };
+  }
 
   /**
    * Deregisters a scene from the game.
    * @param scene - The scene to deregister.
    */
-  public deregisterScene = (scene: Scene) => {
+  public deregisterScene(scene: Scene) {
     this._scenes.delete(scene);
-  };
+  }
 
   /**
    * Stops the game and all registered scenes.
    */
-  public stop = () => {
+  public stop() {
     window.removeEventListener('resize', this.onWindowResize.raise);
 
     for (const scene of this._scenes) {
       scene.stop();
     }
-  };
+  }
 }

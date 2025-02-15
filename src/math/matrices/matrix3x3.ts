@@ -33,19 +33,19 @@ export class Matrix3x3 {
    * @param y - The y-coordinate translation
    * @returns This matrix for chaining
    */
-  public translate = (x: number, y: number): Matrix3x3 => {
+  public translate(x: number, y: number): Matrix3x3 {
     this._matrix[6] += this._matrix[0] * x + this._matrix[3] * y;
     this._matrix[7] += this._matrix[1] * x + this._matrix[4] * y;
 
     return this;
-  };
+  }
 
   /**
    * Applies a rotation transformation to the matrix.
    * @param radians - The rotation angle in radians
    * @returns This matrix for chaining
    */
-  public rotate = (radians: number): Matrix3x3 => {
+  public rotate(radians: number): Matrix3x3 {
     const cosRotation = Math.cos(radians);
     const sinRotation = Math.sin(radians);
     const m0 = this._matrix[0];
@@ -59,7 +59,7 @@ export class Matrix3x3 {
     this._matrix[4] = -sinRotation * m1 + cosRotation * m4;
 
     return this;
-  };
+  }
 
   /**
    * Applies a scale transformation to the matrix.
@@ -67,12 +67,12 @@ export class Matrix3x3 {
    * @param y - The y-axis scale factor
    * @returns This matrix for chaining
    */
-  public scale = (x: number, y: number): Matrix3x3 => {
+  public scale(x: number, y: number): Matrix3x3 {
     this._matrix[0] *= x;
     this._matrix[1] *= x;
     this._matrix[3] *= y;
     this._matrix[4] *= y;
 
     return this;
-  };
+  }
 }

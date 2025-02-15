@@ -40,7 +40,7 @@ export class World implements Updatable, Stoppable {
   /**
    * Updates all systems in the world.
    */
-  public update = () => {
+  public update() {
     for (const system of this._systems) {
       const entities = this._systemEntities.get(system.name);
 
@@ -52,68 +52,68 @@ export class World implements Updatable, Stoppable {
 
       system.runSystem(enabledEntities);
     }
-  };
+  }
 
   /**
    * Registers a callback to be invoked when systems change.
    * @param callback - The callback to register.
    */
-  public onSystemsChanged = (callback: (systems: Set<System>) => void) => {
+  public onSystemsChanged(callback: (systems: Set<System>) => void) {
     this._onSystemsChangedCallbacks.add(callback);
-  };
+  }
 
   /**
    * Registers a callback to be invoked when entities change.
    * @param callback - The callback to register.
    */
-  public onEntitiesChanged = (callback: (entities: Set<Entity>) => void) => {
+  public onEntitiesChanged(callback: (entities: Set<Entity>) => void) {
     this._onEntitiesChangedCallbacks.add(callback);
-  };
+  }
 
   /**
    * Removes a callback for systems changed events.
    * @param callback - The callback to remove.
    */
-  public removeOnSystemsChangedCallback = (
+  public removeOnSystemsChangedCallback(
     callback: (systems: Set<System>) => void,
-  ) => {
+  ) {
     this._onSystemsChangedCallbacks.delete(callback);
-  };
+  }
 
   /**
    * Removes a callback for entities changed events.
    * @param callback - The callback to remove.
    */
-  public removeOnEntitiesChangedCallback = (
+  public removeOnEntitiesChangedCallback(
     callback: (entities: Set<Entity>) => void,
-  ) => {
+  ) {
     this._onEntitiesChangedCallbacks.delete(callback);
-  };
+  }
 
   /**
    * Raises the systems changed event.
    */
-  public raiseOnSystemsChangedEvent = () => {
+  public raiseOnSystemsChangedEvent() {
     for (const callback of this._onSystemsChangedCallbacks) {
       callback(this._systems);
     }
-  };
+  }
 
   /**
    * Raises the entities changed event.
    */
-  public raiseOnEntitiesChangedEvent = () => {
+  public raiseOnEntitiesChangedEvent() {
     for (const callback of this._onEntitiesChangedCallbacks) {
       callback(this._entities);
     }
-  };
+  }
 
   /**
    * Adds a system to the world.
    * @param system - The system to add.
    * @returns The world instance.
    */
-  public addSystem = (system: System) => {
+  public addSystem(system: System) {
     this._systems.add(system);
     this._systemEntities.set(
       system.name,
@@ -123,39 +123,39 @@ export class World implements Updatable, Stoppable {
     this.raiseOnSystemsChangedEvent();
 
     return this;
-  };
+  }
 
   /**
    * Adds multiple systems to the world.
    * @param systems - The systems to add.
    * @returns The world instance.
    */
-  public addSystems = (systems: System[]) => {
+  public addSystems(systems: System[]) {
     systems.forEach(this.addSystem);
     this.raiseOnSystemsChangedEvent();
 
     return this;
-  };
+  }
 
   /**
    * Removes a system from the world.
    * @param system - The system to remove.
    * @returns The world instance.
    */
-  public removeSystem = (system: System) => {
+  public removeSystem(system: System) {
     this._systems.delete(system);
     this._systemEntities.delete(system.name);
     this.raiseOnSystemsChangedEvent();
 
     return this;
-  };
+  }
 
   /**
    * Adds an entity to the world.
    * @param entity - The entity to add.
    * @returns The world instance.
    */
-  public addEntity = (entity: Entity) => {
+  public addEntity(entity: Entity) {
     this._entities.add(entity);
 
     this._systems.forEach((system) => {
@@ -175,38 +175,38 @@ export class World implements Updatable, Stoppable {
     this.raiseOnEntitiesChangedEvent();
 
     return this;
-  };
+  }
 
   /**
    * Adds multiple entities to the world.
    * @param entities - The entities to add.
    * @returns The world instance.
    */
-  public addEntities = (entities: Entity[]) => {
+  public addEntities(entities: Entity[]) {
     entities.forEach(this.addEntity);
     this.raiseOnEntitiesChangedEvent();
 
     return this;
-  };
+  }
 
   /**
    * Removes an entity from the world.
    * @param entity - The entity to remove.
    * @returns The world instance.
    */
-  public removeEntity = (entity: Entity) => {
+  public removeEntity(entity: Entity) {
     this._entities.delete(entity);
     this.raiseOnEntitiesChangedEvent();
 
     return this;
-  };
+  }
 
   /**
    * Stops all systems in the world.
    */
-  public stop = () => {
+  public stop() {
     for (const system of this._systems) {
       system.stop();
     }
-  };
+  }
 }

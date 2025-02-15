@@ -27,27 +27,27 @@ export class MousePointerSystem extends System {
    * with the current mouse coordinates.
    * @param entity - The entity to update.
    */
-  public run = async (entity: Entity): Promise<void> => {
+  public async run(entity: Entity): Promise<void> {
     const position = entity.getComponentRequired<PositionComponent>(
       PositionComponent.symbol,
     );
 
     position.set(this._mouseCoordinates);
-  };
+  }
 
   /**
    * Shuts down the mouse pointer system, removing the mouse move event listener.
    */
-  public shutdown = (): void => {
+  public shutdown(): void {
     window.removeEventListener('mousemove', this._updateCursorPosition);
-  };
+  }
 
   /**
    * Updates the mouse cursor position.
    * @param event - The mouse event.
    */
-  private _updateCursorPosition = (event: MouseEvent) => {
+  private _updateCursorPosition(event: MouseEvent) {
     this._mouseCoordinates.x = event.clientX;
     this._mouseCoordinates.y = event.clientY;
-  };
+  }
 }

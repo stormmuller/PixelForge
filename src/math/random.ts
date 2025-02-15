@@ -19,9 +19,9 @@ export class Random {
    * Generates a random number between 0 (inclusive) and 1 (exclusive).
    * @returns A random number between 0 and 1.
    */
-  private _random = (): number => {
+  private _random(): number {
     return this._rng();
-  };
+  }
 
   /**
    * Generates a random integer between the specified minimum and maximum values (inclusive).
@@ -29,9 +29,9 @@ export class Random {
    * @param max - The maximum value (inclusive).
    * @returns A random integer between min and max.
    */
-  public randomInt = (min: number, max: number): number => {
+  public randomInt(min: number, max: number): number {
     return Math.floor(this._random() * (max - min + 1)) + min;
-  };
+  }
 
   /**
    * Generates a random float between the specified minimum and maximum values (inclusive).
@@ -39,7 +39,7 @@ export class Random {
    * @param max - The maximum value (inclusive).
    * @returns A random float between min and max.
    */
-  public randomFloat = (min: number, max: number): number => {
+  public randomFloat(min: number, max: number): number {
     return this._random() * (max - min) + min;
-  };
+  }
 }

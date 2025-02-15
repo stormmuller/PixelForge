@@ -91,19 +91,19 @@ export class BoxCollider implements Collider<BoxCollider> {
    * @param point - The point to check.
    * @returns `true` if the point is within the box collider, `false` otherwise.
    */
-  public contains = (point: Vector2): boolean => {
+  public contains(point: Vector2): boolean {
     const inXBounds = point.x >= this.minX && point.x <= this.maxX;
     const inYBounds = point.y >= this.minY && point.y <= this.maxY;
 
     return inXBounds && inYBounds;
-  };
+  }
 
   /**
    * Combines this box collider with another box collider to create a new bounding box.
    * @param other - The other box collider to combine with.
    * @returns A new `BoxCollider` representing the combined bounding box.
    */
-  public combine = (other: BoxCollider): BoxCollider => {
+  public combine(other: BoxCollider): BoxCollider {
     const minX = Math.min(this.minX, other.minX);
     const minY = Math.min(this.minY, other.minY);
     const maxX = Math.max(this.maxX, other.maxX);
@@ -113,14 +113,14 @@ export class BoxCollider implements Collider<BoxCollider> {
       new Vector2(minX, minY),
       new Vector2(maxX - minX, maxY - minY),
     );
-  };
+  }
 
   /**
    * Combines this box collider with an array of other box colliders to create a new bounding box.
    * @param others - An array of other box colliders to combine with.
    * @returns A new `BoxCollider` representing the combined bounding box.
    */
-  public combineAll = (others: BoxCollider[]): BoxCollider => {
+  public combineAll(others: BoxCollider[]): BoxCollider {
     let minX = this.minX;
     let minY = this.minY;
     let maxX = this.maxX;
@@ -145,7 +145,7 @@ export class BoxCollider implements Collider<BoxCollider> {
       new Vector2(minX, minY),
       new Vector2(maxX - minX, maxY - minY),
     );
-  };
+  }
 
   /**
    * Creates a new bounding box that encompasses all the given box colliders.
@@ -153,7 +153,7 @@ export class BoxCollider implements Collider<BoxCollider> {
    * @returns A new `BoxCollider` representing the combined bounding box.
    * @throws An error if the array of box colliders is empty.
    */
-  public static fromOtherBoxes = (boxColliders: BoxCollider[]): BoxCollider => {
+  public static fromOtherBoxes(boxColliders: BoxCollider[]): BoxCollider {
     if (boxColliders.length === 0) {
       throw new Error('No boxes to combine');
     }
@@ -182,5 +182,5 @@ export class BoxCollider implements Collider<BoxCollider> {
       new Vector2(minX, minY),
       new Vector2(maxX - minX, maxY - minY),
     );
-  };
+  }
 }

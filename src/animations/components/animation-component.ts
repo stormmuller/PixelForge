@@ -113,9 +113,9 @@ export class AnimationComponent implements Component {
    * Adds a new animation to the component.
    * @param animation - The AnimatedProperty object to add.
    */
-  public addAnimation = (animation: AnimatedProperty) => {
+  public addAnimation(animation: AnimatedProperty) {
     const mergedAnimation = { ...animationDefaults, ...animation };
 
     this._animations.push(mergedAnimation);
-  };
+  }
 }
