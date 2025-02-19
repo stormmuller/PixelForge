@@ -37,7 +37,7 @@
   "description": "",
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.6.0",
+    "@commitlint/config-conventional": "^19.7.1",
     "@rive-app/canvas": "^2.25.7",
     "@types/howler": "^2.2.11",
     "@types/seedrandom": "^3.0.8",
